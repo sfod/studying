@@ -38,20 +38,37 @@ int main()
     typedef boost::signals2::signal<void (const NewsItem&)> signal_type;
 
     boost::shared_ptr<ClientMessageArea_1> cli_msg_area_1(new ClientMessageArea_1());
-    boost::shared_ptr<ClientMessageArea_2> cli_msg_area_2(new ClientMessageArea_2());
 
     signal_type deliver_news;
 
-    deliver_news.connect(signal_type::slot_type(&ClientMessageArea_1::display_news, cli_msg_area_1.get(), _1).track(cli_msg_area_1));
-    deliver_news.connect(signal_type::slot_type(&ClientMessageArea_1::display_news, cli_msg_area_1.get(), _1).track(cli_msg_area_1));
-    deliver_news.connect(signal_type::slot_type(&ClientMessageArea_2::display_news, cli_msg_area_2.get(), _1).track(cli_msg_area_2));
+    deliver_news.connect(
+            signal_type::slot_type(
+                &ClientMessageArea_1::display_news,
+                cli_msg_area_1.get(),
+                _1)
+            .track(cli_msg_area_1));
 
-    NewsItem item("breaking news: it works!");
-    deliver_news(item);
+    deliver_news.connect(
+            signal_type::slot_type(
+                &ClientMessageArea_1::display_news,
+                cli_msg_area_1.get(),
+                _1)
+            .track(cli_msg_area_1));
 
-    std::cout << "-----" << std::endl;
+    {
+        boost::shared_ptr<ClientMessageArea_2> cli_msg_area_2(new ClientMessageArea_2());
+        deliver_news.connect(
+                signal_type::slot_type(
+                    &ClientMessageArea_2::display_news,
+                    cli_msg_area_2.get(),
+                    _1)
+                .track(cli_msg_area_2));
 
-    cli_msg_area_2 = boost::shared_ptr<ClientMessageArea_2>(new ClientMessageArea_2);
+        NewsItem item("breaking news: it works!");
+        deliver_news(item);
+
+        std::cout << "-----" << std::endl;
+    }
 
     NewsItem item2("breaking news: still works!");
     deliver_news(item2);
