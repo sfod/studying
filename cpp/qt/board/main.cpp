@@ -2,7 +2,7 @@
 #include <QQuickView>
 #include <QQuickItem>
 
-#include "qmlhandler.h"
+#include "board_handler.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QQuickItem *item = view.rootObject();
     QObject *board = item->findChild<QObject*>("board");
 
-    QMLHandler handler;
+    BoardHandler handler;
     QObject::connect(board, SIGNAL(boardSignal(int)), &handler, SLOT(node_clicked(int)));
 
     view.show();

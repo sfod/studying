@@ -3,11 +3,11 @@
 
 #include <QObject>
 
-class QMLHandler : public QObject
+class BoardHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit QMLHandler(QObject *parent = 0);
+    explicit BoardHandler(QObject *parent = 0);
 
 signals:
 

@@ -3,7 +3,7 @@ TEMPLATE = app
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    qmlhandler.cpp
+    board_handler.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,4 +14,4 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    qmlhandler.h
+    board_handler.hpp
