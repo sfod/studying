@@ -1,21 +1,10 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.1
 
-ApplicationWindow {
+Item {
     visible: true
     width: 500
     height: 500
-    title: qsTr("Hello World")
-
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("File")
-            MenuItem {
-                text: qsTr("Exit")
-                onTriggered: Qt.quit();
-            }
-        }
-    }
+    //title: qsTr("Hello World")
 
     Rectangle {
         color: "#D18B47"
@@ -25,6 +14,11 @@ ApplicationWindow {
         y: 10
 
         Grid {
+            id: board
+            objectName: "board"
+
+            signal boardSignal(int idx)
+
             columns: 9
             rows: 9
             width: parent.width - 10
@@ -43,7 +37,7 @@ ApplicationWindow {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            parent.color = Qt.rgba(Math.random(), Math.random(), Math.random(), 1);
+                            board.boardSignal(index)
                         }
                     }
                 }
