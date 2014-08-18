@@ -3,8 +3,8 @@ TEMPLATE = app
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    board_handler.cpp \
-    view/human_view.cpp
+    view/human_view.cpp \
+    game/game_app.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,5 +15,5 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    board_handler.hpp \
-    view/human_view.hpp
+    view/human_view.hpp \
+    game/game_app.hpp
