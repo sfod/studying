@@ -3,6 +3,7 @@
 #include <QQuickItem>
 
 #include "board_handler.hpp"
+#include "view/human_view.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +15,8 @@ int main(int argc, char *argv[])
 
     BoardHandler handler;
     QObject::connect(board, SIGNAL(boardSignal(int)), &handler, SLOT(node_clicked(int)));
+
+    HumanView hv;
 
     view.show();
 
