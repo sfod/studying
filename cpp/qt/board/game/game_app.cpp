@@ -1,35 +1,45 @@
 #include "game_app.hpp"
 
-#include <QQuickView>
-#include <QQuickItem>
+#include <QDebug>
 
+
+#include "game/game_logic.hpp"
 #include "view/human_view.hpp"
 
-GameApp::GameApp() : app_()
+GameApp::GameApp() : qapp_(), qview_()
 {
 }
 
 GameApp::~GameApp()
 {
-    delete app_;
+    delete qapp_;
 }
 
 bool GameApp::init(int argc, char **argv)
 {
-    app_ = new QApplication(argc, argv);
+    qapp_ = new QGuiApplication(argc, argv);
+    int *aeuia = new int[172];
+    aeuia[0] = 10;
+//    qview_ = new QQuickView;
+//    qview_->setSource(QUrl(QStringLiteral("qrc:///main.qml")));
+//    qview_->show();
+
     return true;
 }
 
 int GameApp::run()
 {
-    QQuickView view(QUrl(QStringLiteral("qrc:///main.qml")));
-    QQuickItem *item = view.rootObject();
-    QObject *board = item->findChild<QObject*>("board");
+//    std::shared_ptr<IView> hv(new HumanView);
+//    if (!hv->init()) {
+//        qDebug() << "failed to initialize HumanView";
+//        return 1;
+//    }
 
-    HumanView hv;
-    QObject::connect(board, SIGNAL(boardSignal(int)), &hv, SLOT(node_clicked(int)));
+//    logic_.add_view(hv);
 
-    view.show();
+    qview_ = new QQuickView;
+    qview_->setSource(QUrl(QStringLiteral("qrc:///main.qml")));
+    qview_->show();
 
-    return app_->exec();
+    return qapp_->exec();
 }

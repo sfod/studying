@@ -1,4 +1,5 @@
 import QtQuick 2.2
+import QtQuick.Window 2.0
 
 Item {
     visible: true

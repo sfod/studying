@@ -1,7 +1,14 @@
 #ifndef GAME_APP_H
 #define GAME_APP_H
 
-#include <QApplication>
+#include <memory>
+#include <vector>
+
+#include <QGuiApplication>
+#include <QQuickView>
+
+//#include "game_logic.hpp"
+//#include "view/iview.hpp"
 
 class GameApp
 {
@@ -13,7 +20,9 @@ public:
     int run();
 
 private:
-    QApplication *app_;
+    QGuiApplication *qapp_;
+    QQuickView *qview_;
+//    GameLogic logic_;
 };
 
 #endif // GAME_APP_H
