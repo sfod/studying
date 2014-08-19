@@ -2,7 +2,9 @@
 #define HUMAN_VIEW_HPP
 
 #include <QObject>
-#include <QQuickView>
+#include <QQmlEngine>
+#include <QQmlComponent>
+
 #include "iview.hpp"
 
 class HumanView : public QObject, public IView
@@ -21,7 +23,9 @@ public slots:
     void node_clicked(int idx);
 
 private:
-    QQuickView *qview_;
+    QQmlEngine *qengine_;
+    QQmlComponent *qcomponent_;
+    QObject *qobject_;
     QObject *qboard_;
 };
 

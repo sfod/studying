@@ -2,22 +2,24 @@
 #include <QQuickItem>
 #include <QDebug>
 
-HumanView::HumanView(QObject *parent) : QObject(parent), IView(), qview_(NULL), qboard_(NULL)
+HumanView::HumanView(QObject *parent)
+    : QObject(parent), IView(), qengine_(), qcomponent_(), qobject_(), qboard_()
 {
 }
 
 HumanView::~HumanView()
 {
-    delete qview_;
-    qDebug() << "destroying HumanView";
+    delete qobject_;
+    delete qcomponent_;
 }
 
 bool HumanView::init()
 {
-    qview_ = new QQuickView;
-    qview_->setSource(QUrl(QStringLiteral("qrc:///main.qml")));
+    qengine_ = new QQmlEngine;
+    qcomponent_ = new QQmlComponent(qengine_, QUrl(QStringLiteral("qrc:///main.qml")));
+    qobject_ = qcomponent_->create();
 
-    qboard_ = qview_->rootObject()->findChild<QObject*>("board");
+    qboard_ = qobject_->findChild<QObject*>("board");
     if (qboard_ == NULL) {
         qDebug() << "cannot find board element";
         return false;
@@ -27,8 +29,6 @@ bool HumanView::init()
                 qboard_, SIGNAL(boardSignal(int)),
                 this, SLOT(node_clicked(int))
     );
-
-    qview_->show();
 
     return true;
 }

@@ -1,45 +1,28 @@
 #include "game_app.hpp"
 
-#include <QDebug>
+#include <QGuiApplication>
+#include <QQmlEngine>
+#include <QQmlComponent>
 
-
-#include "game/game_logic.hpp"
 #include "view/human_view.hpp"
 
-GameApp::GameApp() : qapp_(), qview_()
+GameApp::GameApp()
 {
 }
 
 GameApp::~GameApp()
 {
-    delete qapp_;
 }
 
-bool GameApp::init(int argc, char **argv)
+int GameApp::run(int argc, char **argv)
 {
-    qapp_ = new QGuiApplication(argc, argv);
-    int *aeuia = new int[172];
-    aeuia[0] = 10;
-//    qview_ = new QQuickView;
-//    qview_->setSource(QUrl(QStringLiteral("qrc:///main.qml")));
-//    qview_->show();
+    QGuiApplication qapp(argc, argv);
 
-    return true;
-}
+    std::shared_ptr<IView> view(new HumanView);
+    if (!view->init()) {
+        return 1;
+    }
+    logic_.add_view(view);
 
-int GameApp::run()
-{
-//    std::shared_ptr<IView> hv(new HumanView);
-//    if (!hv->init()) {
-//        qDebug() << "failed to initialize HumanView";
-//        return 1;
-//    }
-
-//    logic_.add_view(hv);
-
-    qview_ = new QQuickView;
-    qview_->setSource(QUrl(QStringLiteral("qrc:///main.qml")));
-    qview_->show();
-
-    return qapp_->exec();
+    return qapp.exec();
 }

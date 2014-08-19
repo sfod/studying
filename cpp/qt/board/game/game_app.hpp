@@ -4,11 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include <QGuiApplication>
-#include <QQuickView>
-
-//#include "game_logic.hpp"
-//#include "view/iview.hpp"
+#include "game_logic.hpp"
 
 class GameApp
 {
@@ -16,13 +12,10 @@ public:
     GameApp();
     virtual ~GameApp();
 
-    bool init(int argc, char **argv);
-    int run();
+    int run(int argc, char **argv);
 
 private:
-    QGuiApplication *qapp_;
-    QQuickView *qview_;
-//    GameLogic logic_;
+    GameLogic logic_;
 };
 
 #endif // GAME_APP_H
