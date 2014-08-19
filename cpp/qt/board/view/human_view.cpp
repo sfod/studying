@@ -3,7 +3,8 @@
 #include <QDebug>
 
 HumanView::HumanView(QObject *parent)
-    : QObject(parent), IView(), qengine_(), qcomponent_(), qobject_(), qboard_()
+    : QObject(parent), IView(), qengine_(), qcomponent_(), qobject_(),
+      qboard_(), qbutton_()
 {
 }
 
@@ -24,10 +25,19 @@ bool HumanView::init()
         qDebug() << "cannot find board element";
         return false;
     }
-
     QObject::connect(
                 qboard_, SIGNAL(boardSignal(int)),
                 this, SLOT(node_clicked(int))
+    );
+
+    qbutton_ = qobject_->findChild<QObject*>("boardBack");
+    if (qbutton_ == NULL) {
+        qDebug() << "cannot find boardBack element";
+        return false;
+    }
+    QObject::connect(
+                qbutton_, SIGNAL(clicked()),
+                this, SLOT(button_back_clicked())
     );
 
     return true;
@@ -44,4 +54,9 @@ void HumanView::on_update()
 void HumanView::node_clicked(int idx)
 {
     qDebug() << "node " << idx << " clicked";
+}
+
+void HumanView::button_back_clicked()
+{
+    qDebug() << "back button clicked";
 }

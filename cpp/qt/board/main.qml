@@ -4,13 +4,13 @@ import QtQuick.Controls 1.2
 ApplicationWindow {
     visible: true
     width: 500
-    height: 500
+    height: 550
     //title: qsTr("Hello World")
 
     Rectangle {
         color: "#D18B47"
         width: parent.width - 20
-        height: parent.height - 20
+        height: parent.height - 70
         x: 10
         y: 10
 
@@ -45,4 +45,14 @@ ApplicationWindow {
             }
         }
     }
+
+    Button {
+        objectName: "boardBack"
+
+        x: 30
+        y: parent.height - 40
+
+        text: "back"
+    }
+
 }

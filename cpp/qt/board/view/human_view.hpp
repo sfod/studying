@@ -21,12 +21,14 @@ public:
 
 public slots:
     void node_clicked(int idx);
+    void button_back_clicked();
 
 private:
     QQmlEngine *qengine_;
     QQmlComponent *qcomponent_;
     QObject *qobject_;
     QObject *qboard_;
+    QObject *qbutton_;
 };
 
 #endif // HUMAN_VIEW_HPP
