@@ -5,7 +5,7 @@ ApplicationWindow {
     visible: true
     width: 500
     height: 550
-    //title: qsTr("Hello World")
+    title: qsTr("Quoridor")
 
     Rectangle {
         color: "#D18B47"
