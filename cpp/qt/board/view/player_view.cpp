@@ -1,20 +1,20 @@
-#include "human_view.hpp"
+#include "player_view.hpp"
 #include <QQuickItem>
 #include <QDebug>
 
-HumanView::HumanView(QObject *parent)
+PlayerView::PlayerView(QObject *parent)
     : QObject(parent), IView(), qengine_(), qcomponent_(), qobject_(),
       qboard_(), qbutton_()
 {
 }
 
-HumanView::~HumanView()
+PlayerView::~PlayerView()
 {
     delete qobject_;
     delete qcomponent_;
 }
 
-bool HumanView::init()
+bool PlayerView::init()
 {
     qengine_ = new QQmlEngine;
     qcomponent_ = new QQmlComponent(qengine_, QUrl(QStringLiteral("qrc:///main.qml")));
@@ -43,20 +43,20 @@ bool HumanView::init()
     return true;
 }
 
-void HumanView::on_msg()
+void PlayerView::on_msg()
 {
 }
 
-void HumanView::on_update()
+void PlayerView::on_update()
 {
 }
 
-void HumanView::node_clicked(int idx)
+void PlayerView::node_clicked(int idx)
 {
     qDebug() << "node " << idx << " clicked";
 }
 
-void HumanView::button_back_clicked()
+void PlayerView::button_back_clicked()
 {
     qDebug() << "back button clicked";
 }

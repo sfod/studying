@@ -1,5 +1,5 @@
-#ifndef HUMAN_VIEW_HPP
-#define HUMAN_VIEW_HPP
+#ifndef PLAYER_VIEW_HPP
+#define PLAYER_VIEW_HPP
 
 #include <QObject>
 #include <QQmlEngine>
@@ -7,13 +7,13 @@
 
 #include "iview.hpp"
 
-class HumanView : public QObject, public IView
+class PlayerView : public QObject, public IView
 {
     Q_OBJECT
 
 public:
-    explicit HumanView(QObject *parent = 0);
-    ~HumanView();
+    explicit PlayerView(QObject *parent = 0);
+    ~PlayerView();
 
     bool init();
     virtual void on_msg();
@@ -31,4 +31,4 @@ private:
     QObject *qbutton_;
 };
 
-#endif // HUMAN_VIEW_HPP
+#endif // PLAYER_VIEW_HPP

@@ -4,9 +4,10 @@ QMAKE_CXXFLAGS += -std=c++11
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    view/human_view.cpp \
     game/game_app.cpp \
-    game/game_logic.cpp
+    game/game_logic.cpp \
+    view/player_view.cpp \
+    view/main_menu_view.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,7 +18,8 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    view/human_view.hpp \
     game/game_app.hpp \
     view/iview.hpp \
-    game/game_logic.hpp
+    game/game_logic.hpp \
+    view/player_view.hpp \
+    view/main_menu_view.hpp

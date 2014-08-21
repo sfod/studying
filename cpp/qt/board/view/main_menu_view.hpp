@@ -2,8 +2,9 @@
 #define MAIN_MENU_VIEW_HPP
 
 #include <QObject>
+#include "iview.hpp"
 
-class MainMenuView : public QObject
+class MainMenuView : public QObject, public IView
 {
     Q_OBJECT
 public:
