@@ -4,7 +4,7 @@ import QtQuick.Controls 1.2
 ApplicationWindow {
     visible: true
     width: 640
-    height: 480
+    height: 600
     title: qsTr("pages")
 
     Rectangle {
@@ -17,15 +17,13 @@ ApplicationWindow {
         y: 0
 
         // main menu window
-        Rectangle {
+        Item {
             id: mainMenuWindow
 
             x: 20
             y: 20
             width: parent.width - 40
             height: parent.height - 40
-
-            color: "grey"
 
             Component.onCompleted: console.log("main menu is ready")
 
@@ -35,14 +33,33 @@ ApplicationWindow {
                 }
             }
 
-            Button {
-                id: newGameButton
-                text: "New Game"
+            Column {
+                y: 100
+                width: parent.width
+                height: parent.height - 100
+                spacing: 20
 
-                anchors.centerIn: parent
+                Button {
+                    id: newGameButton
 
-                onClicked: {
-                    mainWindow.state = "newGame"
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    text: "New Game"
+
+                    onClicked: {
+                        mainWindow.state = "newGame"
+                    }
+                }
+
+                Button {
+                    id: quitButton
+                    text: "Quit"
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    onClicked: {
+                        Qt.quit();
+                    }
                 }
             }
         }
