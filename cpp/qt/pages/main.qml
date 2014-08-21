@@ -65,7 +65,7 @@ ApplicationWindow {
         }
 
         // new game window
-        Rectangle {
+        Item {
             id: newGameWindow
 
             x: 20
@@ -73,19 +73,17 @@ ApplicationWindow {
             width: parent.width - 40
             height: parent.height - 40
 
-            color: "grey"
-
-            onVisibleChanged: {
-                if (visible == true) {
-                    console.log("new game")
-                }
+            Board {
+                id: board
+                x: 0
+                y: 0
             }
 
             Button {
                 id: backToMainMenuButton
                 text: "Back"
 
-                anchors.centerIn: parent
+                anchors.top: board.bottom
 
                 onClicked: {
                     mainWindow.state = "mainMenu"
