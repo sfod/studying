@@ -30,7 +30,6 @@ ApplicationWindow {
 
             onVisibleChanged: {
                 if (visible == true) {
-                    console.log("main menu")
                 }
             }
 
