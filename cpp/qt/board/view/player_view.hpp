@@ -2,8 +2,6 @@
 #define PLAYER_VIEW_HPP
 
 #include <QObject>
-#include <QQmlEngine>
-#include <QQmlComponent>
 
 #include "iview.hpp"
 
@@ -12,8 +10,8 @@ class PlayerView : public QObject, public IView
     Q_OBJECT
 
 public:
-    explicit PlayerView(QObject *parent = 0);
-    ~PlayerView();
+    explicit PlayerView(QObject *qroot, QObject *qparent = 0);
+    virtual ~PlayerView();
 
     bool init();
     virtual void on_msg();
@@ -24,9 +22,7 @@ public slots:
     void button_back_clicked();
 
 private:
-    QQmlEngine *qengine_;
-    QQmlComponent *qcomponent_;
-    QObject *qobject_;
+    QObject *qroot_;
     QObject *qboard_;
     QObject *qbutton_;
 };

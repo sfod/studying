@@ -7,13 +7,23 @@
 class MainMenuView : public QObject, public IView
 {
     Q_OBJECT
+
 public:
-    explicit MainMenuView(QObject *parent = 0);
+    explicit MainMenuView(QObject *qroot, QObject *qparent = 0);
+    virtual ~MainMenuView();
+
+    bool init();
+    virtual void on_msg();
+    virtual void on_update();
 
 signals:
 
 public slots:
+    void button_new_game_clicked();
 
+private:
+    QObject *qroot_;
+    QObject *qbutton_;
 };
 
 #endif // MAIN_MENU_VIEW_HPP

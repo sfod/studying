@@ -2,25 +2,18 @@
 #include <QQuickItem>
 #include <QDebug>
 
-PlayerView::PlayerView(QObject *parent)
-    : QObject(parent), IView(), qengine_(), qcomponent_(), qobject_(),
-      qboard_(), qbutton_()
+PlayerView::PlayerView(QObject *qroot, QObject *qparent)
+    : QObject(qparent), IView(), qroot_(qroot), qboard_(), qbutton_()
 {
 }
 
 PlayerView::~PlayerView()
 {
-    delete qobject_;
-    delete qcomponent_;
 }
 
 bool PlayerView::init()
 {
-    qengine_ = new QQmlEngine;
-    qcomponent_ = new QQmlComponent(qengine_, QUrl(QStringLiteral("qrc:///main.qml")));
-    qobject_ = qcomponent_->create();
-
-    qboard_ = qobject_->findChild<QObject*>("board");
+    qboard_ = qroot_->findChild<QObject*>("board");
     if (qboard_ == NULL) {
         qDebug() << "cannot find board element";
         return false;
@@ -30,7 +23,7 @@ bool PlayerView::init()
                 this, SLOT(node_clicked(int))
     );
 
-    qbutton_ = qobject_->findChild<QObject*>("boardBack");
+    qbutton_ = qroot_->findChild<QObject*>("boardBack");
     if (qbutton_ == NULL) {
         qDebug() << "cannot find boardBack element";
         return false;
