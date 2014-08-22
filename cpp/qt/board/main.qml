@@ -91,6 +91,8 @@ ApplicationWindow {
 
             Button {
                 id: buttonBackToMainMenu
+                objectName: "buttonBackToMainMenu"
+
                 text: "Back"
 
                 anchors.top: board.bottom
