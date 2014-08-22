@@ -6,7 +6,7 @@
 
 #include "view/player_view.hpp"
 
-GameApp::GameApp()
+GameApp::GameApp() : logic_(), qengine_(), qcomponent_(), qroot_()
 {
 }
 
@@ -19,6 +19,10 @@ int GameApp::run(int argc, char **argv)
     QGuiApplication qapp(argc, argv);
 
     std::shared_ptr<IView> view(new PlayerView);
+    qengine_ = new QQmlEngine;
+    qcomponent_ = new QQmlComponent(qengine_, QUrl(QStringLiteral("qrc:///main.qml")));
+    qroot_ = qcomponent_->create();
+
     if (!view->init()) {
         return 1;
     }

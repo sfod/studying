@@ -4,6 +4,9 @@
 #include <memory>
 #include <vector>
 
+#include <QQmlEngine>
+#include <QQmlComponent>
+
 #include "game_logic.hpp"
 
 class GameApp
@@ -16,6 +19,9 @@ public:
 
 private:
     GameLogic logic_;
+    QQmlEngine *qengine_;
+    QQmlComponent *qcomponent_;
+    QObject *qroot_;
 };
 
 #endif // GAME_APP_H
