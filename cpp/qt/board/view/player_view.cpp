@@ -13,19 +13,19 @@ PlayerView::~PlayerView()
 
 bool PlayerView::init()
 {
-    qboard_ = qroot_->findChild<QObject*>("board");
+    qboard_ = qroot_->findChild<QObject*>("game");
     if (qboard_ == NULL) {
         qDebug() << "cannot find board element";
         return false;
     }
     QObject::connect(
-                qboard_, SIGNAL(boardSignal(int)),
+                qboard_, SIGNAL(nodeClicked(int)),
                 this, SLOT(node_clicked(int))
     );
 
-    qbutton_ = qroot_->findChild<QObject*>("boardBack");
+    qbutton_ = qroot_->findChild<QObject*>("buttonBackToMainMenu");
     if (qbutton_ == NULL) {
-        qDebug() << "cannot find boardBack element";
+        qDebug() << "cannot find buttonBackToMainMenu element";
         return false;
     }
     QObject::connect(

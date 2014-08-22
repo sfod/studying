@@ -14,7 +14,7 @@ bool MainMenuView::init()
 {
     qbutton_ = qroot_->findChild<QObject*>("buttonNewGame");
     if (qbutton_ == NULL) {
-        qDebug() << "cannot find boardBack element";
+        qDebug() << "cannot find buttonNewGame element";
         return false;
     }
     QObject::connect(
