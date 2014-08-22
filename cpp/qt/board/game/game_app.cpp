@@ -4,7 +4,7 @@
 #include <QQmlEngine>
 #include <QQmlComponent>
 
-#include "view/player_view.hpp"
+#include "view/main_menu_view.hpp"
 
 GameApp::GameApp() : logic_(), qengine_(), qcomponent_(), qroot_()
 {
@@ -18,11 +18,11 @@ int GameApp::run(int argc, char **argv)
 {
     QGuiApplication qapp(argc, argv);
 
-    std::shared_ptr<IView> view(new PlayerView);
     qengine_ = new QQmlEngine;
     qcomponent_ = new QQmlComponent(qengine_, QUrl(QStringLiteral("qrc:///main.qml")));
     qroot_ = qcomponent_->create();
 
+    std::shared_ptr<IView> view(new MainMenuView(qroot_));
     if (!view->init()) {
         return 1;
     }
