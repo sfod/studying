@@ -72,6 +72,7 @@ ApplicationWindow {
             width: parent.width - 40
             height: parent.height - 40
 
+            signal nodeClicked(int idx)
             signal backButtonClicked()
 
             Board {
@@ -81,6 +82,11 @@ ApplicationWindow {
                 height: parent.height - 40
                 x: 0
                 y: 0
+
+                onBoardSignal: {
+                    console.log("clicked " + idx + " node")
+                    windowGame.nodeClicked(idx)
+                }
             }
 
             Button {
