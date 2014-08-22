@@ -10,6 +10,7 @@ class GameLogic
 public:
     GameLogic();
     void add_view(std::shared_ptr<IView> view);
+    void change_view(std::shared_ptr<IView> view);
 
 private:
     std::vector<std::shared_ptr<IView>> view_list_;

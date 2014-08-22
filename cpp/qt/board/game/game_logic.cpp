@@ -8,3 +8,8 @@ void GameLogic::add_view(std::shared_ptr<IView> view)
 {
     view_list_.push_back(view);
 }
+
+void GameLogic::change_view(std::shared_ptr<IView> view)
+{
+    view_list_.push_back(view);
+}
