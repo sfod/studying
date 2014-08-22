@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     game/game_logic.cpp \
     view/player_view.cpp \
     view/main_menu_view.cpp \
-    events/event_manager.cpp
+    events/event_manager.cpp \
+    events/event_data.cpp
 
 RESOURCES += qml.qrc
 
@@ -24,4 +25,5 @@ HEADERS += \
     game/game_logic.hpp \
     view/player_view.hpp \
     view/main_menu_view.hpp \
-    events/event_manager.hpp
+    events/event_manager.hpp \
+    events/event_data.hpp
