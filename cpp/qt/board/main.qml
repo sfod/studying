@@ -78,7 +78,7 @@ ApplicationWindow {
                 id: board
 
                 width: parent.width
-                height: parent.height
+                height: parent.height - 40
                 x: 0
                 y: 0
             }
