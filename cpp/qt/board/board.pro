@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     game/game_app.cpp \
     game/game_logic.cpp \
     view/player_view.cpp \
-    view/main_menu_view.cpp
+    view/main_menu_view.cpp \
+    events/event_manager.cpp
 
 RESOURCES += qml.qrc
 
@@ -22,4 +23,5 @@ HEADERS += \
     view/iview.hpp \
     game/game_logic.hpp \
     view/player_view.hpp \
-    view/main_menu_view.hpp
+    view/main_menu_view.hpp \
+    events/event_manager.hpp
