@@ -5,8 +5,7 @@
 #include <vector>
 #include "view/iview.hpp"
 
-class GameLogic
-{
+class GameLogic {
 public:
     GameLogic();
     void add_view(std::shared_ptr<IView> view);

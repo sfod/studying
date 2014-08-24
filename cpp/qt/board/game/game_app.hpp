@@ -10,8 +10,7 @@
 #include "events/event_manager.hpp"
 #include "game_logic.hpp"
 
-class GameApp
-{
+class GameApp {
 public:
     GameApp();
     virtual ~GameApp();

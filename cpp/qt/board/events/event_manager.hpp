@@ -7,8 +7,7 @@
 
 namespace bs2 = boost::signals2;
 
-class EventManager
-{
+class EventManager {
     typedef bs2::signal<void (const std::shared_ptr<EventData>&)> signal_t;
     typedef signal_t::slot_type slot_t;
 
