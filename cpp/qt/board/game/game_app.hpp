@@ -17,6 +17,8 @@ public:
 
     int run(int argc, char **argv);
 
+    void new_game_delegate(const std::shared_ptr<EventData> &event);
+
 private:
     EventManager *event_manager_;
     GameLogic logic_;

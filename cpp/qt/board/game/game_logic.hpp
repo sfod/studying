@@ -12,8 +12,6 @@ public:
     void add_view(std::shared_ptr<IView> view);
     void change_view(std::shared_ptr<IView> view);
 
-    void new_game_delegate(const std::shared_ptr<EventData> &event);
-
 private:
     std::vector<std::shared_ptr<IView>> view_list_;
 };
