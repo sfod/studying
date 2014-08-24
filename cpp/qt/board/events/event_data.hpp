@@ -23,7 +23,6 @@ public:
 
     virtual const EventType &event_type() const { return event_type_; }
 
-private:
     static const EventType event_type_;
 };
 
