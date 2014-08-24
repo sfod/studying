@@ -1,5 +1,7 @@
 #include "main_menu_view.hpp"
 #include <QDebug>
+#include "events/event_data.hpp"
+#include "events/event_manager.hpp"
 
 MainMenuView::MainMenuView(QObject *qroot, QObject *qparent)
     : QObject(qparent), IView(), qroot_(qroot), qbutton_()
@@ -36,4 +38,7 @@ void MainMenuView::on_update()
 void MainMenuView::button_new_game_clicked()
 {
     qDebug() << "New Game button clicked";
+    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_NewGame))) {
+        qDebug() << "failed to queue NewGame event";
+    }
 }
