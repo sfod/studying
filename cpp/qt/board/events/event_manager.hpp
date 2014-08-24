@@ -23,6 +23,8 @@ public:
     bool queue_event(const std::shared_ptr<EventData> &event);
     bool abort_event(const std::shared_ptr<EventData> &event);
 
+    bool update();
+
     static EventManager *get();
 
 private:

@@ -7,6 +7,7 @@
 #include <QQmlEngine>
 #include <QQmlComponent>
 
+#include "events/event_manager.hpp"
 #include "game_logic.hpp"
 
 class GameApp
@@ -18,6 +19,7 @@ public:
     int run(int argc, char **argv);
 
 private:
+    EventManager *event_manager_;
     GameLogic logic_;
     QQmlEngine *qengine_;
     QQmlComponent *qcomponent_;

@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     view/player_view.cpp \
     view/main_menu_view.cpp \
     events/event_manager.cpp \
-    events/event_data.cpp
+    events/event_data.cpp \
+    events/event_caller.cpp
 
 RESOURCES += qml.qrc
 
@@ -26,4 +27,5 @@ HEADERS += \
     view/player_view.hpp \
     view/main_menu_view.hpp \
     events/event_manager.hpp \
-    events/event_data.hpp
+    events/event_data.hpp \
+    events/event_caller.hpp

@@ -48,6 +48,18 @@ bool EventManager::abort_event(const std::shared_ptr<EventData> &event)
     return success;
 }
 
+bool EventManager::update()
+{
+    while (!event_list_.empty()) {
+        std::shared_ptr<EventData> event = event_list_.front();
+        event_list_.pop_front();
+        if (signal_list_.count(event->event_type()) != 0) {
+            signal_list_.at(event->event_type())(event);
+        }
+    }
+    return true;
+}
+
 EventManager *EventManager::get()
 {
     BOOST_ASSERT(g_event_mgr != NULL);
