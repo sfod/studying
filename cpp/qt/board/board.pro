@@ -10,7 +10,9 @@ SOURCES += main.cpp \
     view/main_menu_view.cpp \
     events/event_manager.cpp \
     events/event_data.cpp \
-    events/event_caller.cpp
+    events/event_caller.cpp \
+    actors/actor.cpp \
+    actors/actor_component.cpp
 
 RESOURCES += qml.qrc
 
@@ -28,4 +30,6 @@ HEADERS += \
     view/main_menu_view.hpp \
     events/event_manager.hpp \
     events/event_data.hpp \
-    events/event_caller.hpp
+    events/event_caller.hpp \
+    actors/actor.hpp \
+    actors/actor_component.hpp
