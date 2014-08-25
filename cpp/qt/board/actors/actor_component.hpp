@@ -1,8 +1,9 @@
 #ifndef ACTOR_COMPONENT_HPP
 #define ACTOR_COMPONENT_HPP
 
-class ActorComponent
-{
+typedef unsigned long ComponentId;
+
+class ActorComponent {
 public:
     ActorComponent();
 };
