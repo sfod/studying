@@ -23,7 +23,7 @@ GameApp::~GameApp()
 
 int GameApp::run(int argc, char **argv)
 {
-    QGuiApplication qapp(argc, argv);
+    QGuiApplication *qapp = new QGuiApplication(argc, argv);
 
     qengine_ = new QQmlEngine;
     qcomponent_ = new QQmlComponent(qengine_, QUrl(QStringLiteral("qrc:///main.qml")));
@@ -35,16 +35,14 @@ int GameApp::run(int argc, char **argv)
     }
     logic_.add_view(view);
 
-    EventManager::get()->add_listener(
-                boost::bind(&GameApp::new_game_delegate, this, _1),
-                EventData_NewGame::event_type_);
+    register_delegates();
 
     QTimer qtimer;
     EventCaller event_caller;
     QObject::connect(&qtimer, SIGNAL(timeout()), &event_caller, SLOT(update()));
     qtimer.start(10);
 
-    return qapp.exec();
+    return qapp->exec();
 }
 
 void GameApp::new_game_delegate(const std::shared_ptr<EventData> &event)
@@ -56,4 +54,21 @@ void GameApp::new_game_delegate(const std::shared_ptr<EventData> &event)
         return;
     }
     logic_.change_view(view);
+}
+
+void GameApp::quit_delegate(const std::shared_ptr<EventData> &event)
+{
+    (void) event;
+    qDebug() << "Quit delegate called";
+    QGuiApplication::quit();
+}
+
+void GameApp::register_delegates()
+{
+    EventManager::get()->add_listener(
+                boost::bind(&GameApp::new_game_delegate, this, _1),
+                EventData_NewGame::event_type_);
+    EventManager::get()->add_listener(
+                boost::bind(&GameApp::quit_delegate, this, _1),
+                EventData_Quit::event_type_);
 }

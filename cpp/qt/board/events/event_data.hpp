@@ -26,4 +26,14 @@ public:
     static const EventType event_type_;
 };
 
+class EventData_Quit : public EventData {
+public:
+    EventData_Quit() : EventData() {}
+    virtual ~EventData_Quit() {}
+
+    virtual const EventType &event_type() const { return event_type_; }
+
+    static const EventType event_type_;
+};
+
 #endif // EVENT_DATA_HPP

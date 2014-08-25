@@ -18,6 +18,10 @@ public:
     int run(int argc, char **argv);
 
     void new_game_delegate(const std::shared_ptr<EventData> &event);
+    void quit_delegate(const std::shared_ptr<EventData> &event);
+
+private:
+    void register_delegates();
 
 private:
     EventManager *event_manager_;

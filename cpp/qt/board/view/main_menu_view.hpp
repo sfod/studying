@@ -1,6 +1,7 @@
 #ifndef MAIN_MENU_VIEW_HPP
 #define MAIN_MENU_VIEW_HPP
 
+#include <list>
 #include <QObject>
 #include "iview.hpp"
 
@@ -20,10 +21,11 @@ signals:
 
 public slots:
     void button_new_game_clicked();
+    void button_quit_clicked();
 
 private:
     QObject *qroot_;
-    QObject *qbutton_;
+    std::list<QObject*> object_list_;
 };
 
 #endif // MAIN_MENU_VIEW_HPP

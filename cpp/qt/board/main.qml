@@ -26,8 +26,6 @@ ApplicationWindow {
             width: parent.width - 40
             height: parent.height - 40
 
-            signal buttonNewGameClicked()
-
             onVisibleChanged: {
                 if (visible == true) {
                 }
@@ -46,18 +44,16 @@ ApplicationWindow {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "New Game"
                     onClicked: {
-                        windowMainMenu.buttonNewGameClicked()
                         windowMain.state = "stateGame"
                     }
                 }
 
                 Button {
                     id: buttonQuit
+                    objectName: "buttonQuit"
+
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Quit"
-                    onClicked: {
-                        Qt.quit();
-                    }
                 }
             }
         }
