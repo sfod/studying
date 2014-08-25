@@ -55,5 +55,5 @@ void GameApp::new_game_delegate(const std::shared_ptr<EventData> &event)
     if (!view->init()) {
         return;
     }
-    logic_.add_view(view);
+    logic_.change_view(view);
 }

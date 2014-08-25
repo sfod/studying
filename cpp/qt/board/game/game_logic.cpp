@@ -14,5 +14,8 @@ void GameLogic::add_view(std::shared_ptr<IView> view)
 
 void GameLogic::change_view(std::shared_ptr<IView> view)
 {
+    if (!view_list_.empty()) {
+        view_list_.pop_back();
+    }
     view_list_.push_back(view);
 }
