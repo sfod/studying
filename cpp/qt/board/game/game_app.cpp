@@ -66,9 +66,9 @@ void GameApp::quit_delegate(const std::shared_ptr<EventData> &event)
 void GameApp::register_delegates()
 {
     EventManager::get()->add_listener(
-                boost::bind(&GameApp::new_game_delegate, this, _1),
-                EventData_NewGame::event_type_);
+            boost::bind(&GameApp::new_game_delegate, this, _1),
+            EventData_NewGame::event_type_);
     EventManager::get()->add_listener(
-                boost::bind(&GameApp::quit_delegate, this, _1),
-                EventData_Quit::event_type_);
+            boost::bind(&GameApp::quit_delegate, this, _1),
+            EventData_Quit::event_type_);
 }
