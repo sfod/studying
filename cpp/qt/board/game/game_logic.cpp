@@ -24,12 +24,18 @@ void GameLogic::change_state(LogicState state)
         view->init();
         change_view(view);
         break;
-    case LogicState::LS_Game:
+    case LogicState::LS_Game: {
+        std::shared_ptr<Actor> actor = actor_factory_->create_actor("/home/igor/studying/cpp/qt/board/test.xml");
+        if (actor) {
+            qDebug() << "actor id: " << actor->actor_id();
+        }
         view.reset(new PlayerView(qroot_));
         view->init();
         change_view(view);
         break;
+    }
     case LogicState::LS_Invalid:
+        break;
     default:
         break;
     }

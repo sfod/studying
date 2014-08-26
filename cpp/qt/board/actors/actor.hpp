@@ -3,14 +3,17 @@
 
 #include <map>
 #include <memory>
+#include <QXmlStreamAttributes>
 #include "actor_component.hpp"
 
-class Actor {
-    typedef unsigned long ActorId;
+typedef unsigned long ActorId;
 
+class Actor {
 public:
     explicit Actor(ActorId actor_id);
     ~Actor();
+
+    bool init(const QXmlStreamAttributes &attrs);
 
     ActorId actor_id() const { return actor_id_; }
 
