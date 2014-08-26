@@ -7,6 +7,7 @@
 #include <QObject>
 
 #include "events/event_data.hpp"
+#include "actors/actor_factory.hpp"
 #include "view/iview.hpp"
 
 enum class LogicState {
@@ -26,6 +27,7 @@ public:
 private:
     LogicState state_;
     QObject *qroot_;
+    ActorFactory *actor_factory_;
     std::vector<std::shared_ptr<IView>> view_list_;
 };
 

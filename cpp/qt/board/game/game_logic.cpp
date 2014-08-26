@@ -7,7 +7,8 @@
 #include "view/player_view.hpp"
 
 GameLogic::GameLogic(QObject *qroot)
-    : state_(LogicState::LS_Uninitialized), qroot_(qroot), view_list_()
+    : state_(LogicState::LS_Uninitialized), qroot_(qroot),
+    actor_factory_(new ActorFactory), view_list_()
 {
 }
 

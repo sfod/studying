@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     events/event_data.cpp \
     events/event_caller.cpp \
     actors/actor.cpp \
-    actors/actor_component.cpp
+    actors/actor_component.cpp \
+    actors/actor_factory.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +33,5 @@ HEADERS += \
     events/event_data.hpp \
     events/event_caller.hpp \
     actors/actor.hpp \
-    actors/actor_component.hpp
+    actors/actor_component.hpp \
+    actors/actor_factory.hpp
