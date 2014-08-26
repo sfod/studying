@@ -10,6 +10,7 @@ MainMenuView::MainMenuView(QObject *qroot, QObject *qparent)
 
 MainMenuView::~MainMenuView()
 {
+    qDebug() << "destroying MainMenuView";
 }
 
 bool MainMenuView::init()

@@ -1,6 +1,8 @@
 #include "player_view.hpp"
 #include <QQuickItem>
 #include <QDebug>
+#include "events/event_manager.hpp"
+#include "events/event_data.hpp"
 
 PlayerView::PlayerView(QObject *qroot, QObject *qparent)
     : QObject(qparent), IView(), qroot_(qroot), qboard_(), qbutton_()
@@ -9,6 +11,7 @@ PlayerView::PlayerView(QObject *qroot, QObject *qparent)
 
 PlayerView::~PlayerView()
 {
+    qDebug() << "destroying PlayerView";
 }
 
 bool PlayerView::init()
@@ -52,4 +55,7 @@ void PlayerView::node_clicked(int idx)
 void PlayerView::button_back_clicked()
 {
     qDebug() << "back button clicked";
+    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_MainMenu))) {
+        qDebug() << "failed to queue MainMenu event";
+    }
 }

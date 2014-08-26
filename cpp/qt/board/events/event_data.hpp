@@ -16,6 +16,16 @@ private:
     float ts_;
 };
 
+class EventData_MainMenu : public EventData {
+public:
+    EventData_MainMenu() : EventData() {}
+    virtual ~EventData_MainMenu() {}
+
+    virtual const EventType &event_type() const { return event_type_; }
+
+    static const EventType event_type_;
+};
+
 class EventData_NewGame : public EventData {
 public:
     EventData_NewGame() : EventData() {}

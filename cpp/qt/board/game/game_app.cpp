@@ -8,8 +8,6 @@
 
 #include "events/event_manager.hpp"
 #include "events/event_caller.hpp"
-#include "view/main_menu_view.hpp"
-#include "view/player_view.hpp"
 
 GameApp::GameApp()
     : event_manager_(new EventManager), logic_(),
@@ -29,31 +27,31 @@ int GameApp::run(int argc, char **argv)
     qcomponent_ = new QQmlComponent(qengine_, QUrl(QStringLiteral("qrc:///main.qml")));
     qroot_ = qcomponent_->create();
 
-    std::shared_ptr<IView> view(new MainMenuView(qroot_));
-    if (!view->init()) {
-        return 1;
-    }
-    logic_.add_view(view);
+    logic_ = new GameLogic(qroot_);
+    logic_->change_state(LogicState::LS_MainMenu);
 
     register_delegates();
 
     QTimer qtimer;
     EventCaller event_caller;
     QObject::connect(&qtimer, SIGNAL(timeout()), &event_caller, SLOT(update()));
-    qtimer.start(10);
+    qtimer.start(10);  // call event_caller every 10 ms
 
     return qapp->exec();
+}
+
+void GameApp::main_menu_delegate(const std::shared_ptr<EventData> &event)
+{
+    (void) event;
+    qDebug() << "MainMenu delegate called";
+    logic_->change_state(LogicState::LS_MainMenu);
 }
 
 void GameApp::new_game_delegate(const std::shared_ptr<EventData> &event)
 {
     (void) event;
     qDebug() << "NewGame delegate called";
-    std::shared_ptr<IView> view(new PlayerView(qroot_));
-    if (!view->init()) {
-        return;
-    }
-    logic_.change_view(view);
+    logic_->change_state(LogicState::LS_Game);
 }
 
 void GameApp::quit_delegate(const std::shared_ptr<EventData> &event)
@@ -65,6 +63,9 @@ void GameApp::quit_delegate(const std::shared_ptr<EventData> &event)
 
 void GameApp::register_delegates()
 {
+    EventManager::get()->add_listener(
+            boost::bind(&GameApp::main_menu_delegate, this, _1),
+            EventData_MainMenu::event_type_);
     EventManager::get()->add_listener(
             boost::bind(&GameApp::new_game_delegate, this, _1),
             EventData_NewGame::event_type_);

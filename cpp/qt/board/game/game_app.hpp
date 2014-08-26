@@ -17,6 +17,7 @@ public:
 
     int run(int argc, char **argv);
 
+    void main_menu_delegate(const std::shared_ptr<EventData> &event);
     void new_game_delegate(const std::shared_ptr<EventData> &event);
     void quit_delegate(const std::shared_ptr<EventData> &event);
 
@@ -25,7 +26,7 @@ private:
 
 private:
     EventManager *event_manager_;
-    GameLogic logic_;
+    GameLogic *logic_;
     QQmlEngine *qengine_;
     QQmlComponent *qcomponent_;
     QObject *qroot_;
