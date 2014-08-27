@@ -1,7 +1,8 @@
 #include "actor.hpp"
 #include <QDebug>
 
-Actor::Actor(ActorId actor_id) : actor_id_(actor_id)
+Actor::Actor(ActorId actor_id)
+    : component_list_(), actor_id_(actor_id), type_()
 {
 }
 
@@ -9,13 +10,14 @@ Actor::~Actor()
 {
 }
 
-bool Actor::init(const QXmlStreamAttributes &attrs)
+bool Actor::init(const boost_pt::ptree &actor_data)
 {
-    if (!attrs.hasAttribute("", "type")) {
+    type_ = actor_data.get<std::string>("type", "");
+    if (type_ == "") {
         return false;
     }
 
-    qDebug() << "actor type: " << attrs.value("type");
+    qDebug() << "actor type: " << type_.c_str();
 
     return true;
 }

@@ -25,7 +25,7 @@ void GameLogic::change_state(LogicState state)
         change_view(view);
         break;
     case LogicState::LS_Game: {
-        std::shared_ptr<Actor> actor = actor_factory_->create_actor("/home/igor/studying/cpp/qt/board/test.xml");
+        std::shared_ptr<Actor> actor = actor_factory_->create_actor("/home/igor/studying/cpp/qt/board/data/player.json");
         if (actor) {
             qDebug() << "actor id: " << actor->actor_id();
         }

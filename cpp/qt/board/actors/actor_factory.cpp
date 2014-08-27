@@ -1,7 +1,7 @@
 #include "actor_factory.hpp"
-#include <QFile>
-#include <QXmlStreamReader>
 #include <QDebug>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 static ActorId g_actor_id = 0;
 
@@ -9,31 +9,25 @@ ActorFactory::ActorFactory()
 {
 }
 
-// @todo init actor from resource
 std::shared_ptr<Actor> ActorFactory::create_actor(const char *resource)
 {
-    QFile file(resource);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    boost_pt::ptree pt;
+    boost_pt::read_json(resource, pt);
+
+    boost::optional<boost_pt::ptree &> actor_data = pt.get_child_optional("actor");
+    if (!actor_data) {
         return std::shared_ptr<Actor>();
     }
 
     std::shared_ptr<Actor> actor(new Actor(++g_actor_id));
-    int progress = 0;
+    if (!actor->init(*actor_data)) {
+        return std::shared_ptr<Actor>();
+    }
 
-    QXmlStreamReader xml_reader(&file);
-    QXmlStreamReader::TokenType token;
-    while (!xml_reader.atEnd()) {
-        token = xml_reader.readNext();
-        if (token == QXmlStreamReader::StartElement) {
-            qDebug() << "xml elem: " << xml_reader.name();
-            if (progress == 0) {
-                actor->init(xml_reader.attributes());
-                progress = 1;
-            }
-            else if (progress == 1) {
-
-            }
-            continue;
+    boost::optional<boost_pt::ptree &> actor_components = pt.get_child_optional("actor.components");
+    if (actor_components) {
+        for (auto component : *actor_components) {
+            qDebug() << "\tcomponent type:" << component.first.c_str();
         }
     }
 

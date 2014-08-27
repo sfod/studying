@@ -35,3 +35,6 @@ HEADERS += \
     actors/actor.hpp \
     actors/actor_component.hpp \
     actors/actor_factory.hpp
+
+OTHER_FILES += \
+    data/player.json
