@@ -2,10 +2,8 @@
     "actor": {
         "type": "pawn",
         "components": {
-            "TransformComponent" : {
-                "Position": [0, 4]
-            },
             "PhysicsComponent": {
+                "position": [0, 4],
                 "color": {"r": 255, "g": 0, "b": 0}
             }
         }
