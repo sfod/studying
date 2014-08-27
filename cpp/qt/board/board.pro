@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     events/event_caller.cpp \
     actors/actor.cpp \
     actors/actor_component.cpp \
-    actors/actor_factory.cpp
+    actors/actor_factory.cpp \
+    actors/physics_component.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,7 +35,8 @@ HEADERS += \
     events/event_caller.hpp \
     actors/actor.hpp \
     actors/actor_component.hpp \
-    actors/actor_factory.hpp
+    actors/actor_factory.hpp \
+    actors/physics_component.hpp
 
 OTHER_FILES += \
     data/player.json
