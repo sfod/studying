@@ -1,6 +1,8 @@
 #include "physics_component.hpp"
 #include <QDebug>
 
+const char *PhysicsComponent::name_ = "PhysicsComponent";
+
 PhysicsComponent::PhysicsComponent()
 {
     memset(pos_, 0, sizeof(pos_));
@@ -10,7 +12,6 @@ PhysicsComponent::PhysicsComponent()
 PhysicsComponent::~PhysicsComponent()
 {
 }
-
 
 // @fixme refactor
 bool PhysicsComponent::init(const boost_pt::ptree &component_data)

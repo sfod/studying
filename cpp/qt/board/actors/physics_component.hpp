@@ -9,7 +9,11 @@ public:
     PhysicsComponent();
     ~PhysicsComponent();
 
-    bool init(const boost_pt::ptree &component_data);
+    virtual bool init(const boost_pt::ptree &component_data) override;
+    virtual const char *name() const override { return name_; }
+
+private:
+    static const char *name_;
 
 private:
     unsigned char pos_[2];
