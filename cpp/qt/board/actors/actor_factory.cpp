@@ -32,6 +32,7 @@ std::shared_ptr<Actor> ActorFactory::create_actor(const char *resource)
             std::shared_ptr<ActorComponent> component =
                     create_actor_component(component_data.first, component_data.second);
             if (component) {
+                actor->add_component(component);
             }
         }
     }
