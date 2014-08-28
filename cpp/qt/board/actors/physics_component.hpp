@@ -7,7 +7,7 @@ class PhysicsComponent : public ActorComponent
 {
 public:
     PhysicsComponent();
-    ~PhysicsComponent();
+    virtual ~PhysicsComponent();
 
     virtual bool init(const boost_pt::ptree &component_data) override;
     virtual const char *name() const override { return name_; }

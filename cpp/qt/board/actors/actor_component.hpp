@@ -9,7 +9,8 @@ typedef unsigned long ComponentId;
 
 class ActorComponent {
 public:
-    ActorComponent();
+    virtual ~ActorComponent() {}
+
     virtual bool init(const boost_pt::ptree &component_data) = 0;
     virtual const char *name() const = 0;
 
