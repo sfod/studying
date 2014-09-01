@@ -8,7 +8,8 @@
 
 GameLogic::GameLogic(QObject *qroot)
     : state_(LogicState::LS_Uninitialized), qroot_(qroot),
-    actor_factory_(new ActorFactory), view_list_()
+    actor_factory_(new ActorFactory), actor_keeper_(new ActorKeeper),
+    view_list_()
 {
 }
 
