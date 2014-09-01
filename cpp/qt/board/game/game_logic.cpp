@@ -3,6 +3,7 @@
 #include <boost/bind.hpp>
 
 #include "events/event_manager.hpp"
+#include "events/event_data.hpp"
 #include "view/main_menu_view.hpp"
 #include "view/player_view.hpp"
 
@@ -28,6 +29,7 @@ void GameLogic::change_state(LogicState state)
     case LogicState::LS_Game: {
         std::shared_ptr<Actor> actor = actor_factory_->create_actor("../board/data/player.json");
         if (actor) {
+            EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_NewActor));
             qDebug() << "created actor (id" << actor->id() << ")";
         }
         view.reset(new PlayerView(qroot_));
