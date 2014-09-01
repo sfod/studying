@@ -6,6 +6,7 @@
 #include "events/event_data.hpp"
 #include "view/main_menu_view.hpp"
 #include "view/player_view.hpp"
+#include "actors/physics_component.hpp"
 
 GameLogic::GameLogic(QObject *qroot)
     : state_(LogicState::LS_Uninitialized), qroot_(qroot),
@@ -27,13 +28,22 @@ void GameLogic::change_state(LogicState state)
         change_view(view);
         break;
     case LogicState::LS_Game: {
-        std::shared_ptr<Actor> actor = actor_factory_->create_actor("../board/data/player.json");
-        if (actor) {
-            EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_NewActor));
-            qDebug() << "created actor (id" << actor->id() << ")";
-        }
         view.reset(new PlayerView(qroot_));
         view->init();
+
+        std::shared_ptr<Actor> actor = actor_factory_->create_actor("../board/data/player.json");
+        if (actor) {
+            std::shared_ptr<PhysicsComponent> ph_comp(new PhysicsComponent);
+            ph_comp = std::static_pointer_cast<PhysicsComponent>(actor->component(ph_comp->id()));
+            if (ph_comp) {
+                EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_NewActor(ph_comp->pos())));
+                qDebug() << "created actor (id" << actor->id() << ")";
+            }
+            else {
+                qDebug() << "";
+            }
+        }
+
         change_view(view);
         break;
     }

@@ -2,8 +2,8 @@
 #define PLAYER_VIEW_HPP
 
 #include <QObject>
-
 #include "iview.hpp"
+#include "events/event_manager.hpp"
 
 class PlayerView : public QObject, public IView
 {
@@ -16,6 +16,8 @@ public:
     bool init();
     virtual void on_msg();
     virtual void on_update();
+
+    void new_actor_delegate(const std::shared_ptr<EventData> &event);
 
 public slots:
     void node_clicked(int idx);

@@ -12,7 +12,9 @@ public:
     virtual bool init(const boost_pt::ptree &component_data) override;
     virtual const char *name() const override { return name_; }
 
-private:
+    const unsigned char *pos() const { return pos_; }
+
+public:
     static const char *name_;
 
 private:

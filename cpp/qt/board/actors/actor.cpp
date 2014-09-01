@@ -25,3 +25,11 @@ void Actor::add_component(std::shared_ptr<ActorComponent> &component)
     qDebug() << "adding component" << component->id();
     component_list_[component->id()] = component;
 }
+
+std::shared_ptr<ActorComponent> Actor::component(ComponentId id) const
+{
+    if (component_list_.count(id) > 0) {
+        return component_list_.at(id);
+    }
+    return std::shared_ptr<ActorComponent>();
+}

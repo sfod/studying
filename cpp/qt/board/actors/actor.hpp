@@ -17,6 +17,8 @@ public:
     bool init(const boost_pt::ptree &actor_data);
     void add_component(std::shared_ptr<ActorComponent> &component);
 
+    std::shared_ptr<ActorComponent> component(ComponentId id) const;
+
     ActorId id() const { return id_; }
 
 private:
