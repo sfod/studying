@@ -16,6 +16,7 @@ public:
     virtual ~GameApp();
 
     int run(int argc, char **argv);
+    GameLogic *game_logic() const { return logic_; }
 
     void main_menu_delegate(const std::shared_ptr<EventData> &event);
     void new_game_delegate(const std::shared_ptr<EventData> &event);
