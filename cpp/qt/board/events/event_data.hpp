@@ -38,4 +38,12 @@ public:
     static const EventType event_type_;
 };
 
+class EventData_NewActor : public EventData {
+public:
+    EventData_NewActor() : EventData() {}
+    virtual ~EventData_NewActor() {}
+    virtual const EventType &event_type() const { return event_type_; }
+    static const EventType event_type_;
+};
+
 #endif // EVENT_DATA_HPP
