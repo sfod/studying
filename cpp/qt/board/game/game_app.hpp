@@ -29,6 +29,7 @@ private:
 
 private:
     EventManager *event_manager_;
+    std::list<bs2::connection> conn_list_;
     GameLogic *logic_;
     QQmlEngine *qengine_;
     QQmlComponent *qcomponent_;

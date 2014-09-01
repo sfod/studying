@@ -3,13 +3,17 @@
 #include <QDebug>
 
 PlayerView::PlayerView(QObject *qroot, QObject *qparent)
-    : QObject(qparent), IView(), qroot_(qroot), qboard_(), qbutton_()
+    : QObject(qparent), IView(), conn_list_(),
+      qroot_(qroot), qboard_(), qbutton_()
 {
 }
 
 PlayerView::~PlayerView()
 {
     qDebug() << "destroying PlayerView";
+    for (auto conn : conn_list_) {
+        conn.disconnect();
+    }
 }
 
 bool PlayerView::init()
@@ -34,9 +38,11 @@ bool PlayerView::init()
                 this, SLOT(button_back_clicked())
     );
 
-    EventManager::get()->add_listener(
+    bs2::connection conn;
+    conn = EventManager::get()->add_listener(
             boost::bind(&PlayerView::new_actor_delegate, this, _1),
             EventData_NewActor::event_type_);
+    conn_list_.push_back(conn);
 
     return true;
 }

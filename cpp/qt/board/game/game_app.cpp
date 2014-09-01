@@ -12,7 +12,7 @@
 static GameApp *g_app;
 
 GameApp::GameApp()
-    : event_manager_(new EventManager), logic_(),
+    : event_manager_(new EventManager), conn_list_(), logic_(),
       qengine_(), qcomponent_(), qroot_()
 {
     g_app = this;
@@ -20,6 +20,9 @@ GameApp::GameApp()
 
 GameApp::~GameApp()
 {
+    for (auto conn : conn_list_) {
+        conn.disconnect();
+    }
 }
 
 int GameApp::run(int argc, char **argv)
@@ -71,13 +74,20 @@ GameApp *GameApp::get()
 
 void GameApp::register_delegates()
 {
-    EventManager::get()->add_listener(
+    bs2::connection conn;
+
+    conn = EventManager::get()->add_listener(
             boost::bind(&GameApp::main_menu_delegate, this, _1),
             EventData_MainMenu::event_type_);
-    EventManager::get()->add_listener(
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
             boost::bind(&GameApp::new_game_delegate, this, _1),
             EventData_NewGame::event_type_);
-    EventManager::get()->add_listener(
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
             boost::bind(&GameApp::quit_delegate, this, _1),
             EventData_Quit::event_type_);
+    conn_list_.push_back(conn);
 }

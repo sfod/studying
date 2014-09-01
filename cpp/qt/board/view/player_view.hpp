@@ -24,6 +24,7 @@ public slots:
     void button_back_clicked();
 
 private:
+    std::list<bs2::connection> conn_list_;
     QObject *qroot_;
     QObject *qboard_;
     QObject *qbutton_;
