@@ -1,8 +1,7 @@
 #include "actor.hpp"
 #include <QDebug>
 
-Actor::Actor(ActorId actor_id)
-    : component_list_(), actor_id_(actor_id), type_()
+Actor::Actor(ActorId id) : component_list_(), id_(id), type_()
 {
 }
 

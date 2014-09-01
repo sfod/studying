@@ -27,7 +27,7 @@ void GameLogic::change_state(LogicState state)
     case LogicState::LS_Game: {
         std::shared_ptr<Actor> actor = actor_factory_->create_actor("../board/data/player.json");
         if (actor) {
-            qDebug() << "created actor (id" << actor->actor_id() << ")";
+            qDebug() << "created actor (id" << actor->id() << ")";
         }
         view.reset(new PlayerView(qroot_));
         view->init();

@@ -11,17 +11,17 @@ typedef unsigned long ActorId;
 
 class Actor {
 public:
-    explicit Actor(ActorId actor_id);
+    explicit Actor(ActorId id);
     ~Actor();
 
     bool init(const boost_pt::ptree &actor_data);
     void add_component(std::shared_ptr<ActorComponent> &component);
 
-    ActorId actor_id() const { return actor_id_; }
+    ActorId id() const { return id_; }
 
 private:
     std::map<ComponentId, std::shared_ptr<ActorComponent>> component_list_;
-    ActorId actor_id_;
+    ActorId id_;
     std::string type_;
 };
 
