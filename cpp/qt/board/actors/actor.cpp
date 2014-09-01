@@ -17,7 +17,6 @@ bool Actor::init(const boost_pt::ptree &actor_data)
     }
 
     qDebug() << "actor type: " << type_.c_str();
-
     return true;
 }
 
