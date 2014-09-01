@@ -9,10 +9,13 @@
 #include "events/event_manager.hpp"
 #include "events/event_caller.hpp"
 
+static GameApp *g_app;
+
 GameApp::GameApp()
     : event_manager_(new EventManager), logic_(),
       qengine_(), qcomponent_(), qroot_()
 {
+    g_app = this;
 }
 
 GameApp::~GameApp()
@@ -59,6 +62,11 @@ void GameApp::quit_delegate(const std::shared_ptr<EventData> &event)
     (void) event;
     qDebug() << "Quit delegate called";
     QGuiApplication::quit();
+}
+
+GameApp *GameApp::get()
+{
+    return g_app;
 }
 
 void GameApp::register_delegates()

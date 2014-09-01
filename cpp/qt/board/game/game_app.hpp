@@ -21,6 +21,8 @@ public:
     void new_game_delegate(const std::shared_ptr<EventData> &event);
     void quit_delegate(const std::shared_ptr<EventData> &event);
 
+    static GameApp *get();
+
 private:
     void register_delegates();
 
