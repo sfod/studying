@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include "game/game_app.hpp"
 #include "physics_component.hpp"
 
 static ActorId g_actor_id = 0;
@@ -37,6 +38,8 @@ std::shared_ptr<Actor> ActorFactory::create_actor(const char *resource)
             }
         }
     }
+
+    GameApp::get()->game_logic()->actor_keeper()->add_actor(actor);
 
     return actor;
 }
