@@ -16,19 +16,8 @@ Rectangle {
         spacing: 5
 
         Repeater {
-            model: 81
-            Rectangle {
-                width: (parent.width - 40) / 9
-                height: (parent.height - 40) / 9
-                color: "#FFCE9E"
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        board.boardSignal(index)
-                    }
-                }
-            }
+            model: parent.rows * parent.columns
+            delegate: DropTile {}
         }
     }
 }
