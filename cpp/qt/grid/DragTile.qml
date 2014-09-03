@@ -13,15 +13,19 @@ Item {
         height: 93
         anchors.centerIn: parent
 
-        drag.target: pawn
+        drag.target: pawn.isDraggedEnable ? pawn : null
         onReleased: {
-            parent = pawn.Drag.target !== null ? pawn.Drag.target : root
-            pawn.Drag.drop()
+            if (pawn.isDraggedEnable) {
+                parent = pawn.Drag.target !== null ? pawn.Drag.target : root
+                pawn.Drag.drop()
+            }
         }
 
         Rectangle {
             id: pawn
             color: "transparent"
+
+            property bool isDraggedEnable: true
 
             width: 93
             height: 93
