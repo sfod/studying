@@ -15,11 +15,13 @@ Rectangle {
 
         columns: 9
         rows: 9
-        width: parent.width - 10
-        height: parent.height - 10
-        x: 5
-        y: 5
-        spacing: 5
+
+        width: parent.width - spacing * 2
+        height: parent.height - spacing * 2
+        x: spacing
+        y: spacing
+
+        spacing: 3
 
         Repeater {
             id: repeater
