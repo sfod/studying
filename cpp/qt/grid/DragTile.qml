@@ -3,14 +3,14 @@ import QtQuick 2.0
 Item {
     id: root
 
-    width: 93
-    height: 93
+    width: (parent.width - (parent.columns - 1) * parent.spacing) / parent.columns
+    height: (parent.height - (parent.rows - 1) * parent.spacing) / parent.rows
 
     MouseArea {
         id: mouseArea
 
-        width: 93
-        height: 93
+        width: parent.width
+        height: parent.height
         anchors.centerIn: parent
 
         drag.target: pawn.isDraggedEnable ? pawn : null
@@ -27,14 +27,14 @@ Item {
 
             property bool isDraggedEnable: true
 
-            width: 93
-            height: 93
+            width: parent.width
+            height: parent.height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
 
             Drag.active: mouseArea.drag.active
-            Drag.hotSpot.x: 46
-            Drag.hotSpot.y: 46
+            Drag.hotSpot.x: parent.width / 2
+            Drag.hotSpot.y: parent.height / 2
 
             Image {
                 source: "resources/pawn.png"
