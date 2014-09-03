@@ -3,5 +3,7 @@
         <file>main.qml</file>
         <file>ContactModel.qml</file>
         <file>resources/pawn.png</file>
+        <file>DropTile.qml</file>
+        <file>DragTile.qml</file>
     </qresource>
 </RCC>
