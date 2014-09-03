@@ -14,7 +14,10 @@ Item {
         anchors.centerIn: parent
 
         drag.target: pawn
-        onReleased: parent = pawn.Drag.target !== null ? pawn.Drag.target : root
+        onReleased: {
+            parent = pawn.Drag.target !== null ? pawn.Drag.target : root
+            pawn.Drag.drop()
+        }
 
         Rectangle {
             id: pawn
