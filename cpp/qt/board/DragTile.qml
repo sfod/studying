@@ -29,7 +29,7 @@ Item {
             color: "transparent"
 
             property bool isDraggedEnable: true
-            property Item curParent: parent
+            property Item curParent: root
 
             width: parent.width
             height: parent.height
@@ -47,7 +47,7 @@ Item {
 
             states: State {
                 when: mouseArea.drag.active
-                ParentChange { target: pawn; parent: pawn.curParent }
+                ParentChange { target: pawn; parent: root }
                 AnchorChanges {target: pawn; anchors.verticalCenter: undefined; anchors.horizontalCenter: undefined}
             }
         }
