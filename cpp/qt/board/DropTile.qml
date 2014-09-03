@@ -18,4 +18,9 @@ DropArea {
         anchors.fill: parent
         color: "#FFCE9E"
     }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: parent.parent.parent.boardSignal(index)
+    }
 }

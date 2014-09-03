@@ -40,4 +40,5 @@ HEADERS += \
     actors/actor_keeper.hpp
 
 OTHER_FILES += \
-    data/player.json
+    data/player.json \
+    resources/pawn.png

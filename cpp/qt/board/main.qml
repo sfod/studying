@@ -82,6 +82,7 @@ ApplicationWindow {
                 onBoardSignal: {
                     console.log("clicked " + idx + " node")
                     windowGame.nodeClicked(idx)
+                    addPawn(idx)
                 }
             }
 

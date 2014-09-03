@@ -5,6 +5,8 @@ Item {
 
     width: (parent.width - (parent.columns - 1) * parent.spacing) / parent.columns
     height: (parent.height - (parent.rows - 1) * parent.spacing) / parent.rows
+//    width: parent.width
+//    height: parent.height
 
     MouseArea {
         id: mouseArea
@@ -16,7 +18,8 @@ Item {
         drag.target: pawn.isDraggedEnable ? pawn : null
         onReleased: {
             if (pawn.isDraggedEnable) {
-                parent = pawn.Drag.target !== null ? pawn.Drag.target : root
+                parent = pawn.Drag.target !== null ? pawn.Drag.target : pawn.curParent
+                pawn.curParent = parent
                 pawn.Drag.drop()
             }
         }
@@ -26,6 +29,7 @@ Item {
             color: "transparent"
 
             property bool isDraggedEnable: true
+            property Item curParent: parent
 
             width: parent.width
             height: parent.height
@@ -43,7 +47,7 @@ Item {
 
             states: State {
                 when: mouseArea.drag.active
-                ParentChange { target: pawn; parent: root }
+                ParentChange { target: pawn; parent: pawn.curParent }
                 AnchorChanges {target: pawn; anchors.verticalCenter: undefined; anchors.horizontalCenter: undefined}
             }
         }
