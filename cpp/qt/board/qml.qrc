@@ -5,5 +5,6 @@
         <file>DropTile.qml</file>
         <file>DragTile.qml</file>
         <file>resources/pawn.png</file>
+        <file>data/player.json</file>
     </qresource>
 </RCC>
