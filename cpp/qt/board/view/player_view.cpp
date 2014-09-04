@@ -18,7 +18,7 @@ PlayerView::~PlayerView()
 
 bool PlayerView::init()
 {
-    qboard_ = qroot_->findChild<QObject*>("game");
+    qboard_ = qroot_->findChild<QObject*>("board");
     if (qboard_ == NULL) {
         qDebug() << "cannot find board element";
         return false;

@@ -61,27 +61,23 @@ ApplicationWindow {
         // game window
         Item {
             id: windowGame
-            objectName: "game"
 
             x: 20
             y: 20
             width: parent.width - 40
             height: parent.height - 40
 
-            signal nodeClicked(int idx)
-            signal backButtonClicked()
-
             Board {
                 id: board
+                objectName: "board"
 
                 width: parent.width
                 height: parent.height - 40
                 x: 0
                 y: 0
 
-                onBoardSignal: {
+                onNodeClicked: {
                     console.log("clicked " + idx + " node")
-                    windowGame.nodeClicked(idx)
                     addPawn(idx)
                 }
             }

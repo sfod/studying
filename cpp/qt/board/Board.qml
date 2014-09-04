@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
     id: board
-    signal boardSignal(int idx)
+    signal nodeClicked(int idx)
 
     function addPawn(idx) {
         var pawn = Qt.createQmlObject('import QtQuick 2.2; DragTile {}', grid, "dynPawn")

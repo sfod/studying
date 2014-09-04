@@ -21,6 +21,6 @@ DropArea {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: parent.parent.parent.boardSignal(index)
+        onClicked: parent.parent.parent.nodeClicked(index)
     }
 }
