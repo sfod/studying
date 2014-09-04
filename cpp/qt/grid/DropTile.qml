@@ -8,9 +8,6 @@ DropArea {
 
     onDropped: {
         console.log("dropped on " + index)
-        if (index === 12) {
-            drag.source.isDraggedEnable = false
-        }
     }
 
     Rectangle {
