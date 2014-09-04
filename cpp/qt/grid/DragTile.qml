@@ -44,7 +44,7 @@ Item {
             states: State {
                 when: mouseArea.drag.active
                 ParentChange { target: pawn; parent: root }
-                AnchorChanges {target: pawn; anchors.verticalCenter: undefined; anchors.horizontalCenter: undefined}
+                AnchorChanges { target: pawn; anchors.verticalCenter: undefined; anchors.horizontalCenter: undefined }
             }
         }
     }
