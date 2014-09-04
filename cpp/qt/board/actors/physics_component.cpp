@@ -25,6 +25,7 @@ bool PhysicsComponent::init(const boost_pt::ptree &component_data)
             }
             pos_[i] = c.second.get_value<unsigned char>();
             qDebug() << "pos:" << pos_[i];
+            ++i;
         }
     }
 
