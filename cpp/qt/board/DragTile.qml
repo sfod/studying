@@ -3,6 +3,8 @@ import QtQuick 2.0
 Item {
     id: root
 
+    property Item initParent: root
+
     width: (parent.width - (parent.columns - 1) * parent.spacing) / parent.columns
     height: (parent.height - (parent.rows - 1) * parent.spacing) / parent.rows
 
@@ -47,6 +49,10 @@ Item {
                 when: mouseArea.drag.active
                 ParentChange { target: pawn; parent: root }
                 AnchorChanges {target: pawn; anchors.verticalCenter: undefined; anchors.horizontalCenter: undefined}
+            }
+
+            Component.onCompleted: {
+                mouseArea.parent = root.initParent
             }
         }
     }

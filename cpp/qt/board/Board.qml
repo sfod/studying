@@ -5,7 +5,7 @@ Rectangle {
     signal nodeClicked(int idx)
 
     function addPawn(idx) {
-        var pawn = Qt.createQmlObject('import QtQuick 2.2; DragTile {}', grid, "dynPawn")
+        var pawn = Qt.createQmlObject('import QtQuick 2.2; DragTile { initParent: repeater.itemAt(' + idx + ') }', grid, "dynPawn")
     }
 
     color: "#D18B47"
