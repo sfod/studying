@@ -5,8 +5,6 @@ Item {
 
     width: (parent.width - (parent.columns - 1) * parent.spacing) / parent.columns
     height: (parent.height - (parent.rows - 1) * parent.spacing) / parent.rows
-//    width: parent.width
-//    height: parent.height
 
     MouseArea {
         id: mouseArea
