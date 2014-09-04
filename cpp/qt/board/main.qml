@@ -91,7 +91,6 @@ ApplicationWindow {
                 anchors.top: board.bottom
 
                 onClicked: {
-                    windowGame.backButtonClicked()
                     windowMain.state = "stateMainMenu"
                 }
             }
