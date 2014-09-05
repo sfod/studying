@@ -6,6 +6,7 @@
 
 #include <QObject>
 
+#include "events/event_manager.hpp"
 #include "events/event_data.hpp"
 #include "actors/actor_factory.hpp"
 #include "actors/actor_keeper.hpp"
@@ -21,6 +22,7 @@ enum class LogicState {
 class GameLogic {
 public:
     explicit GameLogic(QObject *qroot);
+    ~GameLogic();
 
     std::shared_ptr<ActorKeeper> actor_keeper() const { return actor_keeper_; }
 
@@ -28,9 +30,12 @@ public:
     void add_view(std::shared_ptr<IView> view);
     void change_view(std::shared_ptr<IView> view);
 
+    void move_actor_delegate(const std::shared_ptr<EventData> &event);
+
 private:
     LogicState state_;
     QObject *qroot_;
+    std::list<bs2::connection> conn_list_;
     ActorFactory *actor_factory_;
     std::shared_ptr<ActorKeeper> actor_keeper_;
     std::vector<std::shared_ptr<IView>> view_list_;

@@ -2,17 +2,26 @@
 #include <QDebug>
 #include <boost/bind.hpp>
 
-#include "events/event_manager.hpp"
-#include "events/event_data.hpp"
 #include "view/main_menu_view.hpp"
 #include "view/player_view.hpp"
 #include "actors/physics_component.hpp"
 
 GameLogic::GameLogic(QObject *qroot)
-    : state_(LogicState::LS_Uninitialized), qroot_(qroot),
+    : state_(LogicState::LS_Uninitialized), qroot_(qroot), conn_list_(),
     actor_factory_(new ActorFactory), actor_keeper_(new ActorKeeper),
     view_list_()
 {
+    bs2::connection conn = EventManager::get()->add_listener(
+                boost::bind(&GameLogic::move_actor_delegate, this, _1),
+                EventData_MoveActor::event_type_);
+    conn_list_.push_back(conn);
+}
+
+GameLogic::~GameLogic()
+{
+    for (auto conn : conn_list_) {
+        conn.disconnect();
+    }
 }
 
 void GameLogic::change_state(LogicState state)
@@ -65,4 +74,10 @@ void GameLogic::change_view(std::shared_ptr<IView> view)
         view_list_.pop_back();
     }
     view_list_.push_back(view);
+}
+
+void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
+{
+    std::shared_ptr<EventData_MoveActor> ev = std::dynamic_pointer_cast<EventData_MoveActor>(event);
+    qDebug() << "moving actor" << ev->id() << "to " << (ev->pos())[0] << ":" << (ev->pos())[1];
 }
