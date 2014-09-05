@@ -60,7 +60,7 @@ void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
     std::shared_ptr<EventData_NewActor> ev = std::dynamic_pointer_cast<EventData_NewActor>(event);
 
     const unsigned char *pos = ev->pos();
-    qDebug() << "PlayerView New Actor delegate called: set actor on" << pos[0] << ":" << pos[1];
+    qDebug() << "PlayerView NewActor delegate called: set actor on" << pos[0] << ":" << pos[1];
 
     int idx = (8 - pos[0]) * 9 + pos[1];
     QMetaObject::invokeMethod(qboard_, "addPawn",

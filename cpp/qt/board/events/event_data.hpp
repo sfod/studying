@@ -42,8 +42,9 @@ public:
 
 class EventData_NewActor : public EventData {
 public:
-    explicit EventData_NewActor(ActorId id, const unsigned char pos[2]) : EventData(), id_(id) {
-        pos_[0] = pos[0]; pos_[1] = pos[1];
+    EventData_NewActor(ActorId id, const unsigned char pos[2]) : EventData(), id_(id) {
+        pos_[0] = pos[0];
+        pos_[1] = pos[1];
     }
     virtual ~EventData_NewActor() {}
     virtual const EventType &event_type() const { return event_type_; }
