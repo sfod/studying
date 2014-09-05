@@ -3,6 +3,7 @@ import QtQuick 2.0
 Item {
     id: root
 
+    property int actorId: -1
     property Item initParent: root
 
     width: (parent.width - (parent.columns - 1) * parent.spacing) / parent.columns
@@ -28,6 +29,7 @@ Item {
             id: pawn
             color: "transparent"
 
+            property int actorId: -1
             property bool isDraggedEnable: true
             property Item curParent: root
 
@@ -53,6 +55,7 @@ Item {
 
             Component.onCompleted: {
                 mouseArea.parent = root.initParent
+                pawn.actorId = root.actorId
             }
         }
     }

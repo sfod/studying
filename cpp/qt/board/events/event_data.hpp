@@ -1,6 +1,8 @@
 #ifndef EVENT_DATA_HPP
 #define EVENT_DATA_HPP
 
+#include "actors/actor.hpp"
+
 typedef unsigned long EventType;
 
 class EventData {
@@ -40,14 +42,18 @@ public:
 
 class EventData_NewActor : public EventData {
 public:
-    explicit EventData_NewActor(const unsigned char pos[2]) : EventData() {pos_[0] = pos[0]; pos_[1] = pos[1]; }
+    explicit EventData_NewActor(ActorId id, const unsigned char pos[2]) : EventData(), id_(id) {
+        pos_[0] = pos[0]; pos_[1] = pos[1];
+    }
     virtual ~EventData_NewActor() {}
     virtual const EventType &event_type() const { return event_type_; }
     static const EventType event_type_;
 
+    ActorId id() const { return id_; }
     const unsigned char *pos() const { return pos_; }
 
 private:
+    ActorId id_;
     unsigned char pos_[2];
 };
 

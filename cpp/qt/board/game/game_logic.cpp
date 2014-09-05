@@ -36,7 +36,7 @@ void GameLogic::change_state(LogicState state)
             std::shared_ptr<PhysicsComponent> ph_comp(new PhysicsComponent);
             ph_comp = std::static_pointer_cast<PhysicsComponent>(actor->component(ph_comp->id()));
             if (ph_comp) {
-                EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_NewActor(ph_comp->pos())));
+                EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_NewActor(actor->id(), ph_comp->pos())));
                 qDebug() << "created actor (id" << actor->id() << ")";
             }
             else {

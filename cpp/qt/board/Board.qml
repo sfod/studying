@@ -2,13 +2,13 @@ import QtQuick 2.0
 
 Rectangle {
     id: board
-    signal pawnDropped(int idx)
+    signal pawnDropped(int actorId, int idx)
 
     property var pawnList: []
 
-    function addPawn(idx) {
+    function addPawn(actorId, idx) {
         var component = Qt.createComponent("DragTile.qml")
-        var pawn = component.createObject(grid, {initParent: repeater.itemAt(idx)})
+        var pawn = component.createObject(grid, {actorId: actorId, initParent: repeater.itemAt(idx)})
 
         pawnList.push(pawn)
     }
