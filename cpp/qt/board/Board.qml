@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
     id: board
-    signal nodeClicked(int idx)
+    signal pawnDropped(int idx)
 
     property var pawnList: null
 
@@ -45,4 +45,3 @@ Rectangle {
         }
     }
 }
-

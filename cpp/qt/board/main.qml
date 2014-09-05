@@ -75,11 +75,6 @@ ApplicationWindow {
                 height: parent.height - 40
                 x: 0
                 y: 0
-
-                onNodeClicked: {
-                    console.log("clicked " + idx + " node")
-                    addPawn(idx)
-                }
             }
 
             Button {

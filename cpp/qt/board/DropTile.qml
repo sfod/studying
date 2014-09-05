@@ -9,7 +9,7 @@ DropArea {
     height: (parent.height - (parent.rows - 1) * parent.spacing) / parent.rows
 
     onDropped: {
-        console.log("dropped on " + index)
+        parent.parent.pawnDropped(index)
     }
 
     Rectangle {
@@ -17,10 +17,5 @@ DropArea {
 
         anchors.fill: parent
         color: "#FFCE9E"
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: parent.parent.parent.nodeClicked(index)
     }
 }

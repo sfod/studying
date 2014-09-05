@@ -24,8 +24,8 @@ bool PlayerView::init()
         return false;
     }
     QObject::connect(
-                qboard_, SIGNAL(nodeClicked(int)),
-                this, SLOT(node_clicked(int))
+                qboard_, SIGNAL(pawnDropped(int)),
+                this, SLOT(on_pawn_dropped(int))
     );
 
     qbutton_ = qroot_->findChild<QObject*>("buttonBackToMainMenu");
@@ -65,9 +65,9 @@ void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
     QMetaObject::invokeMethod(qboard_, "addPawn", Q_ARG(QVariant, idx));
 }
 
-void PlayerView::node_clicked(int idx)
+void PlayerView::on_pawn_dropped(int idx)
 {
-    qDebug() << "node " << idx << " clicked";
+    qDebug() << "pawn dropped on" << idx;
 }
 
 void PlayerView::button_back_clicked()
