@@ -57,4 +57,22 @@ private:
     unsigned char pos_[2];
 };
 
+class EventData_MoveActor : public EventData {
+public:
+    EventData_MoveActor(ActorId id, const unsigned char pos[2]) : EventData(), id_(id) {
+        pos_[0] = pos[0];
+        pos_[1] = pos[1];
+    }
+    virtual ~EventData_MoveActor() {}
+    virtual const EventType &event_type() const { return event_type_; }
+    static const EventType event_type_;
+
+    ActorId id() const { return id_; }
+    const unsigned char *pos() const { return pos_; }
+
+private:
+    ActorId id_;
+    unsigned char pos_[2];
+};
+
 #endif // EVENT_DATA_HPP

@@ -70,7 +70,13 @@ void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 
 void PlayerView::on_pawn_dropped(int id, int idx)
 {
-    qDebug() << "pawn" << id << "dropped on" << idx;
+    unsigned char pos[2];
+    pos[0] = 8 - idx / 9;
+    pos[1] = idx % 9;
+    qDebug() << "pawn" << id << "dropped on" << pos[0] << ":" << pos[1];
+    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_MoveActor(id, pos)))) {
+        qDebug() << "failed to queue MoveActor event";
+    }
 }
 
 void PlayerView::button_back_clicked()
