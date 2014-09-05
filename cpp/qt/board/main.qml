@@ -91,6 +91,7 @@ ApplicationWindow {
                 anchors.top: board.bottom
 
                 onClicked: {
+                    board.endGame()
                     windowMain.state = "stateMainMenu"
                 }
             }
