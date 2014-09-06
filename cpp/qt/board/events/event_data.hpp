@@ -42,38 +42,33 @@ public:
 
 class EventData_NewActor : public EventData {
 public:
-    EventData_NewActor(ActorId id, const unsigned char pos[2]) : EventData(), id_(id) {
-        pos_[0] = pos[0];
-        pos_[1] = pos[1];
-    }
+    EventData_NewActor(ActorId id, const std::pair<int, int> &pos)
+        : EventData(), id_(id), pos_(pos) {}
     virtual ~EventData_NewActor() {}
     virtual const EventType &event_type() const { return event_type_; }
     static const EventType event_type_;
 
     ActorId id() const { return id_; }
-    const unsigned char *pos() const { return pos_; }
+    std::pair<int, int> pos() const { return pos_; }
 
 private:
     ActorId id_;
-    unsigned char pos_[2];
+    std::pair<int, int> pos_;
 };
 
 class EventData_MoveActor : public EventData {
 public:
-    EventData_MoveActor(ActorId id, const unsigned char pos[2]) : EventData(), id_(id) {
-        pos_[0] = pos[0];
-        pos_[1] = pos[1];
-    }
+    EventData_MoveActor(ActorId id, const std::pair<int, int> &pos) : EventData(), id_(id), pos_(pos) {}
     virtual ~EventData_MoveActor() {}
     virtual const EventType &event_type() const { return event_type_; }
     static const EventType event_type_;
 
     ActorId id() const { return id_; }
-    const unsigned char *pos() const { return pos_; }
+    std::pair<int, int> pos() const { return pos_; }
 
 private:
     ActorId id_;
-    unsigned char pos_[2];
+    std::pair<int, int> pos_;
 };
 
 #endif // EVENT_DATA_HPP

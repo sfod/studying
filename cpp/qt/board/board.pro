@@ -13,7 +13,6 @@ SOURCES += main.cpp \
     events/event_caller.cpp \
     actors/actor.cpp \
     actors/actor_factory.cpp \
-    actors/physics_component.cpp \
     actors/actor_keeper.cpp \
     actors/graph_component.cpp
 
@@ -37,7 +36,6 @@ HEADERS += \
     actors/actor.hpp \
     actors/actor_component.hpp \
     actors/actor_factory.hpp \
-    actors/physics_component.hpp \
     actors/actor_keeper.hpp \
     actors/graph_component.hpp
 

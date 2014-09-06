@@ -59,10 +59,10 @@ void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 {
     std::shared_ptr<EventData_NewActor> ev = std::dynamic_pointer_cast<EventData_NewActor>(event);
 
-    const unsigned char *pos = ev->pos();
-    qDebug() << "PlayerView NewActor delegate called: set actor on" << pos[0] << ":" << pos[1];
+    const std::pair<int, int> &pos = ev->pos();
+    qDebug() << "PlayerView NewActor delegate called: set actor on" << pos.first << ":" << pos.second;
 
-    int idx = (8 - pos[0]) * 9 + pos[1];
+    int idx = (8 - pos.first) * 9 + pos.second;
     QMetaObject::invokeMethod(qboard_, "addPawn",
             Q_ARG(QVariant, static_cast<int>(ev->id())),
             Q_ARG(QVariant, idx));
@@ -70,10 +70,10 @@ void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 
 void PlayerView::on_pawn_dropped(int id, int idx)
 {
-    unsigned char pos[2];
-    pos[0] = 8 - idx / 9;
-    pos[1] = idx % 9;
-    qDebug() << "pawn" << id << "dropped on" << pos[0] << ":" << pos[1];
+    std::pair<int, int> pos;
+    pos.first = 8 - idx / 9;
+    pos.second = idx % 9;
+    qDebug() << "pawn" << id << "dropped on" << pos.first << ":" << pos.second;
     if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_MoveActor(id, pos)))) {
         qDebug() << "failed to queue MoveActor event";
     }

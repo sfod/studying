@@ -3,7 +3,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include "game/game_app.hpp"
-#include "physics_component.hpp"
+#include "graph_component.hpp"
 
 static ActorId g_actor_id = 0;
 
@@ -47,8 +47,8 @@ std::shared_ptr<Actor> ActorFactory::create_actor(const char *resource)
 std::shared_ptr<ActorComponent> ActorFactory::create_actor_component(
         const std::string &type, const boost_pt::ptree &component_data)
 {
-    if (type == "PhysicsComponent") {
-        std::shared_ptr<ActorComponent> component(new PhysicsComponent);
+    if (type == "GraphComponent") {
+        std::shared_ptr<ActorComponent> component(new GraphComponent);
         if (!component->init(component_data)) {
             return std::shared_ptr<ActorComponent>();
         }

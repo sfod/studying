@@ -4,7 +4,7 @@
 
 #include "view/main_menu_view.hpp"
 #include "view/player_view.hpp"
-#include "actors/physics_component.hpp"
+#include "actors/graph_component.hpp"
 
 GameLogic::GameLogic(QObject *qroot)
     : state_(LogicState::LS_Uninitialized), qroot_(qroot), conn_list_(),
@@ -42,15 +42,13 @@ void GameLogic::change_state(LogicState state)
 
         std::shared_ptr<Actor> actor = actor_factory_->create_actor("../board/data/player.json");
         if (actor) {
-            std::shared_ptr<PhysicsComponent> ph_comp(new PhysicsComponent);
-            ph_comp = std::static_pointer_cast<PhysicsComponent>(actor->component(ph_comp->id()));
-            if (ph_comp) {
-                EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_NewActor(actor->id(), ph_comp->pos())));
-                qDebug() << "created actor (id" << actor->id() << ")";
+            std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
+            graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
+            if (graph_comp) {
+                std::shared_ptr<EventData> event(new EventData_NewActor(actor->id(), graph_comp->pos()));
+                EventManager::get()->queue_event(event);
             }
-            else {
-                qDebug() << "";
-            }
+            qDebug() << "created actor (id" << actor->id() << ")";
         }
 
         change_view(view);
@@ -79,5 +77,5 @@ void GameLogic::change_view(std::shared_ptr<IView> view)
 void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
     std::shared_ptr<EventData_MoveActor> ev = std::dynamic_pointer_cast<EventData_MoveActor>(event);
-    qDebug() << "moving actor" << ev->id() << "to " << (ev->pos())[0] << ":" << (ev->pos())[1];
+    qDebug() << "moving actor" << ev->id() << "to " << ev->pos().first << ":" << ev->pos().second;
 }
