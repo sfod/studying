@@ -14,12 +14,14 @@ public:
     virtual const char *name() const override { return name_; }
 
     std::pair<int, int> pos() const { return pos_; }
+    std::list<std::pair<int, int>> possible_moves() const { return possible_moves_; }
 
 public:
     static const char *name_;
 
 private:
     std::pair<int, int> pos_;
+    std::list<std::pair<int, int>> possible_moves_;
 };
 
 #endif // GRAPH_COMPONENT_HPP
