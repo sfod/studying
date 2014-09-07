@@ -17,7 +17,7 @@ public:
     virtual void on_msg();
     virtual void on_update();
 
-    void new_actor_delegate(const std::shared_ptr<EventData> &event);
+    void move_actor_delegate(const std::shared_ptr<EventData> &event);
 
 public slots:
     void on_pawn_dropped(int id, int idx);

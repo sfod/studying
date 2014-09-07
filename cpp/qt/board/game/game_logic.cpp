@@ -42,11 +42,12 @@ void GameLogic::change_state(LogicState state)
 
         std::shared_ptr<Actor> actor = actor_factory_->create_actor("../board/data/player.json");
         if (actor) {
+            std::shared_ptr<EventData> event(new EventData_NewActor(actor->id()));
+            EventManager::get()->trigger_event(event);
+
             std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
             graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
             if (graph_comp) {
-                std::shared_ptr<EventData> event(new EventData_NewActor(actor->id(), graph_comp->pos()));
-                EventManager::get()->queue_event(event);
             }
             qDebug() << "created actor (id" << actor->id() << ")";
         }

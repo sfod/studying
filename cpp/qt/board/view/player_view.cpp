@@ -40,8 +40,8 @@ bool PlayerView::init()
 
     bs2::connection conn;
     conn = EventManager::get()->add_listener(
-            boost::bind(&PlayerView::new_actor_delegate, this, _1),
-            EventData_NewActor::event_type_);
+            boost::bind(&PlayerView::move_actor_delegate, this, _1),
+            EventData_MoveActor::event_type_);
     conn_list_.push_back(conn);
 
     return true;
@@ -55,12 +55,12 @@ void PlayerView::on_update()
 {
 }
 
-void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
+void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_NewActor> ev = std::dynamic_pointer_cast<EventData_NewActor>(event);
+    std::shared_ptr<EventData_MoveActor> ev = std::dynamic_pointer_cast<EventData_MoveActor>(event);
 
     const std::pair<int, int> &pos = ev->pos();
-    qDebug() << "PlayerView NewActor delegate called: set actor on" << pos.first << ":" << pos.second;
+    qDebug() << "PlayerView MoveActor delegate called: set actor on" << pos.first << ":" << pos.second;
 
     int idx = (8 - pos.first) * 9 + pos.second;
     QMetaObject::invokeMethod(qboard_, "addPawn",

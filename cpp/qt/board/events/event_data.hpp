@@ -42,18 +42,15 @@ public:
 
 class EventData_NewActor : public EventData {
 public:
-    EventData_NewActor(ActorId id, const std::pair<int, int> &pos)
-        : EventData(), id_(id), pos_(pos) {}
+    explicit EventData_NewActor(ActorId id) : EventData(), id_(id) {}
     virtual ~EventData_NewActor() {}
     virtual const EventType &event_type() const { return event_type_; }
     static const EventType event_type_;
 
     ActorId id() const { return id_; }
-    std::pair<int, int> pos() const { return pos_; }
 
 private:
     ActorId id_;
-    std::pair<int, int> pos_;
 };
 
 class EventData_MoveActor : public EventData {
