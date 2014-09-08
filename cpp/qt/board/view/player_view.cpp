@@ -41,7 +41,7 @@ bool PlayerView::init()
     bs2::connection conn;
     conn = EventManager::get()->add_listener(
             boost::bind(&PlayerView::move_actor_delegate, this, _1),
-            EventData_MoveActor::event_type_);
+            EventData_ActorPossibleMoves::event_type_);
     conn_list_.push_back(conn);
 
     return true;
@@ -57,15 +57,27 @@ void PlayerView::on_update()
 
 void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_MoveActor> ev = std::dynamic_pointer_cast<EventData_MoveActor>(event);
+    std::shared_ptr<EventData_ActorPossibleMoves> ev =
+            std::dynamic_pointer_cast<EventData_ActorPossibleMoves>(event);
 
     const std::pair<int, int> &pos = ev->pos();
-    qDebug() << "PlayerView MoveActor delegate called: set actor on" << pos.first << ":" << pos.second;
+    qDebug() << "PlayerView MoveActor delegate called: set actor on"
+            << pos.first << ":" << pos.second;
 
     int idx = (8 - pos.first) * 9 + pos.second;
     QMetaObject::invokeMethod(qboard_, "addPawn",
             Q_ARG(QVariant, static_cast<int>(ev->id())),
             Q_ARG(QVariant, idx));
+
+    QVariantList possible_idx_list;
+    for (auto &pos : ev->possible_moves()) {
+        qDebug() << "\tpossible move:" << pos.first << ":" << pos.second;
+        int idx = (8 - pos.first) * 9 + pos.second;
+        possible_idx_list << idx;
+    }
+    QMetaObject::invokeMethod(qboard_, "setPawnPossibleMoves",
+            Q_ARG(QVariant, static_cast<int>(ev->id())),
+            Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
 }
 
 void PlayerView::on_pawn_dropped(int id, int idx)
@@ -74,7 +86,7 @@ void PlayerView::on_pawn_dropped(int id, int idx)
     pos.first = 8 - idx / 9;
     pos.second = idx % 9;
     qDebug() << "pawn" << id << "dropped on" << pos.first << ":" << pos.second;
-    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_MoveActor(id, pos)))) {
+    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_ActorPos(id, pos)))) {
         qDebug() << "failed to queue MoveActor event";
     }
 }
