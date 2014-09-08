@@ -40,6 +40,11 @@ bool PlayerView::init()
 
     bs2::connection conn;
     conn = EventManager::get()->add_listener(
+            boost::bind(&PlayerView::new_actor_delegate, this, _1),
+            EventData_NewActor::event_type_);
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
             boost::bind(&PlayerView::move_actor_delegate, this, _1),
             EventData_ActorPossibleMoves::event_type_);
     conn_list_.push_back(conn);
@@ -55,28 +60,31 @@ void PlayerView::on_update()
 {
 }
 
+void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
+{
+    std::shared_ptr<EventData_NewActor> ev =
+            std::dynamic_pointer_cast<EventData_NewActor>(event);
+    QMetaObject::invokeMethod(qboard_, "addPawn",
+            Q_ARG(QVariant, static_cast<int>(ev->id())));
+}
+
 void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
     std::shared_ptr<EventData_ActorPossibleMoves> ev =
             std::dynamic_pointer_cast<EventData_ActorPossibleMoves>(event);
 
     const std::pair<int, int> &pos = ev->pos();
-    qDebug() << "PlayerView MoveActor delegate called: set actor on"
-            << pos.first << ":" << pos.second;
-
     int idx = (8 - pos.first) * 9 + pos.second;
-    QMetaObject::invokeMethod(qboard_, "addPawn",
-            Q_ARG(QVariant, static_cast<int>(ev->id())),
-            Q_ARG(QVariant, idx));
 
     QVariantList possible_idx_list;
     for (auto &pos : ev->possible_moves()) {
-        qDebug() << "\tpossible move:" << pos.first << ":" << pos.second;
         int idx = (8 - pos.first) * 9 + pos.second;
         possible_idx_list << idx;
     }
-    QMetaObject::invokeMethod(qboard_, "setPawnPossibleMoves",
+
+    QMetaObject::invokeMethod(qboard_, "setPawnPos",
             Q_ARG(QVariant, static_cast<int>(ev->id())),
+            Q_ARG(QVariant, idx),
             Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
 }
 

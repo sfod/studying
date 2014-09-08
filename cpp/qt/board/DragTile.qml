@@ -9,6 +9,14 @@ Item {
     width: (parent.width - (parent.columns - 1) * parent.spacing) / parent.columns
     height: (parent.height - (parent.rows - 1) * parent.spacing) / parent.rows
 
+    function setParent(p) {
+        mouseArea.parent = p
+    }
+
+    function setPossibleMoves(moves) {
+        pawn.possibleMoves = moves
+    }
+
     MouseArea {
         id: mouseArea
 
@@ -30,6 +38,7 @@ Item {
             color: "transparent"
 
             property int actorId: -1
+            property var possibleMoves: []
             property bool isDraggedEnable: true
             property Item curParent: root
 
@@ -56,6 +65,10 @@ Item {
             Component.onCompleted: {
                 mouseArea.parent = root.initParent
                 pawn.actorId = root.actorId
+            }
+
+            Component.onDestruction: {
+                console.log("destroying pawn")
             }
         }
     }

@@ -4,20 +4,41 @@ Rectangle {
     id: board
     signal pawnDropped(int actorId, int idx)
 
-    property var pawnList: []
+    property var pawnList: new Object()
 
-    function addPawn(actorId, idx) {
+    function addPawn(actorId) {
         var component = Qt.createComponent("DragTile.qml")
-        var pawn = component.createObject(grid, {actorId: actorId, initParent: repeater.itemAt(idx)})
+        if (component.status === Component.Error) {
+            console.log("error creating pawn: " + component.errorString())
+        }
+        var pawn = component.createObject(grid, {actorId: actorId, visible: false})
+        pawnList[actorId] = pawn
+    }
 
-        pawnList.push(pawn)
+    function setPawnPos(actorId, idx, possibleMoves) {
+        if (pawnList.hasOwnProperty(actorId)) {
+            var pawn = pawnList[actorId];
+            pawn.setParent(repeater.itemAt(idx));
+
+            if (!pawn.visible) {
+                pawn.visible = true
+            }
+
+            console.log("set pawn on " + idx)
+
+            var moves = []
+            for (var i = 0; i < possibleMoves.length; i++) {
+                moves.push(possibleMoves[i])
+            }
+            pawn.setPossibleMoves(moves)
+        }
     }
 
     function endGame() {
         for (var i in pawnList) {
             pawnList[i].destroy()
         }
-        pawnList = []
+        pawnList = {}
     }
 
     color: "#D18B47"

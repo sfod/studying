@@ -80,6 +80,11 @@ void GameLogic::change_view(std::shared_ptr<IView> view)
 
 void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_ActorPos> ev = std::dynamic_pointer_cast<EventData_ActorPos>(event);
-    qDebug() << "moving actor" << ev->id() << "to " << ev->pos().first << ":" << ev->pos().second;
+    std::shared_ptr<EventData_ActorPos> pos_event = std::dynamic_pointer_cast<EventData_ActorPos>(event);
+    qDebug() << "moving actor" << pos_event->id() << "to " << pos_event->pos().first << ":" << pos_event->pos().second;
+
+    std::list<std::pair<int, int>> list;
+    list.push_back(std::make_pair<int, int>(1, 2));
+    std::shared_ptr<EventData_ActorPossibleMoves> move_event(new EventData_ActorPossibleMoves(pos_event->id(), pos_event->pos(), list));
+    EventManager::get()->queue_event(move_event);
 }
