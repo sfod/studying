@@ -16,35 +16,39 @@ private:
     float ts_;
 };
 
+
 class EventData_MainMenu : public EventData {
 public:
-    EventData_MainMenu() : EventData() {}
-    virtual ~EventData_MainMenu() {}
-    virtual const EventType &event_type() const { return event_type_; }
+    EventData_MainMenu();
+    virtual ~EventData_MainMenu();
+    virtual const EventType &event_type() const;
     static const EventType event_type_;
 };
+
 
 class EventData_NewGame : public EventData {
 public:
-    EventData_NewGame() : EventData() {}
-    virtual ~EventData_NewGame() {}
-    virtual const EventType &event_type() const { return event_type_; }
+    EventData_NewGame();
+    virtual ~EventData_NewGame();
+    virtual const EventType &event_type() const;
     static const EventType event_type_;
 };
+
 
 class EventData_Quit : public EventData {
 public:
-    EventData_Quit() : EventData() {}
-    virtual ~EventData_Quit() {}
-    virtual const EventType &event_type() const { return event_type_; }
+    EventData_Quit();
+    virtual ~EventData_Quit();
+    virtual const EventType &event_type() const;
     static const EventType event_type_;
 };
 
+
 class EventData_NewActor : public EventData {
 public:
-    explicit EventData_NewActor(ActorId id) : EventData(), id_(id) {}
-    virtual ~EventData_NewActor() {}
-    virtual const EventType &event_type() const { return event_type_; }
+    explicit EventData_NewActor(ActorId id);
+    virtual ~EventData_NewActor();
+    virtual const EventType &event_type() const;
     static const EventType event_type_;
 
     ActorId id() const { return id_; }
@@ -53,11 +57,12 @@ private:
     ActorId id_;
 };
 
-class EventData_MoveActor : public EventData {
+
+class EventData_ActorPos : public EventData {
 public:
-    EventData_MoveActor(ActorId id, const std::pair<int, int> &pos) : EventData(), id_(id), pos_(pos) {}
-    virtual ~EventData_MoveActor() {}
-    virtual const EventType &event_type() const { return event_type_; }
+    EventData_ActorPos(ActorId id, const std::pair<int, int> &pos);
+    virtual ~EventData_ActorPos();
+    virtual const EventType &event_type() const;
     static const EventType event_type_;
 
     ActorId id() const { return id_; }
@@ -66,6 +71,26 @@ public:
 private:
     ActorId id_;
     std::pair<int, int> pos_;
+};
+
+
+class EventData_ActorPossibleMoves : public EventData {
+public:
+    EventData_ActorPossibleMoves(ActorId id,
+            const std::pair<int, int> &pos,
+            const std::list<std::pair<int, int>> &possible_moves);
+    virtual ~EventData_ActorPossibleMoves();
+    virtual const EventType &event_type() const;
+    static const EventType event_type_;
+
+    ActorId id() const { return id_; }
+    std::pair<int, int> pos() const { return pos_; }
+    const std::list<std::pair<int, int>> &possible_moves() const { return possible_moves_; }
+
+private:
+    ActorId id_;
+    std::pair<int, int> pos_;
+    std::list<std::pair<int, int>> possible_moves_;
 };
 
 #endif // EVENT_DATA_HPP
