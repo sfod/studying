@@ -26,8 +26,9 @@ Item {
 
         drag.target: pawn.isDraggedEnable ? pawn : null
         onReleased: {
-            if (pawn.isDraggedEnable) {
-                parent = pawn.Drag.target !== null ? pawn.Drag.target : pawn.curParent
+            if (pawn.isDraggedEnable && (pawn.Drag.target !== null) && pawn.allowed(pawn.Drag.target.rIdx)) {
+                console.log("released on drop area " + pawn.Drag.target.rIdx)
+                parent = pawn.Drag.target
                 pawn.curParent = parent
                 pawn.Drag.drop()
             }
@@ -37,8 +38,12 @@ Item {
             id: pawn
             color: "transparent"
 
+            function allowed(idx) {
+                return possibleMoves.hasOwnProperty(idx);
+            }
+
             property int actorId: -1
-            property var possibleMoves: []
+            property var possibleMoves: new Object()
             property bool isDraggedEnable: true
             property Item curParent: root
 

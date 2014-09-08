@@ -4,6 +4,7 @@ DropArea {
     id: dragTarget
 
     property alias dropProxy: dragTarget
+    property int rIdx: index
 
     width: (parent.width - (parent.columns - 1) * parent.spacing) / parent.columns
     height: (parent.height - (parent.rows - 1) * parent.spacing) / parent.rows
@@ -17,5 +18,15 @@ DropArea {
 
         anchors.fill: parent
         color: "#FFCE9E"
+
+        states: [
+            State {
+                when: dragTarget.containsDrag && drag.source.allowed(index)
+                PropertyChanges {
+                    target: dropRectangle
+                    color: "lightblue"
+                }
+            }
+        ]
     }
 }

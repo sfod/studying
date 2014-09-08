@@ -26,9 +26,9 @@ Rectangle {
 
             console.log("set pawn on " + idx)
 
-            var moves = []
+            var moves = {};
             for (var i = 0; i < possibleMoves.length; i++) {
-                moves.push(possibleMoves[i])
+                moves[possibleMoves[i]] = 1
             }
             pawn.setPossibleMoves(moves)
         }
