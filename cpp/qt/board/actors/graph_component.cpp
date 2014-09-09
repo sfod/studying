@@ -1,9 +1,11 @@
 #include "graph_component.hpp"
+#include "game/game_app.hpp"
 
 const char *GraphComponent::name_ = "GraphComponent";
 
 GraphComponent::GraphComponent() : pos_(), possible_moves_()
 {
+    graph_ = GameApp::get()->game_logic()->graph();
 }
 
 GraphComponent::~GraphComponent()

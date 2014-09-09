@@ -3,6 +3,7 @@
 
 #include <utility>
 #include "actor_component.hpp"
+#include "graph/graph.hpp"
 
 class GraphComponent : public ActorComponent
 {
@@ -20,6 +21,7 @@ public:
     static const char *name_;
 
 private:
+    std::shared_ptr<Graph> graph_;
     std::pair<int, int> pos_;
     std::list<std::pair<int, int>> possible_moves_;
 };
