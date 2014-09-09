@@ -18,6 +18,7 @@ public:
     virtual void post_init() {}
     virtual const char *name() const = 0;
     virtual void set_owner(std::shared_ptr<Actor> &owner) { owner_ = owner; }
+    virtual std::shared_ptr<Actor> owner() const { return owner_; }
 
     virtual ComponentId id() const {
         boost::hash<std::string> hash;
