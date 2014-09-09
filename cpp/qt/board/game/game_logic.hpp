@@ -10,6 +10,7 @@
 #include "events/event_data.hpp"
 #include "actors/actor_factory.hpp"
 #include "actors/actor_keeper.hpp"
+#include "graph/graph.hpp"
 #include "view/iview.hpp"
 
 enum class LogicState {
@@ -25,6 +26,7 @@ public:
     ~GameLogic();
 
     std::shared_ptr<ActorKeeper> actor_keeper() const { return actor_keeper_; }
+    std::shared_ptr<Graph> graph() const { return graph_; }
 
     void change_state(LogicState state);
     void add_view(std::shared_ptr<IView> view);
@@ -41,6 +43,7 @@ private:
     std::list<bs2::connection> conn_list_;
     ActorFactory *actor_factory_;
     std::shared_ptr<ActorKeeper> actor_keeper_;
+    std::shared_ptr<Graph> graph_;
     std::vector<std::shared_ptr<IView>> view_list_;
 };
 

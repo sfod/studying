@@ -9,7 +9,7 @@
 GameLogic::GameLogic(QObject *qroot)
     : state_(LogicState::LS_Uninitialized), qroot_(qroot), conn_list_(),
     actor_factory_(new ActorFactory), actor_keeper_(new ActorKeeper),
-    view_list_()
+    graph_(new Graph), view_list_()
 {
     bs2::connection conn = EventManager::get()->add_listener(
                 boost::bind(&GameLogic::move_actor_delegate, this, _1),
