@@ -39,4 +39,6 @@ HEADERS += \
     actors/actor_keeper.hpp \
     actors/graph_component.hpp
 
-OTHER_FILES +=
+OTHER_FILES += \
+    data/player_1.json \
+    data/player_2.json

@@ -1,0 +1,10 @@
+{
+    "actor": {
+        "type": "pawn",
+        "components": {
+            "GraphComponent": {
+                "position": [8, 4]
+            }
+        }
+    }
+}

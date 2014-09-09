@@ -33,6 +33,9 @@ public:
     void move_actor_delegate(const std::shared_ptr<EventData> &event);
 
 private:
+    void set_player(int idx);
+
+private:
     LogicState state_;
     QObject *qroot_;
     std::list<bs2::connection> conn_list_;

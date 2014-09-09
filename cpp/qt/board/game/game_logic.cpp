@@ -40,20 +40,8 @@ void GameLogic::change_state(LogicState state)
         view.reset(new PlayerView(qroot_));
         view->init();
 
-        std::shared_ptr<Actor> actor = actor_factory_->create_actor("../board/data/player.json");
-        if (actor) {
-            std::shared_ptr<EventData> event(new EventData_NewActor(actor->id()));
-            EventManager::get()->trigger_event(event);
-
-            std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
-            graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
-            if (graph_comp) {
-                std::shared_ptr<EventData> event(
-                        new EventData_MoveActor(actor->id(), graph_comp->pos(), graph_comp->possible_moves()));
-                EventManager::get()->queue_event(event);
-            }
-            qDebug() << "created actor (id" << actor->id() << ")";
-        }
+        set_player(1);
+        set_player(2);
 
         change_view(view);
         break;
@@ -87,4 +75,23 @@ void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
     list.push_back(std::make_pair<int, int>(1, 2));
     std::shared_ptr<EventData_MoveActor> move_event(new EventData_MoveActor(pos_event->id(), pos_event->pos(), list));
     EventManager::get()->queue_event(move_event);
+}
+
+void GameLogic::set_player(int idx)
+{
+    std::string resource_file = "../board/data/player_" + std::to_string(idx) + ".json";
+    std::shared_ptr<Actor> actor = actor_factory_->create_actor(resource_file.c_str());
+    if (actor) {
+        std::shared_ptr<EventData> event(new EventData_NewActor(actor->id()));
+        EventManager::get()->trigger_event(event);
+
+        std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
+        graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
+        if (graph_comp) {
+            std::shared_ptr<EventData> event(
+                    new EventData_MoveActor(actor->id(), graph_comp->pos(), graph_comp->possible_moves()));
+            EventManager::get()->queue_event(event);
+        }
+        qDebug() << "created actor (id" << actor->id() << ")";
+    }
 }
