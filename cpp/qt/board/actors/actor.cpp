@@ -20,6 +20,13 @@ bool Actor::init(const boost_pt::ptree &actor_data)
     return true;
 }
 
+void Actor::post_init()
+{
+    for (auto component : component_list_) {
+        component.second->post_init();
+    }
+}
+
 void Actor::add_component(std::shared_ptr<ActorComponent> &component)
 {
     qDebug() << "adding component" << component->id();

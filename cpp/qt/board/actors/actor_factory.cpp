@@ -45,6 +45,8 @@ std::shared_ptr<Actor> ActorFactory::create_actor(const char *resource)
         }
     }
 
+    actor->post_init();
+
     GameApp::get()->game_logic()->actor_keeper()->add_actor(actor);
 
     return actor;
