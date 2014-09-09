@@ -12,6 +12,7 @@ public:
     virtual ~GraphComponent();
 
     virtual bool init(const boost_pt::ptree &component_data) override;
+    virtual void post_init() override;
     virtual const char *name() const override { return name_; }
 
     std::pair<int, int> pos() const { return pos_; }

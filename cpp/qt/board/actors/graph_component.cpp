@@ -23,3 +23,11 @@ bool GraphComponent::init(const boost::property_tree::ptree &component_data)
     }
     return true;
 }
+
+void GraphComponent::post_init()
+{
+    const std::shared_ptr<Actor> &actor = owner();
+    if (actor) {
+        graph_->add_actor(actor->id(), pos_);
+    }
+}
