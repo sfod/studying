@@ -14,7 +14,13 @@ ActorFactory::ActorFactory()
 std::shared_ptr<Actor> ActorFactory::create_actor(const char *resource)
 {
     boost_pt::ptree pt;
-    boost_pt::read_json(resource, pt);  // @todo handle exception
+    try {
+        boost_pt::read_json(resource, pt);
+    }
+    catch (boost_pt::ptree_error &e) {
+        qDebug() << "failed to open resource file:" << e.what();
+        return std::shared_ptr<Actor>();
+    }
 
     boost::optional<boost_pt::ptree &> actor_data = pt.get_child_optional("actor");
     if (!actor_data) {
