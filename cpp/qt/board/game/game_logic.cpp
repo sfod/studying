@@ -13,7 +13,7 @@ GameLogic::GameLogic(QObject *qroot)
 {
     bs2::connection conn = EventManager::get()->add_listener(
                 boost::bind(&GameLogic::move_actor_delegate, this, _1),
-                EventData_ActorPos::event_type_);
+                EventData_RequestActorMove::event_type_);
     conn_list_.push_back(conn);
 }
 
@@ -49,7 +49,7 @@ void GameLogic::change_state(LogicState state)
             graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
             if (graph_comp) {
                 std::shared_ptr<EventData> event(
-                        new EventData_ActorPossibleMoves(actor->id(), graph_comp->pos(), graph_comp->possible_moves()));
+                        new EventData_MoveActor(actor->id(), graph_comp->pos(), graph_comp->possible_moves()));
                 EventManager::get()->queue_event(event);
             }
             qDebug() << "created actor (id" << actor->id() << ")";
@@ -80,11 +80,11 @@ void GameLogic::change_view(std::shared_ptr<IView> view)
 
 void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_ActorPos> pos_event = std::dynamic_pointer_cast<EventData_ActorPos>(event);
+    std::shared_ptr<EventData_RequestActorMove> pos_event = std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
     qDebug() << "moving actor" << pos_event->id() << "to " << pos_event->pos().first << ":" << pos_event->pos().second;
 
     std::list<std::pair<int, int>> list;
     list.push_back(std::make_pair<int, int>(1, 2));
-    std::shared_ptr<EventData_ActorPossibleMoves> move_event(new EventData_ActorPossibleMoves(pos_event->id(), pos_event->pos(), list));
+    std::shared_ptr<EventData_MoveActor> move_event(new EventData_MoveActor(pos_event->id(), pos_event->pos(), list));
     EventManager::get()->queue_event(move_event);
 }

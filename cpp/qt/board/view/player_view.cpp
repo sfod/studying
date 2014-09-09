@@ -46,7 +46,7 @@ bool PlayerView::init()
 
     conn = EventManager::get()->add_listener(
             boost::bind(&PlayerView::move_actor_delegate, this, _1),
-            EventData_ActorPossibleMoves::event_type_);
+            EventData_MoveActor::event_type_);
     conn_list_.push_back(conn);
 
     return true;
@@ -70,8 +70,8 @@ void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 
 void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_ActorPossibleMoves> ev =
-            std::dynamic_pointer_cast<EventData_ActorPossibleMoves>(event);
+    std::shared_ptr<EventData_MoveActor> ev =
+            std::dynamic_pointer_cast<EventData_MoveActor>(event);
 
     const std::pair<int, int> &pos = ev->pos();
     int idx = (8 - pos.first) * 9 + pos.second;
@@ -94,7 +94,7 @@ void PlayerView::on_pawn_dropped(int id, int idx)
     pos.first = 8 - idx / 9;
     pos.second = idx % 9;
     qDebug() << "pawn" << id << "dropped on" << pos.first << ":" << pos.second;
-    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_ActorPos(id, pos)))) {
+    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_RequestActorMove(id, pos)))) {
         qDebug() << "failed to queue MoveActor event";
     }
 }

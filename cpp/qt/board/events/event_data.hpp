@@ -58,10 +58,10 @@ private:
 };
 
 
-class EventData_ActorPos : public EventData {
+class EventData_RequestActorMove : public EventData {
 public:
-    EventData_ActorPos(ActorId id, const std::pair<int, int> &pos);
-    virtual ~EventData_ActorPos();
+    EventData_RequestActorMove(ActorId id, const std::pair<int, int> &pos);
+    virtual ~EventData_RequestActorMove();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
@@ -74,12 +74,12 @@ private:
 };
 
 
-class EventData_ActorPossibleMoves : public EventData {
+class EventData_MoveActor : public EventData {
 public:
-    EventData_ActorPossibleMoves(ActorId id,
+    EventData_MoveActor(ActorId id,
             const std::pair<int, int> &pos,
             const std::list<std::pair<int, int>> &possible_moves);
-    virtual ~EventData_ActorPossibleMoves();
+    virtual ~EventData_MoveActor();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
