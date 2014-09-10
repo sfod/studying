@@ -65,7 +65,7 @@ void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
     std::shared_ptr<EventData_NewActor> ev =
             std::dynamic_pointer_cast<EventData_NewActor>(event);
     QMetaObject::invokeMethod(qboard_, "addPawn",
-            Q_ARG(QVariant, static_cast<int>(ev->id())));
+            Q_ARG(QVariant, static_cast<int>(ev->actor_id())));
 }
 
 void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
@@ -83,7 +83,7 @@ void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
     }
 
     QMetaObject::invokeMethod(qboard_, "setPawnPos",
-            Q_ARG(QVariant, static_cast<int>(move_event->id())),
+            Q_ARG(QVariant, static_cast<int>(move_event->actor_id())),
             Q_ARG(QVariant, idx),
             Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
 }

@@ -47,48 +47,48 @@ public:
 
 class EventData_NewActor : public EventData {
 public:
-    explicit EventData_NewActor(ActorId id);
+    explicit EventData_NewActor(ActorId actor_id);
     virtual ~EventData_NewActor();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
-    ActorId id() const { return id_; }
+    ActorId actor_id() const { return actor_id_; }
 
 private:
-    ActorId id_;
+    ActorId actor_id_;
 };
 
 
 class EventData_RequestActorMove : public EventData {
 public:
-    EventData_RequestActorMove(ActorId id, const Node &node);
+    EventData_RequestActorMove(ActorId actor_id, const Node &node);
     virtual ~EventData_RequestActorMove();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
-    ActorId id() const { return id_; }
+    ActorId actor_id() const { return actor_id_; }
     Node node() const { return node_; }
 
 private:
-    ActorId id_;
+    ActorId actor_id_;
     Node node_;
 };
 
 
 class EventData_MoveActor : public EventData {
 public:
-    EventData_MoveActor(ActorId id, const Node &node,
+    EventData_MoveActor(ActorId actor_id, const Node &node,
             const std::list<Node> &possible_moves);
     virtual ~EventData_MoveActor();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
-    ActorId id() const { return id_; }
+    ActorId actor_id() const { return actor_id_; }
     Node node() const { return node_; }
     const std::list<Node> &possible_moves() const { return possible_moves_; }
 
 private:
-    ActorId id_;
+    ActorId actor_id_;
     Node node_;
     std::list<Node> possible_moves_;
 };

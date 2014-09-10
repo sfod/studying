@@ -71,10 +71,10 @@ void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
     std::shared_ptr<EventData_RequestActorMove> req_event =
             std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
 
-    qDebug() << "moving actor" << req_event->id() << "to "
+    qDebug() << "moving actor" << req_event->actor_id() << "to "
             << req_event->node().row() << ":" << req_event->node().col();
 
-    const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_event->id());
+    const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_event->actor_id());
     if (actor) {
         std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
         graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));

@@ -50,7 +50,7 @@ const EventType &EventData_Quit::event_type() const
 }
 
 
-EventData_NewActor::EventData_NewActor(ActorId id) : EventData(), id_(id)
+EventData_NewActor::EventData_NewActor(ActorId actor_id) : EventData(), actor_id_(actor_id)
 {
 }
 
@@ -64,9 +64,9 @@ const EventType &EventData_NewActor::event_type() const
 }
 
 
-EventData_RequestActorMove::EventData_RequestActorMove(ActorId id,
+EventData_RequestActorMove::EventData_RequestActorMove(ActorId actor_id,
         const Node &node)
-    : EventData(), id_(id), node_(node)
+    : EventData(), actor_id_(actor_id), node_(node)
 {
 }
 
@@ -80,9 +80,9 @@ const EventType &EventData_RequestActorMove::event_type() const
 }
 
 
-EventData_MoveActor::EventData_MoveActor(ActorId id, const Node &node,
+EventData_MoveActor::EventData_MoveActor(ActorId actor_id, const Node &node,
         const std::list<Node> &possible_moves)
-    : id_(id), node_(node), possible_moves_(possible_moves)
+    : actor_id_(actor_id), node_(node), possible_moves_(possible_moves)
 {
 }
 
