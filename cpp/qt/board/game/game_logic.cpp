@@ -68,13 +68,27 @@ void GameLogic::change_view(std::shared_ptr<IView> view)
 
 void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_RequestActorMove> pos_event = std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
-    qDebug() << "moving actor" << pos_event->id() << "to " << pos_event->pos().first << ":" << pos_event->pos().second;
+    std::shared_ptr<EventData_RequestActorMove> req_event =
+            std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
 
-    std::list<std::pair<int, int>> list;
-    list.push_back(std::make_pair<int, int>(1, 2));
-    std::shared_ptr<EventData_MoveActor> move_event(new EventData_MoveActor(pos_event->id(), pos_event->pos(), list));
-    EventManager::get()->queue_event(move_event);
+    qDebug() << "moving actor" << req_event->id() << "to "
+            << req_event->pos().first << ":" << req_event->pos().second;
+
+    const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_event->id());
+    if (actor) {
+        std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
+        graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
+        if (graph_comp && graph_comp->move_actor(req_event->pos())) {
+            for (auto move : graph_comp->possible_moves()) {
+                qDebug() << "move_actor_delegate: set " << move.first << ":" << move.second;
+            }
+
+            std::shared_ptr<EventData_MoveActor> move_event(
+                    new EventData_MoveActor(req_event->id(), req_event->pos(),
+                            graph_comp->possible_moves()));
+            EventManager::get()->queue_event(move_event);
+        }
+    }
 }
 
 void GameLogic::set_player(int idx)
@@ -88,6 +102,10 @@ void GameLogic::set_player(int idx)
         std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
         graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
         if (graph_comp) {
+            for (auto move : graph_comp->possible_moves()) {
+                qDebug() << "set_actor_delegate: set " << move.first << ":" << move.second;
+            }
+
             std::shared_ptr<EventData> event(
                     new EventData_MoveActor(actor->id(), graph_comp->pos(), graph_comp->possible_moves()));
             EventManager::get()->queue_event(event);

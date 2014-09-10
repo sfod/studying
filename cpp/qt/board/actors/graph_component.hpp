@@ -15,8 +15,10 @@ public:
     virtual void post_init() override;
     virtual const char *name() const override { return name_; }
 
+    bool move_actor(const std::pair<int, int> &pos);
+
     std::pair<int, int> pos() const { return pos_; }
-    std::list<std::pair<int, int>> possible_moves() const { return possible_moves_; }
+    std::list<std::pair<int, int>> possible_moves() const;
 
 public:
     static const char *name_;

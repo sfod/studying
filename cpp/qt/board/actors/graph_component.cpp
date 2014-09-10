@@ -29,5 +29,21 @@ void GraphComponent::post_init()
     const std::shared_ptr<Actor> &actor = owner();
     if (actor) {
         graph_->add_actor(actor->id(), pos_);
+        possible_moves_ = graph_->possible_moves(actor->id());
     }
+}
+
+bool GraphComponent::move_actor(const std::pair<int, int> &pos)
+{
+    bool res = graph_->move_actor(owner()->id(), pos);
+    if (res) {
+        pos_ = pos;
+        possible_moves_ = graph_->possible_moves(owner()->id());
+    }
+    return res;
+}
+
+std::list<std::pair<int, int>> GraphComponent::possible_moves() const
+{
+    return possible_moves_;
 }
