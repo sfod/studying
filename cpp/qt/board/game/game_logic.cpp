@@ -72,20 +72,17 @@ void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
             std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
 
     qDebug() << "moving actor" << req_event->id() << "to "
-            << req_event->pos().first << ":" << req_event->pos().second;
+            << req_event->node().row() << ":" << req_event->node().col();
 
     const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_event->id());
     if (actor) {
         std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
         graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
-        if (graph_comp && graph_comp->move_actor(req_event->pos())) {
-            for (auto move : graph_comp->possible_moves()) {
-                qDebug() << "move_actor_delegate: set " << move.first << ":" << move.second;
-            }
-
-            std::shared_ptr<EventData_MoveActor> move_event(
-                    new EventData_MoveActor(req_event->id(), req_event->pos(),
-                            graph_comp->possible_moves()));
+        if (graph_comp && graph_comp->move_actor(req_event->node())) {
+            auto move_event = std::make_shared<EventData_MoveActor>(
+                    actor->id(),
+                    graph_comp->node(),
+                    graph_comp->possible_moves());
             EventManager::get()->queue_event(move_event);
         }
     }
@@ -96,20 +93,17 @@ void GameLogic::set_player(int idx)
     std::string resource_file = "../board/data/player_" + std::to_string(idx) + ".json";
     std::shared_ptr<Actor> actor = actor_factory_->create_actor(resource_file.c_str());
     if (actor) {
-        std::shared_ptr<EventData> event(new EventData_NewActor(actor->id()));
-        EventManager::get()->trigger_event(event);
+        std::shared_ptr<EventData> new_event(new EventData_NewActor(actor->id()));
+        EventManager::get()->trigger_event(new_event);
 
         std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
         graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
         if (graph_comp) {
-            for (auto move : graph_comp->possible_moves()) {
-                qDebug() << "set_actor_delegate: set " << move.first << ":" << move.second;
-            }
-
-            std::shared_ptr<EventData> event(
-                    new EventData_MoveActor(actor->id(), graph_comp->pos(), graph_comp->possible_moves()));
-            EventManager::get()->queue_event(event);
+            auto move_event = std::make_shared<EventData_MoveActor>(
+                    actor->id(),
+                    graph_comp->node(),
+                    graph_comp->possible_moves());
+            EventManager::get()->queue_event(move_event);
         }
-        qDebug() << "created actor (id" << actor->id() << ")";
     }
 }

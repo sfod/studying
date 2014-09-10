@@ -3,7 +3,7 @@
 
 const char *GraphComponent::name_ = "GraphComponent";
 
-GraphComponent::GraphComponent() : pos_(), possible_moves_()
+GraphComponent::GraphComponent() : node_(), possible_moves_()
 {
     graph_ = GameApp::get()->game_logic()->graph();
 }
@@ -18,8 +18,8 @@ bool GraphComponent::init(const boost::property_tree::ptree &component_data)
             component_data.get_child_optional("position");
     if (pos && ((*pos).size() == 2)) {
         auto it = (*pos).begin();
-        pos_.first = it->second.get_value<int>();
-        pos_.second = (++it)->second.get_value<int>();
+        node_.set_row(it->second.get_value<int>());
+        node_.set_col((++it)->second.get_value<int>());
     }
     return true;
 }
@@ -28,22 +28,22 @@ void GraphComponent::post_init()
 {
     const std::shared_ptr<Actor> &actor = owner();
     if (actor) {
-        graph_->add_actor(actor->id(), pos_);
-        possible_moves_ = graph_->possible_moves(actor->id());
+        graph_->add_actor(actor->id());
+        move_actor(node_);
     }
 }
 
-bool GraphComponent::move_actor(const std::pair<int, int> &pos)
+bool GraphComponent::move_actor(const Node &pos)
 {
     bool res = graph_->move_actor(owner()->id(), pos);
     if (res) {
-        pos_ = pos;
+        node_ = pos;
         possible_moves_ = graph_->possible_moves(owner()->id());
     }
     return res;
 }
 
-std::list<std::pair<int, int>> GraphComponent::possible_moves() const
+std::list<Node> GraphComponent::possible_moves() const
 {
     return possible_moves_;
 }

@@ -2,6 +2,7 @@
 #define EVENT_DATA_HPP
 
 #include "actors/actor.hpp"
+#include "graph/node.hpp"
 
 typedef unsigned long EventType;
 
@@ -60,37 +61,36 @@ private:
 
 class EventData_RequestActorMove : public EventData {
 public:
-    EventData_RequestActorMove(ActorId id, const std::pair<int, int> &pos);
+    EventData_RequestActorMove(ActorId id, const Node &node);
     virtual ~EventData_RequestActorMove();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
     ActorId id() const { return id_; }
-    std::pair<int, int> pos() const { return pos_; }
+    Node node() const { return node_; }
 
 private:
     ActorId id_;
-    std::pair<int, int> pos_;
+    Node node_;
 };
 
 
 class EventData_MoveActor : public EventData {
 public:
-    EventData_MoveActor(ActorId id,
-            const std::pair<int, int> &pos,
-            const std::list<std::pair<int, int>> &possible_moves);
+    EventData_MoveActor(ActorId id, const Node &node,
+            const std::list<Node> &possible_moves);
     virtual ~EventData_MoveActor();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
     ActorId id() const { return id_; }
-    std::pair<int, int> pos() const { return pos_; }
-    const std::list<std::pair<int, int>> &possible_moves() const { return possible_moves_; }
+    Node node() const { return node_; }
+    const std::list<Node> &possible_moves() const { return possible_moves_; }
 
 private:
     ActorId id_;
-    std::pair<int, int> pos_;
-    std::list<std::pair<int, int>> possible_moves_;
+    Node node_;
+    std::list<Node> possible_moves_;
 };
 
 #endif // EVENT_DATA_HPP

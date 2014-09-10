@@ -70,31 +70,31 @@ void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 
 void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_MoveActor> ev =
+    std::shared_ptr<EventData_MoveActor> move_event =
             std::dynamic_pointer_cast<EventData_MoveActor>(event);
 
-    const std::pair<int, int> &pos = ev->pos();
-    int idx = (8 - pos.first) * 9 + pos.second;
+    const Node &node = move_event->node();
+    int idx = (8 - node.row()) * 9 + node.col();
 
     QVariantList possible_idx_list;
-    for (auto &pos : ev->possible_moves()) {
-        int idx = (8 - pos.first) * 9 + pos.second;
+    for (auto &node : move_event->possible_moves()) {
+        int idx = (8 - node.row()) * 9 + node.col();
         possible_idx_list << idx;
     }
 
     QMetaObject::invokeMethod(qboard_, "setPawnPos",
-            Q_ARG(QVariant, static_cast<int>(ev->id())),
+            Q_ARG(QVariant, static_cast<int>(move_event->id())),
             Q_ARG(QVariant, idx),
             Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
 }
 
 void PlayerView::on_pawn_dropped(int id, int idx)
 {
-    std::pair<int, int> pos;
-    pos.first = 8 - idx / 9;
-    pos.second = idx % 9;
-    qDebug() << "pawn" << id << "dropped on" << pos.first << ":" << pos.second;
-    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_RequestActorMove(id, pos)))) {
+    Node node;
+    node.set_row(8 - idx / 9);
+    node.set_col(idx % 9);
+    qDebug() << "pawn" << id << "dropped on" << node.row() << ":" << node.col();
+    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_RequestActorMove(id, node)))) {
         qDebug() << "failed to queue MoveActor event";
     }
 }

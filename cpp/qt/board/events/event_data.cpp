@@ -65,8 +65,8 @@ const EventType &EventData_NewActor::event_type() const
 
 
 EventData_RequestActorMove::EventData_RequestActorMove(ActorId id,
-        const std::pair<int, int> &pos)
-    : EventData(), id_(id), pos_(pos)
+        const Node &node)
+    : EventData(), id_(id), node_(node)
 {
 }
 
@@ -80,10 +80,9 @@ const EventType &EventData_RequestActorMove::event_type() const
 }
 
 
-EventData_MoveActor::EventData_MoveActor(ActorId id,
-        const std::pair<int, int> &pos,
-        const std::list<std::pair<int, int> > &possible_moves)
-    : id_(id), pos_(pos), possible_moves_(possible_moves)
+EventData_MoveActor::EventData_MoveActor(ActorId id, const Node &node,
+        const std::list<Node> &possible_moves)
+    : id_(id), node_(node), possible_moves_(possible_moves)
 {
 }
 

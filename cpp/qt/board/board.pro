@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     actors/actor_factory.cpp \
     actors/actor_keeper.cpp \
     actors/graph_component.cpp \
-    graph/graph.cpp
+    graph/graph.cpp \
+    graph/node.cpp
 
 RESOURCES += qml.qrc
 
@@ -39,7 +40,8 @@ HEADERS += \
     actors/actor_factory.hpp \
     actors/actor_keeper.hpp \
     actors/graph_component.hpp \
-    graph/graph.hpp
+    graph/graph.hpp \
+    graph/node.hpp
 
 OTHER_FILES += \
     data/player_1.json \
