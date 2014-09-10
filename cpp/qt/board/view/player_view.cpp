@@ -90,19 +90,17 @@ void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 
 void PlayerView::on_pawn_dropped(int id, int idx)
 {
-    Node node;
-    node.set_row(8 - idx / 9);
-    node.set_col(idx % 9);
-    qDebug() << "pawn" << id << "dropped on" << node.row() << ":" << node.col();
-    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_RequestActorMove(id, node)))) {
+    Node node(8 - idx / 9, idx % 9);
+    auto event = std::make_shared<EventData_RequestActorMove>(id, node);
+    if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue MoveActor event";
     }
 }
 
 void PlayerView::button_back_clicked()
 {
-    qDebug() << "back button clicked";
-    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_MainMenu))) {
+    auto event = std::make_shared<EventData_MainMenu>();
+    if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue MainMenu event";
     }
 }

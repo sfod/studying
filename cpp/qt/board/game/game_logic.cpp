@@ -71,9 +71,6 @@ void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
     std::shared_ptr<EventData_RequestActorMove> req_event =
             std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
 
-    qDebug() << "moving actor" << req_event->actor_id() << "to "
-            << req_event->node().row() << ":" << req_event->node().col();
-
     const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_event->actor_id());
     if (actor) {
         std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
@@ -93,7 +90,7 @@ void GameLogic::set_player(int idx)
     std::string resource_file = "../board/data/player_" + std::to_string(idx) + ".json";
     std::shared_ptr<Actor> actor = actor_factory_->create_actor(resource_file.c_str());
     if (actor) {
-        std::shared_ptr<EventData> new_event(new EventData_NewActor(actor->id()));
+        auto new_event = std::make_shared<EventData_NewActor>(actor->id());
         EventManager::get()->trigger_event(new_event);
 
         std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);

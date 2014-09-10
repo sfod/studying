@@ -50,16 +50,16 @@ void MainMenuView::on_update()
 
 void MainMenuView::button_new_game_clicked()
 {
-    qDebug() << "New Game button clicked";
-    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_NewGame))) {
+    auto event = std::make_shared<EventData_NewGame>();
+    if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue NewGame event";
     }
 }
 
 void MainMenuView::button_quit_clicked()
 {
-    qDebug() << "Quit button clicked";
-    if (!EventManager::get()->queue_event(std::shared_ptr<EventData>(new EventData_Quit))) {
+    auto event = std::make_shared<EventData_Quit>();
+    if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue Quit event";
     }
 
