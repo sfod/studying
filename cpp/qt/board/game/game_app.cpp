@@ -49,21 +49,18 @@ int GameApp::run(int argc, char **argv)
 void GameApp::main_menu_delegate(const std::shared_ptr<EventData> &event)
 {
     (void) event;
-    qDebug() << "MainMenu delegate called";
     logic_->change_state(LogicState::LS_MainMenu);
 }
 
 void GameApp::new_game_delegate(const std::shared_ptr<EventData> &event)
 {
     (void) event;
-    qDebug() << "NewGame delegate called";
     logic_->change_state(LogicState::LS_Game);
 }
 
 void GameApp::quit_delegate(const std::shared_ptr<EventData> &event)
 {
     (void) event;
-    qDebug() << "Quit delegate called";
     QGuiApplication::quit();
 }
 

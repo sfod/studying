@@ -29,7 +29,6 @@ void Actor::post_init()
 
 void Actor::add_component(std::shared_ptr<ActorComponent> &component)
 {
-    qDebug() << "adding component" << component->id();
     component_list_[component->id()] = component;
 }
 
