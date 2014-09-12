@@ -20,9 +20,9 @@ public:
     virtual void set_owner(std::shared_ptr<Actor> &owner) { owner_ = owner; }
     virtual std::shared_ptr<Actor> owner() const { return owner_; }
 
-    virtual ComponentId id() const {
+    static ComponentId id(const char *name) {
         boost::hash<std::string> hash;
-        return hash(name());
+        return hash(name);
     }
 
 private:

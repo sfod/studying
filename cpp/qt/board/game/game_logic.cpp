@@ -73,8 +73,8 @@ void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
 
     const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_event->actor_id());
     if (actor) {
-        std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
-        graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
+        ComponentId cid = ActorComponent::id(GraphComponent::name_);
+        auto graph_comp = std::dynamic_pointer_cast<GraphComponent>(actor->component(cid));
         if (graph_comp && graph_comp->move_actor(req_event->node())) {
             auto move_event = std::make_shared<EventData_MoveActor>(
                     actor->id(),
@@ -93,8 +93,8 @@ void GameLogic::set_player(int idx)
         auto new_event = std::make_shared<EventData_NewActor>(actor->id());
         EventManager::get()->trigger_event(new_event);
 
-        std::shared_ptr<GraphComponent> graph_comp(new GraphComponent);
-        graph_comp = std::static_pointer_cast<GraphComponent>(actor->component(graph_comp->id()));
+        ComponentId cid = ActorComponent::id(GraphComponent::name_);
+        auto graph_comp = std::dynamic_pointer_cast<GraphComponent>(actor->component(cid));
         if (graph_comp) {
             auto move_event = std::make_shared<EventData_MoveActor>(
                     actor->id(),

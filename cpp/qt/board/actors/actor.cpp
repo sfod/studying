@@ -29,7 +29,7 @@ void Actor::post_init()
 
 void Actor::add_component(std::shared_ptr<ActorComponent> &component)
 {
-    component_list_[component->id()] = component;
+    component_list_[ActorComponent::id(component->name())] = component;
 }
 
 std::shared_ptr<ActorComponent> Actor::component(ComponentId id) const
