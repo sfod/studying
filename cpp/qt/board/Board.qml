@@ -12,6 +12,7 @@ Rectangle {
             console.log("error creating pawn: " + component.errorString())
         }
         var pawn = component.createObject(grid, {actorId: actorId, visible: false})
+        pawn.setDragging(false)
         pawnList[actorId] = pawn
     }
 
@@ -32,6 +33,11 @@ Rectangle {
             }
             pawn.setPossibleMoves(moves)
         }
+    }
+
+    function setPawnDragging(actorId, b) {
+        var pawn = pawnList[actorId];
+        pawn.setDragging(b);
     }
 
     function endGame() {

@@ -17,6 +17,10 @@ Item {
         pawn.possibleMoves = moves
     }
 
+    function setDragging(b) {
+        pawn.isDraggingEnabled = b
+    }
+
     MouseArea {
         id: mouseArea
 
