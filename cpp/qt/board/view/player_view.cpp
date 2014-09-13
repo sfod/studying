@@ -67,16 +67,14 @@ void PlayerView::on_update()
 
 void PlayerView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_NewActor> ev =
-            std::dynamic_pointer_cast<EventData_NewActor>(event);
+    auto new_event = std::dynamic_pointer_cast<EventData_NewActor>(event);
     QMetaObject::invokeMethod(qboard_, "addPawn",
-            Q_ARG(QVariant, static_cast<int>(ev->actor_id())));
+            Q_ARG(QVariant, static_cast<int>(new_event->actor_id())));
 }
 
 void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_MoveActor> move_event =
-            std::dynamic_pointer_cast<EventData_MoveActor>(event);
+    auto move_event = std::dynamic_pointer_cast<EventData_MoveActor>(event);
 
     const Node &node = move_event->node();
     int idx = (8 - node.row()) * 9 + node.col();
