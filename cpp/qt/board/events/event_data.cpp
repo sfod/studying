@@ -6,6 +6,7 @@ const EventType EventData_Quit::event_type_(1013);
 const EventType EventData_NewActor::event_type_(1014);
 const EventType EventData_RequestActorMove::event_type_(1015);
 const EventType EventData_MoveActor::event_type_(1016);
+const EventType EventData_SetActorAvailability::event_type_(1017);
 
 
 EventData_MainMenu::EventData_MainMenu() : EventData()
@@ -91,6 +92,21 @@ EventData_MoveActor::~EventData_MoveActor()
 }
 
 const EventType &EventData_MoveActor::event_type() const
+{
+    return event_type_;
+}
+
+
+EventData_SetActorAvailability::EventData_SetActorAvailability(ActorId actor_id, bool av)
+    : actor_id_(actor_id), availability_(av)
+{
+}
+
+EventData_SetActorAvailability::~EventData_SetActorAvailability()
+{
+}
+
+const EventType &EventData_SetActorAvailability::event_type() const
 {
     return event_type_;
 }

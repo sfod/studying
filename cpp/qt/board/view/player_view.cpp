@@ -49,6 +49,11 @@ bool PlayerView::init()
             EventData_MoveActor::event_type_);
     conn_list_.push_back(conn);
 
+    conn = EventManager::get()->add_listener(
+            boost::bind(&PlayerView::set_availability_delegate, this, _1),
+            EventData_SetActorAvailability::event_type_);
+    conn_list_.push_back(conn);
+
     return true;
 }
 
@@ -86,6 +91,14 @@ void PlayerView::move_actor_delegate(const std::shared_ptr<EventData> &event)
             Q_ARG(QVariant, static_cast<int>(move_event->actor_id())),
             Q_ARG(QVariant, idx),
             Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
+}
+
+void PlayerView::set_availability_delegate(const std::shared_ptr<EventData> &event)
+{
+    auto avail_event = std::dynamic_pointer_cast<EventData_SetActorAvailability>(event);
+    QMetaObject::invokeMethod(qboard_, "setPawnDragging",
+            Q_ARG(QVariant, static_cast<int>(avail_event->actor_id())),
+            Q_ARG(QVariant, avail_event->availability()));
 }
 
 void PlayerView::on_pawn_dropped(int id, int idx)

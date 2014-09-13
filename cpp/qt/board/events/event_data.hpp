@@ -93,4 +93,19 @@ private:
     std::list<Node> possible_moves_;
 };
 
+class EventData_SetActorAvailability : public EventData {
+public:
+    EventData_SetActorAvailability(ActorId actor_id, bool av);
+    virtual ~EventData_SetActorAvailability();
+    virtual const EventType &event_type() const;
+    static const EventType event_type_;
+
+    ActorId actor_id() const { return actor_id_; }
+    bool availability() const { return availability_; }
+
+private:
+    ActorId actor_id_;
+    bool availability_;
+};
+
 #endif // EVENT_DATA_HPP
