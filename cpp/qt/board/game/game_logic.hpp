@@ -32,7 +32,7 @@ public:
     void add_view(std::shared_ptr<IView> view);
     void change_view(std::shared_ptr<IView> view);
 
-    void move_actor_delegate(const std::shared_ptr<EventData> &event);
+    void req_actor_move_delegate(const std::shared_ptr<EventData> &event);
 
 private:
     void set_player(int idx);

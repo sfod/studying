@@ -12,7 +12,7 @@ GameLogic::GameLogic(QObject *qroot)
     graph_(new Graph), view_list_()
 {
     bs2::connection conn = EventManager::get()->add_listener(
-                boost::bind(&GameLogic::move_actor_delegate, this, _1),
+                boost::bind(&GameLogic::req_actor_move_delegate, this, _1),
                 EventData_RequestActorMove::event_type_);
     conn_list_.push_back(conn);
 }
@@ -66,7 +66,7 @@ void GameLogic::change_view(std::shared_ptr<IView> view)
     view_list_.push_back(view);
 }
 
-void GameLogic::move_actor_delegate(const std::shared_ptr<EventData> &event)
+void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
 {
     std::shared_ptr<EventData_RequestActorMove> req_event =
             std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
