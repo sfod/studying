@@ -24,9 +24,9 @@ Item {
         height: parent.height
         anchors.centerIn: parent
 
-        drag.target: pawn.isDraggedEnable ? pawn : null
+        drag.target: pawn.isDraggingEnabled ? pawn : null
         onReleased: {
-            if (pawn.isDraggedEnable && (pawn.Drag.target !== null) && pawn.allowed(pawn.Drag.target.rIdx)) {
+            if (pawn.isDraggingEnabled && (pawn.Drag.target !== null) && pawn.allowed(pawn.Drag.target.rIdx)) {
                 console.log("released on drop area " + pawn.Drag.target.rIdx)
                 parent = pawn.Drag.target
                 pawn.curParent = parent
@@ -44,7 +44,7 @@ Item {
 
             property int actorId: -1
             property var possibleMoves: new Object()
-            property bool isDraggedEnable: true
+            property bool isDraggingEnabled: true
             property Item curParent: root
 
             width: parent.width
