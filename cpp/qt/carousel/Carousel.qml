@@ -42,16 +42,10 @@ Item {
                 anchors.fill: parent
                 model: ListModel {
                     ListElement {
-                        name: "Bill Jones"
+                        name: "human"
                     }
                     ListElement {
-                        name: "Jane Doe"
-                    }
-                    ListElement {
-                        name: "John Smith"
-                    }
-                    ListElement {
-                        name: "Some Name"
+                        name: "AI"
                     }
                 }
                 delegate: delegate
