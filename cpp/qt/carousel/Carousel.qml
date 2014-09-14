@@ -52,7 +52,7 @@ Item {
                 path: Path {
                     startX: 65
                     startY: 15
-                    PathLine { x: 65; y: 14 }
+                    PathLine { relativeX: 0.1; relativeY: 0 }
                 }
             }
         }
