@@ -17,8 +17,23 @@ ApplicationWindow {
         }
     }
 
+    ListModel {
+        id: cm
+        ListElement {
+            name: "human"
+        }
+        ListElement {
+            name: "AI"
+        }
+        ListElement {
+            name: "network"
+        }
+    }
+
+
     Carousel {
         x: 100
         y: 100
+        carouselModel: cm
     }
 }

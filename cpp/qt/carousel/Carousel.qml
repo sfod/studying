@@ -1,6 +1,9 @@
 import QtQuick 2.0
 
 Item {
+    id: root
+    property var carouselModel: ({})
+
     Row {
         Rectangle {
             width: 30
@@ -47,14 +50,8 @@ Item {
                 Keys.onRightPressed: incrementCurrentIndex()
 
                 anchors.fill: parent
-                model: ListModel {
-                    ListElement {
-                        name: "human"
-                    }
-                    ListElement {
-                        name: "AI"
-                    }
-                }
+                model: root.carouselModel
+
                 delegate: delegate
                 path: Path {
                     startX: 0
