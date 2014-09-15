@@ -38,15 +38,11 @@ void GameLogic::change_state(LogicState state)
         change_view(view);
         break;
     case LogicState::LS_Options:
-        qDebug() << "setting OptionsView";
-
         view.reset(new OptionsView(qroot_));
         view->init();
         change_view(view);
         break;
     case LogicState::LS_Game: {
-        qDebug() << "setting PlayerView";
-
         view.reset(new PlayerView(qroot_));
         view->init();
 
