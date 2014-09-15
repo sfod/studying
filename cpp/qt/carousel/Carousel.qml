@@ -5,10 +5,19 @@ Item {
     property var carouselModel: ({})
 
     Row {
+        spacing: 1
+
         Rectangle {
             width: 30
             height: 30
-            color: "black"
+
+            Text {
+                text: "<"
+                anchors.fill: parent
+                font.pixelSize: 30
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
 
             MouseArea {
                 anchors.fill: parent
@@ -64,7 +73,14 @@ Item {
         Rectangle {
             width: 30
             height: 30
-            color: "black"
+
+            Text {
+                text: ">"
+                anchors.fill: parent
+                font.pixelSize: 30
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
 
             MouseArea {
                 anchors.fill: parent
