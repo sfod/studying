@@ -4,6 +4,7 @@
 
 #include "view/main_menu_view.hpp"
 #include "view/player_view.hpp"
+#include "view/options_view.hpp"
 #include "actors/graph_component.hpp"
 
 GameLogic::GameLogic(QObject *qroot)
@@ -36,7 +37,16 @@ void GameLogic::change_state(LogicState state)
         view->init();
         change_view(view);
         break;
+    case LogicState::LS_Options:
+        qDebug() << "setting OptionsView";
+
+        view.reset(new OptionsView(qroot_));
+        view->init();
+        change_view(view);
+        break;
     case LogicState::LS_Game: {
+        qDebug() << "setting PlayerView";
+
         view.reset(new PlayerView(qroot_));
         view->init();
 

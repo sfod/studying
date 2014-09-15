@@ -5,8 +5,7 @@
 #include <QObject>
 #include "iview.hpp"
 
-class MainMenuView : public QObject, public IView
-{
+class MainMenuView : public QObject, public IView {
     Q_OBJECT
 
 public:
@@ -16,8 +15,6 @@ public:
     bool init();
     virtual void on_msg();
     virtual void on_update();
-
-signals:
 
 public slots:
     void button_new_game_clicked();

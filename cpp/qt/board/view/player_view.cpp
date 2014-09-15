@@ -28,9 +28,9 @@ bool PlayerView::init()
                 this, SLOT(on_pawn_dropped(int, int))
     );
 
-    qbutton_ = qroot_->findChild<QObject*>("buttonBackToMainMenu");
+    qbutton_ = qroot_->findChild<QObject*>("buttonBackToOptions");
     if (qbutton_ == NULL) {
-        qDebug() << "cannot find buttonBackToMainMenu element";
+        qDebug() << "cannot find buttonBackToOptions element";
         return false;
     }
     QObject::connect(
@@ -110,7 +110,7 @@ void PlayerView::on_pawn_dropped(int id, int idx)
 
 void PlayerView::button_back_clicked()
 {
-    auto event = std::make_shared<EventData_MainMenu>();
+    auto event = std::make_shared<EventData_Options>();
     if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue MainMenu event";
     }

@@ -50,9 +50,9 @@ void MainMenuView::on_update()
 
 void MainMenuView::button_new_game_clicked()
 {
-    auto event = std::make_shared<EventData_NewGame>();
+    auto event = std::make_shared<EventData_Options>();
     if (!EventManager::get()->queue_event(event)) {
-        qDebug() << "failed to queue NewGame event";
+        qDebug() << "failed to queue Options event";
     }
 }
 

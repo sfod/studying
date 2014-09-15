@@ -16,6 +16,7 @@
 enum class LogicState {
     LS_Uninitialized,
     LS_MainMenu,
+    LS_Options,
     LS_Game,
     LS_Invalid
 };

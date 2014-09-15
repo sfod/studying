@@ -39,7 +39,7 @@ ApplicationWindow {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "New Game"
                     onClicked: {
-                        windowMain.state = "stateGame"
+                        windowMain.state = "stateOptions"
                     }
                 }
 
@@ -49,6 +49,44 @@ ApplicationWindow {
 
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Quit"
+                }
+            }
+        }
+
+        // options window
+        Item {
+            id: windowOptions
+
+            x: 20
+            y: 20
+            width: parent.width - 40
+            height: parent.height - 40
+
+            Column {
+                y: 100
+                width: parent.width
+                height: parent.height - 100
+                spacing: 20
+
+                Button {
+                    id: buttonStartGame
+                    objectName: "buttonStartGame"
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Start Game"
+                    onClicked: {
+                        windowMain.state = "stateGame"
+                    }
+                }
+                Button {
+                    id: buttonBackToMainMenu
+                    objectName: "buttonBackToMainMenu"
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Back"
+                    onClicked: {
+                        windowMain.state = "stateMainMenu"
+                    }
                 }
             }
         }
@@ -73,16 +111,15 @@ ApplicationWindow {
             }
 
             Button {
-                id: buttonBackToMainMenu
-                objectName: "buttonBackToMainMenu"
-
+                id: buttonBackToOptions
+                objectName: "buttonBackToOptions"
                 text: "Back"
 
                 anchors.top: board.bottom
 
                 onClicked: {
                     board.endGame()
-                    windowMain.state = "stateMainMenu"
+                    windowMain.state = "stateOptions"
                 }
             }
         }
@@ -95,6 +132,25 @@ ApplicationWindow {
                     visible: true
                 }
                 PropertyChanges {
+                    target: windowOptions
+                    visible: false
+                }
+                PropertyChanges {
+                    target: windowGame
+                    visible: false
+                }
+            },
+            State {
+                name: "stateOptions"
+                PropertyChanges {
+                    target: windowMainMenu
+                    visible: false
+                }
+                PropertyChanges {
+                    target: windowOptions
+                    visible: true
+                }
+                PropertyChanges {
                     target: windowGame
                     visible: false
                 }
@@ -103,6 +159,10 @@ ApplicationWindow {
                 name: "stateGame"
                 PropertyChanges {
                     target: windowMainMenu
+                    visible: false
+                }
+                PropertyChanges {
+                    target: windowOptions
                     visible: false
                 }
                 PropertyChanges {

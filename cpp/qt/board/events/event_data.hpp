@@ -27,10 +27,19 @@ public:
 };
 
 
-class EventData_NewGame : public EventData {
+class EventData_Options : public EventData {
 public:
-    EventData_NewGame();
-    virtual ~EventData_NewGame();
+    EventData_Options();
+    virtual ~EventData_Options();
+    virtual const EventType &event_type() const;
+    static const EventType event_type_;
+};
+
+
+class EventData_Game : public EventData {
+public:
+    EventData_Game();
+    virtual ~EventData_Game();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 };

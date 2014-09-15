@@ -18,8 +18,9 @@ public:
     int run(int argc, char **argv);
     GameLogic *game_logic() const { return logic_; }
 
-    void main_menu_delegate(const std::shared_ptr<EventData> &event);
-    void new_game_delegate(const std::shared_ptr<EventData> &event);
+    void main_menu_win_delegate(const std::shared_ptr<EventData> &event);
+    void options_win_delegate(const std::shared_ptr<EventData> &event);
+    void game_win_delegate(const std::shared_ptr<EventData> &event);
     void quit_delegate(const std::shared_ptr<EventData> &event);
 
     static GameApp *get();

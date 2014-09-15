@@ -1,7 +1,8 @@
 #include "event_data.hpp"
 
 const EventType EventData_MainMenu::event_type_(1011);
-const EventType EventData_NewGame::event_type_(1012);
+const EventType EventData_Options::event_type_(1018);
+const EventType EventData_Game::event_type_(1012);
 const EventType EventData_Quit::event_type_(1013);
 const EventType EventData_NewActor::event_type_(1014);
 const EventType EventData_RequestActorMove::event_type_(1015);
@@ -23,15 +24,29 @@ const EventType &EventData_MainMenu::event_type() const
 }
 
 
-EventData_NewGame::EventData_NewGame() : EventData()
+EventData_Options::EventData_Options() : EventData()
 {
 }
 
-EventData_NewGame::~EventData_NewGame()
+EventData_Options::~EventData_Options()
 {
 }
 
-const EventType &EventData_NewGame::event_type() const
+const EventType &EventData_Options::event_type() const
+{
+    return event_type_;
+}
+
+
+EventData_Game::EventData_Game() : EventData()
+{
+}
+
+EventData_Game::~EventData_Game()
+{
+}
+
+const EventType &EventData_Game::event_type() const
 {
     return event_type_;
 }

@@ -46,15 +46,23 @@ int GameApp::run(int argc, char **argv)
     return qapp->exec();
 }
 
-void GameApp::main_menu_delegate(const std::shared_ptr<EventData> &event)
+void GameApp::main_menu_win_delegate(const std::shared_ptr<EventData> &event)
 {
     (void) event;
     logic_->change_state(LogicState::LS_MainMenu);
 }
 
-void GameApp::new_game_delegate(const std::shared_ptr<EventData> &event)
+void GameApp::options_win_delegate(const std::shared_ptr<EventData> &event)
 {
     (void) event;
+    qDebug() << "fired options_win_delegate";
+    logic_->change_state(LogicState::LS_Options);
+}
+
+void GameApp::game_win_delegate(const std::shared_ptr<EventData> &event)
+{
+    (void) event;
+    qDebug() << "fired game_win_delegate";
     logic_->change_state(LogicState::LS_Game);
 }
 
@@ -74,13 +82,18 @@ void GameApp::register_delegates()
     bs2::connection conn;
 
     conn = EventManager::get()->add_listener(
-            boost::bind(&GameApp::main_menu_delegate, this, _1),
+            boost::bind(&GameApp::main_menu_win_delegate, this, _1),
             EventData_MainMenu::event_type_);
     conn_list_.push_back(conn);
 
     conn = EventManager::get()->add_listener(
-            boost::bind(&GameApp::new_game_delegate, this, _1),
-            EventData_NewGame::event_type_);
+            boost::bind(&GameApp::options_win_delegate, this, _1),
+            EventData_Options::event_type_);
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
+            boost::bind(&GameApp::game_win_delegate, this, _1),
+            EventData_Game::event_type_);
     conn_list_.push_back(conn);
 
     conn = EventManager::get()->add_listener(
