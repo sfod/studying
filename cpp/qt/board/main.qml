@@ -26,11 +26,6 @@ ApplicationWindow {
             width: parent.width - 40
             height: parent.height - 40
 
-            onVisibleChanged: {
-                if (visible == true) {
-                }
-            }
-
             Column {
                 y: 100
                 width: parent.width
