@@ -4,7 +4,7 @@
 #include "events/event_manager.hpp"
 
 OptionsView::OptionsView(QObject *qroot, QObject *qparent)
-    : QObject(qparent), IView(), qroot_(qroot), object_list_()
+    : QtView(qparent), qroot_(qroot)
 {
 }
 
@@ -15,28 +15,12 @@ OptionsView::~OptionsView()
 
 bool OptionsView::init()
 {
-    QObject *qbutton = qroot_->findChild<QObject*>("buttonStartGame");
-    if (qbutton == NULL) {
-        qDebug() << "cannot find buttonStartGame element";
+    if (!connect_button("buttonStartGame", SLOT(button_start_game_clicked()))) {
         return false;
     }
-    QObject::connect(
-            qbutton, SIGNAL(clicked()),
-            this, SLOT(button_start_game_clicked())
-    );
-    object_list_.push_back(qbutton);
-
-    qbutton = qroot_->findChild<QObject*>("buttonBackToMainMenu");
-    if (qbutton == NULL) {
-        qDebug() << "cannot find buttonBackToMainMenu element";
+    if (!connect_button("buttonBackToMainMenu", SLOT(button_back_clicked()))) {
         return false;
     }
-    QObject::connect(
-            qbutton, SIGNAL(clicked()),
-            this, SLOT(button_back_clicked())
-    );
-    object_list_.push_back(qbutton);
-
     return true;
 }
 
@@ -64,4 +48,9 @@ void OptionsView::button_back_clicked()
     if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue MainMenu event";
     }
+}
+
+QObject *OptionsView::find_object_by_name(const char *name) const
+{
+    return qroot_->findChild<QObject*>(name);
 }

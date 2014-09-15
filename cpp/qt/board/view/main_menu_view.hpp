@@ -3,9 +3,9 @@
 
 #include <list>
 #include <QObject>
-#include "iview.hpp"
+#include "qt_view.hpp"
 
-class MainMenuView : public QObject, public IView {
+class MainMenuView : public QtView {
     Q_OBJECT
 
 public:
@@ -21,8 +21,10 @@ public slots:
     void button_quit_clicked();
 
 private:
+    virtual QObject *find_object_by_name(const char *name) const override;
+
+private:
     QObject *qroot_;
-    std::list<QObject*> object_list_;
 };
 
 #endif // MAIN_MENU_VIEW_HPP

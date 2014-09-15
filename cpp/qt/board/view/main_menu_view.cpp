@@ -4,7 +4,7 @@
 #include "events/event_manager.hpp"
 
 MainMenuView::MainMenuView(QObject *qroot, QObject *qparent)
-    : QObject(qparent), IView(), qroot_(qroot), object_list_()
+    : QtView(qparent), qroot_(qroot)
 {
 }
 
@@ -15,28 +15,12 @@ MainMenuView::~MainMenuView()
 
 bool MainMenuView::init()
 {
-    QObject *qbutton = qroot_->findChild<QObject*>("buttonNewGame");
-    if (qbutton == NULL) {
-        qDebug() << "cannot find buttonNewGame element";
+    if (!connect_button("buttonNewGame", SLOT(button_new_game_clicked()))) {
         return false;
     }
-    QObject::connect(
-                qbutton, SIGNAL(clicked()),
-                this, SLOT(button_new_game_clicked())
-    );
-    object_list_.push_back(qbutton);
-
-    qbutton = qroot_->findChild<QObject*>("buttonQuit");
-    if (qbutton == NULL) {
-        qDebug() << "cannot find buttonQuit element";
+    if (!connect_button("buttonQuit", SLOT(button_quit_clicked()))) {
         return false;
     }
-    QObject::connect(
-                qbutton, SIGNAL(clicked()),
-                this, SLOT(button_quit_clicked())
-    );
-    object_list_.push_back(qbutton);
-
     return true;
 }
 
@@ -63,4 +47,9 @@ void MainMenuView::button_quit_clicked()
         qDebug() << "failed to queue Quit event";
     }
 
+}
+
+QObject *MainMenuView::find_object_by_name(const char *name) const
+{
+    return qroot_->findChild<QObject*>(name);
 }

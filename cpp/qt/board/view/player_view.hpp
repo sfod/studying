@@ -2,10 +2,10 @@
 #define PLAYER_VIEW_HPP
 
 #include <QObject>
-#include "iview.hpp"
+#include "qt_view.hpp"
 #include "events/event_manager.hpp"
 
-class PlayerView : public QObject, public IView
+class PlayerView : public QtView
 {
     Q_OBJECT
 
@@ -24,6 +24,10 @@ public:
 public slots:
     void on_pawn_dropped(int id, int idx);
     void button_back_clicked();
+
+private:
+    virtual QObject *find_object_by_name(const char *name) const override;
+    bool connect_board();
 
 private:
     std::list<bs2::connection> conn_list_;

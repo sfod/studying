@@ -3,7 +3,7 @@
 #include <QDebug>
 
 PlayerView::PlayerView(QObject *qroot, QObject *qparent)
-    : QObject(qparent), IView(), conn_list_(),
+    : QtView(qparent), conn_list_(),
       qroot_(qroot), qboard_(), qbutton_()
 {
 }
@@ -18,25 +18,13 @@ PlayerView::~PlayerView()
 
 bool PlayerView::init()
 {
-    qboard_ = qroot_->findChild<QObject*>("board");
-    if (qboard_ == NULL) {
-        qDebug() << "cannot find board element";
+    if (!connect_board()) {
         return false;
     }
-    QObject::connect(
-                qboard_, SIGNAL(pawnDropped(int, int)),
-                this, SLOT(on_pawn_dropped(int, int))
-    );
 
-    qbutton_ = qroot_->findChild<QObject*>("buttonBackToOptions");
-    if (qbutton_ == NULL) {
-        qDebug() << "cannot find buttonBackToOptions element";
+    if (!connect_button("buttonBackToOptions", SLOT(button_back_clicked()), &qbutton_)) {
         return false;
     }
-    QObject::connect(
-                qbutton_, SIGNAL(clicked()),
-                this, SLOT(button_back_clicked())
-    );
 
     bs2::connection conn;
     conn = EventManager::get()->add_listener(
@@ -114,4 +102,22 @@ void PlayerView::button_back_clicked()
     if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue MainMenu event";
     }
+}
+
+QObject *PlayerView::find_object_by_name(const char *name) const
+{
+    return qroot_->findChild<QObject*>(name);
+}
+
+bool PlayerView::connect_board()
+{
+    qboard_ = find_object_by_name("board");
+    if (qboard_ == NULL) {
+        return false;
+    }
+    QObject::connect(
+            qboard_, SIGNAL(pawnDropped(int, int)),
+            this, SLOT(on_pawn_dropped(int, int))
+    );
+    return true;
 }

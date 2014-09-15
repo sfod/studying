@@ -2,9 +2,9 @@
 #define OPTIONS_VIEW_HPP
 
 #include <QObject>
-#include "iview.hpp"
+#include "qt_view.hpp"
 
-class OptionsView : public QObject, public IView {
+class OptionsView : public QtView {
     Q_OBJECT
 
 public:
@@ -20,8 +20,10 @@ public slots:
     void button_back_clicked();
 
 private:
+    virtual QObject *find_object_by_name(const char *name) const override;
+
+private:
     QObject *qroot_;
-    std::list<QObject*> object_list_;
 };
 
 #endif // OPTIONS_VIEW_HPP
