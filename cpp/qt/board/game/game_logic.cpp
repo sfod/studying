@@ -12,7 +12,24 @@ GameLogic::GameLogic(QObject *qroot)
     actor_factory_(new ActorFactory), actor_keeper_(new ActorKeeper),
     graph_(new Graph), view_list_()
 {
-    bs2::connection conn = EventManager::get()->add_listener(
+    bs2::connection conn;
+
+    conn = EventManager::get()->add_listener(
+            boost::bind(&GameLogic::main_menu_win_delegate, this, _1),
+            EventData_MainMenu::event_type_);
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
+            boost::bind(&GameLogic::options_win_delegate, this, _1),
+            EventData_Options::event_type_);
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
+            boost::bind(&GameLogic::game_win_delegate, this, _1),
+            EventData_Game::event_type_);
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
                 boost::bind(&GameLogic::req_actor_move_delegate, this, _1),
                 EventData_RequestActorMove::event_type_);
     conn_list_.push_back(conn);
@@ -70,6 +87,21 @@ void GameLogic::change_view(std::shared_ptr<IView> view)
         view_list_.pop_back();
     }
     view_list_.push_back(view);
+}
+
+void GameLogic::main_menu_win_delegate(const std::shared_ptr<EventData> &event)
+{
+    change_state(LogicState::LS_MainMenu);
+}
+
+void GameLogic::options_win_delegate(const std::shared_ptr<EventData> &event)
+{
+    change_state(LogicState::LS_Options);
+}
+
+void GameLogic::game_win_delegate(const std::shared_ptr<EventData> &event)
+{
+    change_state(LogicState::LS_Game);
 }
 
 void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)

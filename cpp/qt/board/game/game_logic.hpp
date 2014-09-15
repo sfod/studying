@@ -33,6 +33,10 @@ public:
     void add_view(std::shared_ptr<IView> view);
     void change_view(std::shared_ptr<IView> view);
 
+    void main_menu_win_delegate(const std::shared_ptr<EventData> &event);
+    void options_win_delegate(const std::shared_ptr<EventData> &event);
+    void game_win_delegate(const std::shared_ptr<EventData> &event);
+
     void req_actor_move_delegate(const std::shared_ptr<EventData> &event);
 
 private:
