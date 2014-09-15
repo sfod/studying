@@ -27,7 +27,8 @@ Item {
                         id: nameText
                         text: name
                         font.pointSize: 16
-                        color: wrapper.PathView.isCurrentItem ? "black" : "transparent"
+                        color: "black"
+                        visible: wrapper.PathView.isCurrentItem ? true : false
                     }
                 }
             }
