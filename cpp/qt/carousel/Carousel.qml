@@ -21,11 +21,17 @@ Item {
 
             Component {
                 id: delegate
-                Column {
+                Item {
                     id: wrapper
+                    anchors.fill: parent
                     Text {
                         id: nameText
                         text: name
+
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+
                         font.pointSize: 16
                         color: "black"
                         visible: wrapper.PathView.isCurrentItem ? true : false
@@ -51,9 +57,9 @@ Item {
                 }
                 delegate: delegate
                 path: Path {
-                    startX: 65
-                    startY: 15
-                    PathLine { relativeX: 0.1; relativeY: 0 }
+                    startX: 0
+                    startY: 0
+                    PathLine { relativeX: 0; relativeY: 0 }
                 }
             }
         }
