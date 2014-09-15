@@ -3,8 +3,8 @@
 #include <boost/bind.hpp>
 
 #include "view/main_menu_view.hpp"
-#include "view/player_view.hpp"
 #include "view/options_view.hpp"
+#include "view/game_view.hpp"
 #include "actors/graph_component.hpp"
 
 GameLogic::GameLogic(QObject *qroot)
@@ -43,7 +43,7 @@ void GameLogic::change_state(LogicState state)
         change_view(view);
         break;
     case LogicState::LS_Game: {
-        view.reset(new PlayerView(qroot_));
+        view.reset(new GameView(qroot_));
         view->init();
 
         set_player(1);

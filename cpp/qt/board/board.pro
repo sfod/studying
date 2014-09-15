@@ -6,7 +6,6 @@ QT += qml quick widgets
 SOURCES += main.cpp \
     game/game_app.cpp \
     game/game_logic.cpp \
-    view/player_view.cpp \
     view/main_menu_view.cpp \
     events/event_manager.cpp \
     events/event_data.cpp \
@@ -18,7 +17,8 @@ SOURCES += main.cpp \
     graph/graph.cpp \
     graph/node.cpp \
     view/options_view.cpp \
-    view/qt_view.cpp
+    view/qt_view.cpp \
+    view/game_view.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,7 +32,6 @@ HEADERS += \
     game/game_app.hpp \
     view/iview.hpp \
     game/game_logic.hpp \
-    view/player_view.hpp \
     view/main_menu_view.hpp \
     events/event_manager.hpp \
     events/event_data.hpp \
@@ -45,7 +44,8 @@ HEADERS += \
     graph/graph.hpp \
     graph/node.hpp \
     view/options_view.hpp \
-    view/qt_view.hpp
+    view/qt_view.hpp \
+    view/game_view.hpp
 
 OTHER_FILES += \
     data/player_1.json \

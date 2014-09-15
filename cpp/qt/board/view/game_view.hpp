@@ -1,17 +1,17 @@
-#ifndef PLAYER_VIEW_HPP
-#define PLAYER_VIEW_HPP
+#ifndef GAME_VIEW_HPP
+#define GAME_VIEW_HPP
 
 #include <QObject>
 #include "qt_view.hpp"
 #include "events/event_manager.hpp"
 
-class PlayerView : public QtView
+class GameView : public QtView
 {
     Q_OBJECT
 
 public:
-    explicit PlayerView(QObject *qroot, QObject *qparent = 0);
-    virtual ~PlayerView();
+    explicit GameView(QObject *qroot, QObject *qparent = 0);
+    virtual ~GameView();
 
     bool init();
     virtual void on_msg();
@@ -36,4 +36,4 @@ private:
     QObject *qbutton_;
 };
 
-#endif // PLAYER_VIEW_HPP
+#endif // GAME_VIEW_HPP
