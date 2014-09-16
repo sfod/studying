@@ -1,5 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.1
 
 ApplicationWindow {
     visible: true
@@ -26,29 +27,36 @@ ApplicationWindow {
             width: parent.width - 40
             height: parent.height - 40
 
-            Column {
-                y: 100
+            RowLayout {
+                height: parent.height / 2
                 width: parent.width
-                height: parent.height - 100
-                spacing: 20
+                anchors.bottom: parent.bottom
 
-                Button {
-                    id: buttonNewGame
-                    objectName: "buttonNewGame"
-
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "New Game"
-                    onClicked: {
-                        windowMain.state = "stateOptions"
+                Item {
+                    anchors.left: parent.left
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Button {
+                        id: buttonNewGame
+                        objectName: "buttonNewGame"
+                        text: "New Game"
+                        anchors.centerIn: parent
+                        onClicked: {
+                            windowMain.state = "stateOptions"
+                        }
                     }
                 }
 
-                Button {
-                    id: buttonQuit
-                    objectName: "buttonQuit"
-
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Quit"
+                Item {
+                    anchors.right: parent.right
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Button {
+                        id: buttonQuit
+                        objectName: "buttonQuit"
+                        text: "Quit"
+                        anchors.centerIn: parent
+                    }
                 }
             }
         }
@@ -62,30 +70,38 @@ ApplicationWindow {
             width: parent.width - 40
             height: parent.height - 40
 
-            Column {
-                y: 100
+            RowLayout {
+                height: parent.height / 2
                 width: parent.width
-                height: parent.height - 100
-                spacing: 20
+                anchors.bottom: parent.bottom
 
-                Button {
-                    id: buttonStartGame
-                    objectName: "buttonStartGame"
-
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Start Game"
-                    onClicked: {
-                        windowMain.state = "stateGame"
+                Item {
+                    anchors.left: parent.left
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Button {
+                        id: buttonStartGame
+                        objectName: "buttonStartGame"
+                        text: "Start Game"
+                        anchors.centerIn: parent
+                        onClicked: {
+                            windowMain.state = "stateGame"
+                        }
                     }
                 }
-                Button {
-                    id: buttonBackToMainMenu
-                    objectName: "buttonBackToMainMenu"
 
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Back"
-                    onClicked: {
-                        windowMain.state = "stateMainMenu"
+                Item {
+                    anchors.right: parent.right
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Button {
+                        id: buttonBackToMainMenu
+                        objectName: "buttonBackToMainMenu"
+                        text: "Back"
+                        anchors.centerIn: parent
+                        onClicked: {
+                            windowMain.state = "stateMainMenu"
+                        }
                     }
                 }
             }
