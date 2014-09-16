@@ -4,7 +4,7 @@ Rectangle {
     id: board
     signal pawnDropped(int actorId, int idx)
 
-    property var pawnList: new Object()
+    property var pawnList: ({})
 
     function addPawn(actorId) {
         var component = Qt.createComponent("DragTile.qml")
