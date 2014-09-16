@@ -126,16 +126,23 @@ ApplicationWindow {
                 y: 0
             }
 
-            Button {
-                id: buttonBackToOptions
-                objectName: "buttonBackToOptions"
-                text: "Back"
-
+            Item {
+                width: parent.width / 2
                 anchors.top: board.bottom
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
 
-                onClicked: {
-                    board.endGame()
-                    windowMain.state = "stateOptions"
+                Button {
+                    id: buttonBackToOptions
+                    objectName: "buttonBackToOptions"
+                    text: "Back"
+
+                    anchors.centerIn: parent
+
+                    onClicked: {
+                        board.endGame()
+                        windowMain.state = "stateOptions"
+                    }
                 }
             }
         }
