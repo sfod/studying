@@ -70,6 +70,8 @@ ApplicationWindow {
             width: parent.width - 40
             height: parent.height - 40
 
+            Options {}
+
             RowLayout {
                 height: parent.height / 2
                 width: parent.width
