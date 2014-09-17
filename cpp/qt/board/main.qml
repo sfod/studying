@@ -41,6 +41,8 @@ ApplicationWindow {
                         objectName: "buttonNewGame"
                         text: "New Game"
                         anchors.centerIn: parent
+
+                        // @fixme change state from C++
                         onClicked: {
                             windowMain.state = "stateOptions"
                         }
@@ -89,6 +91,8 @@ ApplicationWindow {
                         objectName: "buttonStartGame"
                         text: "Start Game"
                         anchors.centerIn: parent
+
+                        // @fixme change state from C++
                         onClicked: {
                             windowMain.state = "stateGame"
                         }
@@ -104,6 +108,8 @@ ApplicationWindow {
                         objectName: "buttonBackToMainMenu"
                         text: "Back"
                         anchors.centerIn: parent
+
+                        // @fixme change state from C++
                         onClicked: {
                             windowMain.state = "stateMainMenu"
                         }
@@ -144,6 +150,7 @@ ApplicationWindow {
 
                     anchors.centerIn: parent
 
+                    // @fixme change state from C++
                     onClicked: {
                         board.endGame()
                         windowMain.state = "stateOptions"
