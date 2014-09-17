@@ -56,15 +56,12 @@ public:
 
 class EventData_RequestNewActor : public EventData {
 public:
-    explicit EventData_RequestNewActor(ActorId actor_id);
+    EventData_RequestNewActor();
     virtual ~EventData_RequestNewActor();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
-    ActorId actor_id() const { return actor_id_; }
-
 private:
-    ActorId actor_id_;
 };
 
 

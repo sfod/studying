@@ -67,8 +67,7 @@ const EventType &EventData_Quit::event_type() const
 }
 
 
-EventData_RequestNewActor::EventData_RequestNewActor(ActorId actor_id)
-    : EventData(), actor_id_(actor_id)
+EventData_RequestNewActor::EventData_RequestNewActor()
 {
 }
 
