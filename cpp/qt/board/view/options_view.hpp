@@ -22,6 +22,7 @@ public slots:
 private:
     virtual QObject *find_object_by_name(const char *name) const override;
     bool connect_options();
+    void send_new_actors_data() const;
 
 private:
     QObject *qroot_;

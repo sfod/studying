@@ -39,6 +39,9 @@ void OptionsView::on_update()
 void OptionsView::button_start_game_clicked()
 {
     qDebug() << "button_start_game_clicked";
+
+    send_new_actors_data();
+
     auto event = std::make_shared<EventData_Game>();
     if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue Game event";
@@ -63,4 +66,12 @@ bool OptionsView::connect_options()
 {
     qoptions_ = find_object_by_name("options");
     return (qoptions_ != NULL);
+}
+
+void OptionsView::send_new_actors_data() const
+{
+    auto ev1 = std::make_shared<EventData_RequestNewActor>();
+    EventManager::get()->queue_event(ev1);
+    auto ev2 = std::make_shared<EventData_RequestNewActor>();
+    EventManager::get()->queue_event(ev2);
 }
