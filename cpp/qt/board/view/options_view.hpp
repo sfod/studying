@@ -21,9 +21,11 @@ public slots:
 
 private:
     virtual QObject *find_object_by_name(const char *name) const override;
+    bool connect_options();
 
 private:
     QObject *qroot_;
+    QObject *qoptions_;
 };
 
 #endif // OPTIONS_VIEW_HPP

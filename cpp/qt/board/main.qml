@@ -70,7 +70,10 @@ ApplicationWindow {
             width: parent.width - 40
             height: parent.height - 40
 
-            Options {}
+            Options {
+                id: options
+                objectName: "options"
+            }
 
             RowLayout {
                 height: parent.height / 2

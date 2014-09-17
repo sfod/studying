@@ -4,7 +4,7 @@
 #include "events/event_manager.hpp"
 
 OptionsView::OptionsView(QObject *qroot, QObject *qparent)
-    : QtView(qparent), qroot_(qroot)
+    : QtView(qparent), qroot_(qroot), qoptions_()
 {
 }
 
@@ -15,6 +15,10 @@ OptionsView::~OptionsView()
 
 bool OptionsView::init()
 {
+    if (!connect_options()) {
+        return false;
+    }
+
     if (!connect_button("buttonStartGame", SLOT(button_start_game_clicked()))) {
         return false;
     }
@@ -53,4 +57,10 @@ void OptionsView::button_back_clicked()
 QObject *OptionsView::find_object_by_name(const char *name) const
 {
     return qroot_->findChild<QObject*>(name);
+}
+
+bool OptionsView::connect_options()
+{
+    qoptions_ = find_object_by_name("options");
+    return (qoptions_ != NULL);
 }
