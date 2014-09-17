@@ -51,22 +51,23 @@ void GameLogic::change_state(LogicState state)
         break;
     case LogicState::LS_MainMenu:
         view.reset(new MainMenuView(qroot_));
-        view->init();
-        change_view(view);
+        if (view->init()) {
+            change_view(view);
+        }
         break;
     case LogicState::LS_Options:
         view.reset(new OptionsView(qroot_));
-        view->init();
-        change_view(view);
+        if (view->init()) {
+            change_view(view);
+        }
         break;
     case LogicState::LS_Game: {
         view.reset(new GameView(qroot_));
-        view->init();
-
-        set_player(1);
-        set_player(2);
-
-        change_view(view);
+        if (view->init()) {
+            set_player(1);
+            set_player(2);
+            change_view(view);
+        }
         break;
     }
     case LogicState::LS_Invalid:
