@@ -4,6 +4,7 @@ const EventType EventData_MainMenu::event_type_(1011);
 const EventType EventData_Options::event_type_(1018);
 const EventType EventData_Game::event_type_(1012);
 const EventType EventData_Quit::event_type_(1013);
+const EventType EventData_RequestNewActor::event_type_(1019);
 const EventType EventData_NewActor::event_type_(1014);
 const EventType EventData_RequestActorMove::event_type_(1015);
 const EventType EventData_MoveActor::event_type_(1016);
@@ -61,6 +62,21 @@ EventData_Quit::~EventData_Quit()
 }
 
 const EventType &EventData_Quit::event_type() const
+{
+    return event_type_;
+}
+
+
+EventData_RequestNewActor::EventData_RequestNewActor(ActorId actor_id)
+    : EventData(), actor_id_(actor_id)
+{
+}
+
+EventData_RequestNewActor::~EventData_RequestNewActor()
+{
+}
+
+const EventType &EventData_RequestNewActor::event_type() const
 {
     return event_type_;
 }
