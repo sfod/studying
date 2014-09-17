@@ -11,7 +11,7 @@ const EventType EventData_MoveActor::event_type_(1016);
 const EventType EventData_SetActorAvailability::event_type_(1017);
 
 
-EventData_MainMenu::EventData_MainMenu() : EventData()
+EventData_MainMenu::EventData_MainMenu()
 {
 }
 
@@ -25,7 +25,7 @@ const EventType &EventData_MainMenu::event_type() const
 }
 
 
-EventData_Options::EventData_Options() : EventData()
+EventData_Options::EventData_Options()
 {
 }
 
@@ -39,7 +39,7 @@ const EventType &EventData_Options::event_type() const
 }
 
 
-EventData_Game::EventData_Game() : EventData()
+EventData_Game::EventData_Game()
 {
 }
 
@@ -53,7 +53,7 @@ const EventType &EventData_Game::event_type() const
 }
 
 
-EventData_Quit::EventData_Quit() : EventData()
+EventData_Quit::EventData_Quit()
 {
 }
 
@@ -81,7 +81,7 @@ const EventType &EventData_RequestNewActor::event_type() const
 }
 
 
-EventData_NewActor::EventData_NewActor(ActorId actor_id) : EventData(), actor_id_(actor_id)
+EventData_NewActor::EventData_NewActor(ActorId actor_id) : actor_id_(actor_id)
 {
 }
 
@@ -97,7 +97,7 @@ const EventType &EventData_NewActor::event_type() const
 
 EventData_RequestActorMove::EventData_RequestActorMove(ActorId actor_id,
         const Node &node)
-    : EventData(), actor_id_(actor_id), node_(node)
+    : actor_id_(actor_id), node_(node)
 {
 }
 
