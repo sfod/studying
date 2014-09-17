@@ -40,6 +40,7 @@ public:
     void req_actor_move_delegate(const std::shared_ptr<EventData> &event);
 
 private:
+    void register_delegates();
     void set_player(int idx);
 
 private:
