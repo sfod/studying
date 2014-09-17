@@ -87,14 +87,13 @@ void GameLogic::game_win_delegate(const std::shared_ptr<EventData> &event)
 
 void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
 {
-    std::shared_ptr<EventData_RequestActorMove> req_event =
-            std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
+    auto req_move_event = std::dynamic_pointer_cast<EventData_RequestActorMove>(event);
 
-    const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_event->actor_id());
+    const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_move_event->actor_id());
     if (actor) {
         ComponentId cid = ActorComponent::id(GraphComponent::name_);
         auto graph_comp = std::dynamic_pointer_cast<GraphComponent>(actor->component(cid));
-        if (graph_comp && graph_comp->move_actor(req_event->node())) {
+        if (graph_comp && graph_comp->move_actor(req_move_event->node())) {
             auto move_event = std::make_shared<EventData_MoveActor>(
                     actor->id(),
                     graph_comp->node(),
