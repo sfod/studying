@@ -45,6 +45,15 @@ public:
 };
 
 
+class EventData_GameEnd : public EventData {
+public:
+    EventData_GameEnd();
+    virtual ~EventData_GameEnd();
+    virtual const EventType &event_type() const;
+    static const EventType event_type_;
+};
+
+
 class EventData_Quit : public EventData {
 public:
     EventData_Quit();

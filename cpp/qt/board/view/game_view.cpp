@@ -98,6 +98,9 @@ void GameView::on_pawn_dropped(int id, int idx)
 
 void GameView::button_back_clicked()
 {
+    auto game_end_event = std::make_shared<EventData_GameEnd>();
+    EventManager::get()->queue_event(game_end_event);
+
     auto event = std::make_shared<EventData_Options>();
     if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue MainMenu event";

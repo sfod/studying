@@ -3,6 +3,7 @@
 const EventType EventData_MainMenu::event_type_(1011);
 const EventType EventData_Options::event_type_(1018);
 const EventType EventData_Game::event_type_(1012);
+const EventType EventData_GameEnd::event_type_(1020);
 const EventType EventData_Quit::event_type_(1013);
 const EventType EventData_RequestNewActor::event_type_(1019);
 const EventType EventData_NewActor::event_type_(1014);
@@ -48,6 +49,20 @@ EventData_Game::~EventData_Game()
 }
 
 const EventType &EventData_Game::event_type() const
+{
+    return event_type_;
+}
+
+
+EventData_GameEnd::EventData_GameEnd()
+{
+}
+
+EventData_GameEnd::~EventData_GameEnd()
+{
+}
+
+const EventType &EventData_GameEnd::event_type() const
 {
     return event_type_;
 }

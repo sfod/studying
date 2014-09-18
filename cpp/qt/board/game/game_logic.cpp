@@ -84,6 +84,12 @@ void GameLogic::game_win_delegate(const std::shared_ptr<EventData> &event)
     change_state(LogicState::LS_Game);
 }
 
+void GameLogic::game_end_delegate(const std::shared_ptr<EventData> &event)
+{
+    player_list_.clear();
+    player_idx_ = 1;
+}
+
 void GameLogic::req_actor_new_delegate(const std::shared_ptr<EventData> &event)
 {
     auto req_new_event = std::dynamic_pointer_cast<EventData_RequestNewActor>(event);
@@ -126,6 +132,11 @@ void GameLogic::register_delegates()
     conn = EventManager::get()->add_listener(
             boost::bind(&GameLogic::game_win_delegate, this, _1),
             EventData_Game::event_type_);
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
+            boost::bind(&GameLogic::game_end_delegate, this, _1),
+            EventData_GameEnd::event_type_);
     conn_list_.push_back(conn);
 
     conn = EventManager::get()->add_listener(

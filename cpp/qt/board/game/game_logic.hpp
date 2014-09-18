@@ -36,6 +36,7 @@ public:
     void main_menu_win_delegate(const std::shared_ptr<EventData> &event);
     void options_win_delegate(const std::shared_ptr<EventData> &event);
     void game_win_delegate(const std::shared_ptr<EventData> &event);
+    void game_end_delegate(const std::shared_ptr<EventData> &event);
     void req_actor_new_delegate(const std::shared_ptr<EventData> &event);
     void req_actor_move_delegate(const std::shared_ptr<EventData> &event);
 
