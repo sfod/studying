@@ -4,7 +4,7 @@
 #include "events/event_manager.hpp"
 
 OptionsView::OptionsView(QObject *qroot, QObject *qparent)
-    : QtView(qparent), qroot_(qroot), qoptions_()
+    : QtView(qparent), qroot_(qroot), qoptions_(), actor_id_(-1)
 {
 }
 
@@ -34,6 +34,11 @@ void OptionsView::on_msg()
 
 void OptionsView::on_update()
 {
+}
+
+void OptionsView::attach(ActorId actor_id)
+{
+    actor_id_ = actor_id;
 }
 
 void OptionsView::button_start_game_clicked()

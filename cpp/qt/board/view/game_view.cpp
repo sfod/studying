@@ -4,7 +4,7 @@
 
 GameView::GameView(QObject *qroot, QObject *qparent)
     : QtView(qparent), conn_list_(),
-      qroot_(qroot), qboard_(), qbutton_()
+      qroot_(qroot), qboard_(), qbutton_(), actor_id_(-1)
 {
 }
 
@@ -51,6 +51,11 @@ void GameView::on_msg()
 
 void GameView::on_update()
 {
+}
+
+void GameView::attach(ActorId actor_id)
+{
+    actor_id_ = actor_id;
 }
 
 void GameView::new_actor_delegate(const std::shared_ptr<EventData> &event)

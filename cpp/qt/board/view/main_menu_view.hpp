@@ -15,6 +15,7 @@ public:
     bool init();
     virtual void on_msg();
     virtual void on_update();
+    virtual void attach(ActorId actor_id);
 
 public slots:
     void button_new_game_clicked();
@@ -25,6 +26,7 @@ private:
 
 private:
     QObject *qroot_;
+    ActorId actor_id_;
 };
 
 #endif // MAIN_MENU_VIEW_HPP

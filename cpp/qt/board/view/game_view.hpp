@@ -16,6 +16,7 @@ public:
     bool init();
     virtual void on_msg();
     virtual void on_update();
+    virtual void attach(ActorId actor_id);
 
     void new_actor_delegate(const std::shared_ptr<EventData> &event);
     void move_actor_delegate(const std::shared_ptr<EventData> &event);
@@ -34,6 +35,7 @@ private:
     QObject *qroot_;
     QObject *qboard_;
     QObject *qbutton_;
+    ActorId actor_id_;
 };
 
 #endif // GAME_VIEW_HPP

@@ -4,7 +4,7 @@
 #include "events/event_manager.hpp"
 
 MainMenuView::MainMenuView(QObject *qroot, QObject *qparent)
-    : QtView(qparent), qroot_(qroot)
+    : QtView(qparent), qroot_(qroot), actor_id_(-1)
 {
 }
 
@@ -30,6 +30,11 @@ void MainMenuView::on_msg()
 
 void MainMenuView::on_update()
 {
+}
+
+void MainMenuView::attach(ActorId actor_id)
+{
+    actor_id_ = actor_id;
 }
 
 void MainMenuView::button_new_game_clicked()
