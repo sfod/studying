@@ -95,12 +95,14 @@ void GameView::set_availability_delegate(const std::shared_ptr<EventData> &event
             Q_ARG(QVariant, avail_event->availability()));
 }
 
-void GameView::on_pawn_dropped(int id, int idx)
+void GameView::on_pawn_dropped(int actor_id, int idx)
 {
-    Node node(8 - idx / 9, idx % 9);
-    auto event = std::make_shared<EventData_RequestActorMove>(id, node);
-    if (!EventManager::get()->queue_event(event)) {
-        qDebug() << "failed to queue MoveActor event";
+    if (static_cast<ActorId>(actor_id) == actor_id_) {
+        Node node(8 - idx / 9, idx % 9);
+        auto event = std::make_shared<EventData_RequestActorMove>(actor_id, node);
+        if (!EventManager::get()->queue_event(event)) {
+            qDebug() << "failed to queue MoveActor event";
+        }
     }
 }
 

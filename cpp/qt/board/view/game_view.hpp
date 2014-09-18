@@ -23,7 +23,7 @@ public:
     void set_availability_delegate(const std::shared_ptr<EventData> &event);
 
 public slots:
-    void on_pawn_dropped(int id, int idx);
+    void on_pawn_dropped(int actor_id, int idx);
     void button_back_clicked();
 
 private:
