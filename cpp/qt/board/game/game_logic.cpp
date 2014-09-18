@@ -69,22 +69,22 @@ void GameLogic::change_view(std::shared_ptr<IView> view)
     view_list_.push_back(view);
 }
 
-void GameLogic::main_menu_win_delegate(const std::shared_ptr<EventData> &event)
+void GameLogic::main_menu_win_delegate(const std::shared_ptr<EventData> &/*event*/)
 {
     change_state(LogicState::LS_MainMenu);
 }
 
-void GameLogic::options_win_delegate(const std::shared_ptr<EventData> &event)
+void GameLogic::options_win_delegate(const std::shared_ptr<EventData> &/*event*/)
 {
     change_state(LogicState::LS_Options);
 }
 
-void GameLogic::game_win_delegate(const std::shared_ptr<EventData> &event)
+void GameLogic::game_win_delegate(const std::shared_ptr<EventData> &/*event*/)
 {
     change_state(LogicState::LS_Game);
 }
 
-void GameLogic::game_end_delegate(const std::shared_ptr<EventData> &event)
+void GameLogic::game_end_delegate(const std::shared_ptr<EventData> &/*event*/)
 {
     player_list_.clear();
     player_idx_ = 1;
