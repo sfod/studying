@@ -60,28 +60,31 @@ void GameView::attach(ActorId actor_id)
 
 void GameView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 {
-    auto new_event = std::dynamic_pointer_cast<EventData_NewActor>(event);
-    QMetaObject::invokeMethod(qboard_, "addPawn",
-            Q_ARG(QVariant, static_cast<int>(new_event->actor_id())));
+    auto new_actor_event = std::dynamic_pointer_cast<EventData_NewActor>(event);
+    if (new_actor_event->actor_id() == actor_id_) {
+        QMetaObject::invokeMethod(qboard_, "addPawn",
+                Q_ARG(QVariant, static_cast<int>(new_actor_event->actor_id())));
+    }
 }
 
 void GameView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
     auto move_event = std::dynamic_pointer_cast<EventData_MoveActor>(event);
-
-    const Node &node = move_event->node();
-    int idx = (8 - node.row()) * 9 + node.col();
-
-    QVariantList possible_idx_list;
-    for (auto &node : move_event->possible_moves()) {
+    if (move_event->actor_id() == actor_id_) {
+        const Node &node = move_event->node();
         int idx = (8 - node.row()) * 9 + node.col();
-        possible_idx_list << idx;
-    }
 
-    QMetaObject::invokeMethod(qboard_, "setPawnPos",
-            Q_ARG(QVariant, static_cast<int>(move_event->actor_id())),
-            Q_ARG(QVariant, idx),
-            Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
+        QVariantList possible_idx_list;
+        for (auto &node : move_event->possible_moves()) {
+            int idx = (8 - node.row()) * 9 + node.col();
+            possible_idx_list << idx;
+        }
+
+        QMetaObject::invokeMethod(qboard_, "setPawnPos",
+                Q_ARG(QVariant, static_cast<int>(move_event->actor_id())),
+                Q_ARG(QVariant, idx),
+                Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
+    }
 }
 
 void GameView::set_availability_delegate(const std::shared_ptr<EventData> &event)
