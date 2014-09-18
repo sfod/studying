@@ -2,9 +2,9 @@
 #include <QQuickItem>
 #include <QDebug>
 
-GameView::GameView(QObject *qroot, QObject *qparent)
-    : QtView(qparent), conn_list_(),
-      qroot_(qroot), qboard_(), qbutton_(), actor_id_(-1)
+GameView::GameView(QObject *qroot, bool is_main, QObject *qparent)
+    : QtView(qparent), conn_list_(), qroot_(qroot), qboard_(), qbutton_(),
+      actor_id_(-1), is_main_(is_main)
 {
 }
 
@@ -22,7 +22,7 @@ bool GameView::init()
         return false;
     }
 
-    if (!connect_button("buttonBackToOptions", SLOT(button_back_clicked()), &qbutton_)) {
+    if (is_main_ && !connect_button("buttonBackToOptions", SLOT(button_back_clicked()), &qbutton_)) {
         return false;
     }
 

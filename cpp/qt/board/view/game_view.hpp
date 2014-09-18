@@ -10,7 +10,7 @@ class GameView : public QtView
     Q_OBJECT
 
 public:
-    explicit GameView(QObject *qroot, QObject *qparent = 0);
+    explicit GameView(QObject *qroot, bool is_main, QObject *qparent = 0);
     virtual ~GameView();
 
     bool init();
@@ -36,6 +36,7 @@ private:
     QObject *qboard_;
     QObject *qbutton_;
     ActorId actor_id_;
+    bool is_main_;
 };
 
 #endif // GAME_VIEW_HPP

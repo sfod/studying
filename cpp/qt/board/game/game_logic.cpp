@@ -43,12 +43,14 @@ void GameLogic::change_state(LogicState state)
         break;
     case LogicState::LS_Game: {
         view_list_.clear();
+        bool is_main = true;
         for (auto actor : player_list_) {
-            view.reset(new GameView(qroot_));
+            view.reset(new GameView(qroot_, is_main));
             if (view->init()) {
                 add_view(view);
                 view->attach(actor->id());
             }
+            is_main = false;
         }
         set_players();
         break;
