@@ -10,7 +10,7 @@
 GameLogic::GameLogic(QObject *qroot)
     : state_(LogicState::LS_Uninitialized), qroot_(qroot), conn_list_(),
     actor_factory_(new ActorFactory), actor_keeper_(new ActorKeeper),
-    graph_(new Graph), view_list_()
+    player_list_(), graph_(new Graph), view_list_(), player_idx_(1)
 {
     register_delegates();
 }
@@ -44,8 +44,7 @@ void GameLogic::change_state(LogicState state)
     case LogicState::LS_Game: {
         view.reset(new GameView(qroot_));
         if (view->init()) {
-            set_player(1);
-            set_player(2);
+            set_players();
             change_view(view);
         }
         break;
@@ -88,6 +87,8 @@ void GameLogic::game_win_delegate(const std::shared_ptr<EventData> &event)
 void GameLogic::req_actor_new_delegate(const std::shared_ptr<EventData> &event)
 {
     auto req_new_event = std::dynamic_pointer_cast<EventData_RequestNewActor>(event);
+    create_player(player_idx_);
+    ++player_idx_;
 }
 
 void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
@@ -138,11 +139,18 @@ void GameLogic::register_delegates()
     conn_list_.push_back(conn);
 }
 
-void GameLogic::set_player(int idx)
+void GameLogic::create_player(int idx)
 {
     std::string resource_file = "../board/data/player_" + std::to_string(idx) + ".json";
     std::shared_ptr<Actor> actor = actor_factory_->create_actor(resource_file.c_str());
     if (actor) {
+        player_list_.push_back(actor);
+    }
+}
+
+void GameLogic::set_players()
+{
+    for (auto actor : player_list_) {
         auto new_event = std::make_shared<EventData_NewActor>(actor->id());
         EventManager::get()->trigger_event(new_event);
 

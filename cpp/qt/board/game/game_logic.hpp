@@ -41,7 +41,8 @@ public:
 
 private:
     void register_delegates();
-    void set_player(int idx);
+    void create_player(int idx);
+    void set_players();
 
 private:
     LogicState state_;
@@ -49,8 +50,10 @@ private:
     std::list<bs2::connection> conn_list_;
     ActorFactory *actor_factory_;
     std::shared_ptr<ActorKeeper> actor_keeper_;
+    std::list<std::shared_ptr<Actor>> player_list_;
     std::shared_ptr<Graph> graph_;
     std::vector<std::shared_ptr<IView>> view_list_;
+    int player_idx_;
 };
 
 #endif // GAME_LOGIC_HPP
