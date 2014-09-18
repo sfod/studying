@@ -42,11 +42,15 @@ void GameLogic::change_state(LogicState state)
         }
         break;
     case LogicState::LS_Game: {
-        view.reset(new GameView(qroot_));
-        if (view->init()) {
-            set_players();
-            change_view(view);
+        view_list_.clear();
+        for (auto actor : player_list_) {
+            view.reset(new GameView(qroot_));
+            if (view->init()) {
+                add_view(view);
+                view->attach(actor->id());
+            }
         }
+        set_players();
         break;
     }
     case LogicState::LS_Invalid:
