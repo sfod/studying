@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     graph/node.cpp \
     view/options_view.cpp \
     view/qt_view.cpp \
-    view/game_view.cpp
+    view/game_view.cpp \
+    game/player_handler.cpp
 
 RESOURCES += qml.qrc
 
@@ -45,7 +46,8 @@ HEADERS += \
     graph/node.hpp \
     view/options_view.hpp \
     view/qt_view.hpp \
-    view/game_view.hpp
+    view/game_view.hpp \
+    game/player_handler.hpp
 
 OTHER_FILES += \
     data/player_1.json \

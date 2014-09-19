@@ -12,6 +12,7 @@
 #include "actors/actor_keeper.hpp"
 #include "graph/graph.hpp"
 #include "view/iview.hpp"
+#include "player_handler.hpp"
 
 enum class LogicState {
     LS_Uninitialized,
@@ -55,6 +56,7 @@ private:
     std::shared_ptr<Graph> graph_;
     std::vector<std::shared_ptr<IView>> view_list_;
     int player_idx_;
+    PlayerHandler player_handler_;
 };
 
 #endif // GAME_LOGIC_HPP

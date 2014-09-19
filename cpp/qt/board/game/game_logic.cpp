@@ -10,7 +10,8 @@
 GameLogic::GameLogic(QObject *qroot)
     : state_(LogicState::LS_Uninitialized), qroot_(qroot), conn_list_(),
     actor_factory_(new ActorFactory), actor_keeper_(new ActorKeeper),
-    player_list_(), graph_(new Graph), view_list_(), player_idx_(1)
+    player_list_(), graph_(new Graph), view_list_(), player_idx_(1),
+    player_handler_()
 {
     register_delegates();
 }
@@ -117,6 +118,14 @@ void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
                     graph_comp->node(),
                     graph_comp->possible_moves());
             EventManager::get()->queue_event(move_event);
+
+            ActorId active_player = player_handler_.current_player();
+            auto act_event = std::make_shared<EventData_SetActorAvailability>(active_player, false);
+            EventManager::get()->queue_event(act_event);
+
+            active_player = player_handler_.next_player();
+            act_event = std::make_shared<EventData_SetActorAvailability>(active_player, true);
+            EventManager::get()->queue_event(act_event);
         }
     }
 }
@@ -162,6 +171,7 @@ void GameLogic::create_player(int idx)
     std::shared_ptr<Actor> actor = actor_factory_->create_actor(resource_file.c_str());
     if (actor) {
         player_list_.push_back(actor);
+        player_handler_.add_player(actor->id());
     }
 }
 
@@ -181,4 +191,8 @@ void GameLogic::set_players()
             EventManager::get()->queue_event(move_event);
         }
     }
+
+    ActorId active_player = player_handler_.next_player();
+    auto act_event = std::make_shared<EventData_SetActorAvailability>(active_player, true);
+    EventManager::get()->queue_event(act_event);
 }
