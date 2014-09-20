@@ -20,7 +20,7 @@ public:
 
     void new_actor_delegate(const std::shared_ptr<EventData> &event);
     void move_actor_delegate(const std::shared_ptr<EventData> &event);
-    void set_availability_delegate(const std::shared_ptr<EventData> &event);
+    void set_active_delegate(const std::shared_ptr<EventData> &event);
 
 public slots:
     void on_pawn_dropped(int actor_id, int idx);

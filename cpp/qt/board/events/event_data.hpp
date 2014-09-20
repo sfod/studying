@@ -122,10 +122,10 @@ private:
     std::list<Node> possible_moves_;
 };
 
-class EventData_SetActorAvailability : public EventData {
+class EventData_SetActorActive : public EventData {
 public:
-    EventData_SetActorAvailability(ActorId actor_id, bool av);
-    virtual ~EventData_SetActorAvailability();
+    EventData_SetActorActive(ActorId actor_id, bool av);
+    virtual ~EventData_SetActorActive();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 

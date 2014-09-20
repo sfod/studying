@@ -120,11 +120,11 @@ void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
             EventManager::get()->queue_event(move_event);
 
             ActorId active_player = player_handler_.current_player();
-            auto act_event = std::make_shared<EventData_SetActorAvailability>(active_player, false);
+            auto act_event = std::make_shared<EventData_SetActorActive>(active_player, false);
             EventManager::get()->queue_event(act_event);
 
             active_player = player_handler_.next_player();
-            act_event = std::make_shared<EventData_SetActorAvailability>(active_player, true);
+            act_event = std::make_shared<EventData_SetActorActive>(active_player, true);
             EventManager::get()->queue_event(act_event);
         }
     }
@@ -193,6 +193,6 @@ void GameLogic::set_players()
     }
 
     ActorId active_player = player_handler_.next_player();
-    auto act_event = std::make_shared<EventData_SetActorAvailability>(active_player, true);
+    auto act_event = std::make_shared<EventData_SetActorActive>(active_player, true);
     EventManager::get()->queue_event(act_event);
 }
