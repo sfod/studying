@@ -143,7 +143,7 @@ const EventType &EventData_MoveActor::event_type() const
 
 
 EventData_SetActorActive::EventData_SetActorActive(ActorId actor_id, bool av)
-    : actor_id_(actor_id), availability_(av)
+    : actor_id_(actor_id), active_(av)
 {
 }
 

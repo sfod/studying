@@ -130,11 +130,11 @@ public:
     static const EventType event_type_;
 
     ActorId actor_id() const { return actor_id_; }
-    bool availability() const { return availability_; }
+    bool active() const { return active_; }
 
 private:
     ActorId actor_id_;
-    bool availability_;
+    bool active_;
 };
 
 #endif // EVENT_DATA_HPP

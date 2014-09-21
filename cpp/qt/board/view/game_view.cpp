@@ -89,10 +89,10 @@ void GameView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 
 void GameView::set_active_delegate(const std::shared_ptr<EventData> &event)
 {
-    auto avail_event = std::dynamic_pointer_cast<EventData_SetActorActive>(event);
+    auto active_event = std::dynamic_pointer_cast<EventData_SetActorActive>(event);
     QMetaObject::invokeMethod(qboard_, "setPawnDragging",
-            Q_ARG(QVariant, static_cast<int>(avail_event->actor_id())),
-            Q_ARG(QVariant, avail_event->availability()));
+            Q_ARG(QVariant, static_cast<int>(active_event->actor_id())),
+            Q_ARG(QVariant, active_event->active()));
 }
 
 void GameView::on_pawn_dropped(int actor_id, int idx)
