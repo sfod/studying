@@ -5,6 +5,7 @@
 #include "view/main_menu_view.hpp"
 #include "view/options_view.hpp"
 #include "view/game_view.hpp"
+#include "view/ai_view.hpp"
 #include "actors/graph_component.hpp"
 
 GameLogic::GameLogic(QObject *qroot)
@@ -45,13 +46,21 @@ void GameLogic::change_state(LogicState state)
     case LogicState::LS_Game: {
         view_list_.clear();
         bool is_main = true;
+        int i = 0;
         for (auto actor : player_list_) {
-            view.reset(new GameView(qroot_, is_main));
+            if (i == 0) {
+                view.reset(new GameView(qroot_, is_main));
+            }
+            else {
+                view.reset(new AIView());
+            }
+
             if (view->init()) {
                 add_view(view);
                 view->attach(actor->id());
             }
             is_main = false;
+            ++i;
         }
         set_players();
         break;
