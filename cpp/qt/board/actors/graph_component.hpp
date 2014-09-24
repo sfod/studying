@@ -4,8 +4,7 @@
 #include "actor_component.hpp"
 #include "graph/graph.hpp"
 
-class GraphComponent : public ActorComponent
-{
+class GraphComponent : public ActorComponent {
 public:
     GraphComponent();
     virtual ~GraphComponent();
