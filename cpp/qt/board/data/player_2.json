@@ -4,6 +4,9 @@
         "components": {
             "GraphComponent": {
                 "position": [8, 4]
+            },
+            "AIComponent" : {
+                "brain" : "randomer"
             }
         }
     }

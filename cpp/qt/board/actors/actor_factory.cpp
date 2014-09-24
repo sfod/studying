@@ -4,6 +4,7 @@
 #include <boost/property_tree/json_parser.hpp>
 #include "game/game_app.hpp"
 #include "graph_component.hpp"
+#include "ai_component.hpp"
 
 static ActorId g_actor_id = 0;
 
@@ -57,6 +58,13 @@ std::shared_ptr<ActorComponent> ActorFactory::create_actor_component(
 {
     if (type == "GraphComponent") {
         std::shared_ptr<ActorComponent> component(new GraphComponent);
+        if (!component->init(component_data)) {
+            return std::shared_ptr<ActorComponent>();
+        }
+        return component;
+    }
+    else if (type == "AIComponent") {
+        auto component = std::make_shared<AIComponent>();
         if (!component->init(component_data)) {
             return std::shared_ptr<ActorComponent>();
         }

@@ -20,7 +20,9 @@ SOURCES += main.cpp \
     view/qt_view.cpp \
     view/game_view.cpp \
     game/player_handler.cpp \
-    view/ai_view.cpp
+    view/ai_view.cpp \
+    actors/ai_component.cpp \
+    AI/randomer_brain.cpp
 
 RESOURCES += qml.qrc
 
@@ -49,7 +51,10 @@ HEADERS += \
     view/qt_view.hpp \
     view/game_view.hpp \
     game/player_handler.hpp \
-    view/ai_view.hpp
+    view/ai_view.hpp \
+    AI/brain.hpp \
+    actors/ai_component.hpp \
+    AI/randomer_brain.hpp
 
 OTHER_FILES += \
     data/player_1.json \
