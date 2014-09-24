@@ -104,6 +104,7 @@ void GameLogic::game_end_delegate(const std::shared_ptr<EventData> &/*event*/)
 {
     player_list_.clear();
     player_idx_ = 1;
+    player_handler_.clear();
 }
 
 void GameLogic::req_actor_new_delegate(const std::shared_ptr<EventData> &event)

@@ -25,6 +25,12 @@ bool PlayerHandler::remove_player(ActorId actor_id)
     return false;
 }
 
+void PlayerHandler::clear()
+{
+    player_list_.clear();
+    current_player_ = -1;
+}
+
 ActorId PlayerHandler::next_player()
 {
     auto it = player_list_.begin();

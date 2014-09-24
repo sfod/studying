@@ -12,6 +12,7 @@ public:
 
     bool add_player(ActorId actor_id);
     bool remove_player(ActorId actor_id);
+    void clear();
     ActorId current_player() const { return current_player_; }
     ActorId next_player();
 
