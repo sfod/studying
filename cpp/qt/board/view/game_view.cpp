@@ -61,7 +61,7 @@ void GameView::attach(ActorId actor_id)
 void GameView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 {
     auto new_actor_event = std::dynamic_pointer_cast<EventData_NewActor>(event);
-    if (new_actor_event->actor_id() == actor_id_) {
+    if (is_main_) {
         QMetaObject::invokeMethod(qboard_, "addPawn",
                 Q_ARG(QVariant, static_cast<int>(new_actor_event->actor_id())));
     }
@@ -70,7 +70,7 @@ void GameView::new_actor_delegate(const std::shared_ptr<EventData> &event)
 void GameView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 {
     auto move_event = std::dynamic_pointer_cast<EventData_MoveActor>(event);
-    if (move_event->actor_id() == actor_id_) {
+    if (is_main_) {
         const Node &node = move_event->node();
         int idx = (8 - node.row()) * 9 + node.col();
 
@@ -90,9 +90,11 @@ void GameView::move_actor_delegate(const std::shared_ptr<EventData> &event)
 void GameView::set_active_delegate(const std::shared_ptr<EventData> &event)
 {
     auto active_event = std::dynamic_pointer_cast<EventData_SetActorActive>(event);
-    QMetaObject::invokeMethod(qboard_, "setPawnDragging",
-            Q_ARG(QVariant, static_cast<int>(active_event->actor_id())),
-            Q_ARG(QVariant, active_event->active()));
+    if (active_event->actor_id() == actor_id_) {
+        QMetaObject::invokeMethod(qboard_, "setPawnDragging",
+                Q_ARG(QVariant, static_cast<int>(active_event->actor_id())),
+                Q_ARG(QVariant, active_event->active()));
+    }
 }
 
 void GameView::on_pawn_dropped(int actor_id, int idx)
