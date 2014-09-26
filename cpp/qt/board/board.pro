@@ -58,4 +58,5 @@ HEADERS += \
 
 OTHER_FILES += \
     data/player_1.json \
-    data/player_2.json
+    data/player_2.json \
+    data/players.json
