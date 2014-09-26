@@ -8,6 +8,7 @@ Item {
     property var values: []
 
     onValuesChanged: {
+        carouselModel.clear();
         for (var i = 0; i < values.length; ++i) {
             carouselModel.append({"name": values[i]});
         }
