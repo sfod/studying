@@ -27,6 +27,8 @@ public:
     explicit GameLogic(QObject *qroot);
     ~GameLogic();
 
+    bool init();
+
     std::shared_ptr<ActorKeeper> actor_keeper() const { return actor_keeper_; }
     std::shared_ptr<Graph> graph() const { return graph_; }
 

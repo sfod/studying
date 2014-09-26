@@ -34,8 +34,12 @@ int GameApp::run(int argc, char **argv)
     qroot_ = qcomponent_->create();
 
     logic_ = new GameLogic(qroot_);
-    logic_->change_state(LogicState::LS_MainMenu);
+    if (!logic_->init()) {
+        qDebug() << "failed to init game logic";
+        return 1;
+    }
 
+    logic_->change_state(LogicState::LS_MainMenu);
     register_delegates();
 
     QTimer qtimer;
