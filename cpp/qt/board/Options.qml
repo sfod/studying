@@ -20,8 +20,6 @@ Item {
 
             var types = component.createObject(playersGrid,
                     {
-                        x: 30,
-                        y: i * 20 + 20,
                         values: playerTypes
                     }
             );
@@ -38,5 +36,7 @@ Item {
     ColumnLayout {
         id: playersGrid
         anchors.fill: parent
+
+        spacing: 20
     }
 }
