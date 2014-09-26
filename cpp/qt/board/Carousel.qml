@@ -5,7 +5,13 @@ Item {
     width: 140
     height: 20
 
-    property var carouselModel: ({})
+    property var values: []
+
+    onValuesChanged: {
+        for (var i = 0; i < values.length; ++i) {
+            carouselModel.append({"name": values[i]});
+        }
+    }
 
     Row {
         width: parent.width
@@ -64,7 +70,9 @@ Item {
                 Keys.onRightPressed: incrementCurrentIndex()
 
                 anchors.fill: parent
-                model: root.carouselModel
+                model: ListModel {
+                    id: carouselModel
+                }
 
                 delegate: delegate
                 path: Path {
