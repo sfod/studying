@@ -23,7 +23,6 @@ Item {
     }
 
     function changeNum(n) {
-        console.log("set num to " + n);
         clearTypes();
         setOptions(n);
     }

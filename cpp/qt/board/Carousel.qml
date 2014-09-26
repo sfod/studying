@@ -72,7 +72,6 @@ Item {
 
                 onCurrentItemChanged: {
                     if (carousel.currentItem != curItem) {
-                        console.log("item changed: " + carousel.currentItem.value);
                         valueChanged(carousel.currentItem.value);
                         curItem = carousel.currentItem;
                     }
