@@ -5,6 +5,8 @@ Item {
     width: 140
     height: 20
 
+    signal valueChanged(var value);
+
     property var values: []
 
     onValuesChanged: {
@@ -47,6 +49,7 @@ Item {
                 id: delegate
                 Item {
                     id: wrapper
+                    property string value: nameText.text
                     anchors.fill: parent
                     Text {
                         id: nameText
@@ -65,7 +68,15 @@ Item {
 
             PathView {
                 id: carousel
+                property var curItem: undef
 
+                onCurrentItemChanged: {
+                    if (carousel.currentItem != curItem) {
+                        console.log("item changed: " + carousel.currentItem.value);
+                        valueChanged(carousel.currentItem.value);
+                        curItem = carousel.currentItem;
+                    }
+                }
 
                 anchors.fill: parent
                 model: ListModel {
@@ -77,6 +88,10 @@ Item {
                     startX: 0
                     startY: 0
                     PathLine { relativeX: 0; relativeY: 0 }
+                }
+
+                Component.onCompleted: {
+                    carousel.curItem = carousel.currentItem;
                 }
             }
         }
