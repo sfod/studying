@@ -28,9 +28,6 @@ Item {
 
     function setPlayerTypes(types) {
         playerTypes = types;
-        for (var i = 0; i < playerTypes.length; ++i) {
-            console.log("add player type: " + playerTypes[i]);
-        }
     }
 
     ColumnLayout {
