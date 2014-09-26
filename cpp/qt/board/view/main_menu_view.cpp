@@ -51,7 +51,6 @@ void MainMenuView::button_quit_clicked()
     if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue Quit event";
     }
-
 }
 
 QObject *MainMenuView::find_object_by_name(const char *name) const
