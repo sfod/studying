@@ -1,10 +1,15 @@
 #include "options_view.hpp"
 #include <QDebug>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 #include "events/event_data.hpp"
 #include "events/event_manager.hpp"
 
+namespace boost_pt = boost::property_tree;
+
 OptionsView::OptionsView(QObject *qroot, QObject *qparent)
-    : QtView(qparent), qroot_(qroot), qoptions_(), actor_id_(-1)
+    : QtView(qparent), qroot_(qroot), qoptions_(), actor_id_(-1),
+      player_types_(), player_nums_()
 {
 }
 
@@ -15,15 +20,20 @@ OptionsView::~OptionsView()
 
 bool OptionsView::init()
 {
+    if (!load_players_data()) {
+        return false;
+    }
+
     if (!connect_options()) {
         return false;
     }
 
-    QVariantList player_types;
-    // @fixme get list of player types from JSON file
-    player_types << "human" << "AI";
+    QVariantList types;
+    for (auto type : player_types_) {
+        types << type.c_str();
+    }
     QMetaObject::invokeMethod(qoptions_, "setPlayerTypes",
-            Q_ARG(QVariant, QVariant::fromValue(player_types)));
+            Q_ARG(QVariant, QVariant::fromValue(types)));
 
     QMetaObject::invokeMethod(qoptions_, "setPlayerNum", Q_ARG(QVariant, 2));
 
@@ -74,6 +84,40 @@ void OptionsView::button_back_clicked()
 QObject *OptionsView::find_object_by_name(const char *name) const
 {
     return qroot_->findChild<QObject*>(name);
+}
+
+bool OptionsView::load_players_data()
+{
+    static const char *players_file = "../board/data/players.json";
+
+    boost_pt::ptree pt;
+    try {
+        boost_pt::read_json(players_file, pt);
+    }
+    catch (boost_pt::ptree_error &e) {
+        qDebug() << "failed to open file:" << e.what();
+        return false;
+    }
+
+    boost::optional<boost_pt::ptree &> types = pt.get_child_optional("types");
+    if (!types) {
+        return false;
+    }
+    player_types_.clear();
+    for (auto type : *types) {
+        player_types_.push_back(type.second.get_value<std::string>());
+    }
+
+    boost::optional<boost_pt::ptree &> nums = pt.get_child_optional("nums");
+    if (!nums) {
+        return false;
+    }
+    player_nums_.clear();
+    for (auto num : *nums) {
+        player_nums_.push_back(num.second.get_value<int>());
+    }
+
+    return true;
 }
 
 bool OptionsView::connect_options()

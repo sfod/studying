@@ -1,6 +1,8 @@
 #ifndef OPTIONS_VIEW_HPP
 #define OPTIONS_VIEW_HPP
 
+#include <string>
+#include <vector>
 #include <QObject>
 #include "qt_view.hpp"
 
@@ -22,6 +24,7 @@ public slots:
 
 private:
     virtual QObject *find_object_by_name(const char *name) const override;
+    bool load_players_data();
     bool connect_options();
     void send_new_actors_data() const;
 
@@ -29,6 +32,8 @@ private:
     QObject *qroot_;
     QObject *qoptions_;
     ActorId actor_id_;
+    std::vector<std::string> player_types_;
+    std::vector<int> player_nums_;
 };
 
 #endif // OPTIONS_VIEW_HPP
