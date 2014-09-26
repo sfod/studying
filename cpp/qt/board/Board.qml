@@ -7,13 +7,13 @@ Rectangle {
     property var pawnList: ({})
 
     function addPawn(actorId) {
-        var component = Qt.createComponent("DragTile.qml")
+        var component = Qt.createComponent("DragTile.qml");
         if (component.status === Component.Error) {
-            console.log("error creating pawn: " + component.errorString())
+            console.log("error creating pawn: " + component.errorString());
         }
-        var pawn = component.createObject(grid, {actorId: actorId, visible: false})
-        pawn.setDragging(false)
-        pawnList[actorId] = pawn
+        var pawn = component.createObject(grid, {actorId: actorId, visible: false});
+        pawn.setDragging(false);
+        pawnList[actorId] = pawn;
     }
 
     function setPawnPos(actorId, idx, possibleMoves) {
@@ -22,16 +22,16 @@ Rectangle {
             pawn.setParent(repeater.itemAt(idx));
 
             if (!pawn.visible) {
-                pawn.visible = true
+                pawn.visible = true;
             }
 
-            console.log("set pawn on " + idx)
+            console.log("set pawn on " + idx);
 
             var moves = {};
             for (var i in possibleMoves) {
-                moves[possibleMoves[i]] = 1
+                moves[possibleMoves[i]] = 1;
             }
-            pawn.setPossibleMoves(moves)
+            pawn.setPossibleMoves(moves);
         }
     }
 
@@ -42,9 +42,9 @@ Rectangle {
 
     function endGame() {
         for (var i in pawnList) {
-            pawnList[i].destroy()
+            pawnList[i].destroy();
         }
-        pawnList = {}
+        pawnList = {};
     }
 
     color: "#D18B47"

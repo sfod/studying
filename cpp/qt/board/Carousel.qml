@@ -36,7 +36,7 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    carousel.decrementCurrentIndex()
+                    carousel.decrementCurrentIndex();
                 }
             }
         }
