@@ -19,12 +19,21 @@ bool OptionsView::init()
         return false;
     }
 
+    QVariantList player_types;
+    // @fixme get list of player types from JSON file
+    player_types << "human" << "AI";
+    QMetaObject::invokeMethod(qoptions_, "setPlayerTypes",
+            Q_ARG(QVariant, QVariant::fromValue(player_types)));
+
+    QMetaObject::invokeMethod(qoptions_, "setPlayerNum", Q_ARG(QVariant, 2));
+
     if (!connect_button("buttonStartGame", SLOT(button_start_game_clicked()))) {
         return false;
     }
     if (!connect_button("buttonBackToMainMenu", SLOT(button_back_clicked()))) {
         return false;
     }
+
     return true;
 }
 

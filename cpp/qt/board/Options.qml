@@ -11,6 +11,21 @@ Item {
     function setPlayerNum(num) {
         playerNum = num;
         console.log("set player num to " + playerNum);
+
+        for (var i = 0; i < playerNum; ++i) {
+            var component = Qt.createComponent("Carousel.qml");
+            if (component.status === Component.Error) {
+                console.error("error creating carousel: " + component.errorString());
+            }
+
+            var types = component.createObject(playersGrid,
+                    {
+                        x: 30,
+                        y: i * 20 + 20,
+                        values: playerTypes
+                    }
+            );
+        }
     }
 
     function setPlayerTypes(types) {
@@ -21,6 +36,7 @@ Item {
     }
 
     ColumnLayout {
+        id: playersGrid
         anchors.fill: parent
     }
 }
