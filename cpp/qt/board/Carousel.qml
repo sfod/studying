@@ -65,10 +65,7 @@ Item {
 
             PathView {
                 id: carousel
-                focus: true
 
-                Keys.onLeftPressed: decrementCurrentIndex()
-                Keys.onRightPressed: incrementCurrentIndex()
 
                 anchors.fill: parent
                 model: ListModel {
