@@ -4,31 +4,71 @@ import QtQuick.Layouts 1.1
 Item {
     id: options
 
-    property var playerNum: []
+    property var playerNums: []
     property var playerTypes: []
 
-    // @todo check for available player types
-    function setPlayerNum(num) {
-        playerNum = num;
-        console.log("set player num to " + playerNum);
+    property var numsList: []
+    property var typesList: []
 
-        for (var i = 0; i < playerNum; ++i) {
+    function setOptions(num) {
+        for (var i = 0; i < num; ++i) {
             var component = Qt.createComponent("Carousel.qml");
             if (component.status === Component.Error) {
                 console.error("error creating carousel: " + component.errorString());
             }
 
-            var types = component.createObject(playersGrid,
-                    {
-                        values: playerTypes
-                    }
-            );
+            var types = component.createObject(playersGrid, { values: playerTypes });
+            typesList.push(types);
         }
+    }
+
+    function changeNum(n) {
+        console.log("set num to " + n);
+        clearTypes();
+        setOptions(n);
+    }
+
+    // @todo check for available player types
+    function setPlayerNums(nums) {
+        if (numsList.length > 0) {
+            clearNums();
+        }
+
+        playerNums = nums;
+
+        var component = Qt.createComponent("Carousel.qml");
+        if (component.status === Component.Error) {
+            console.error("error creating carousel: " + component.errorString());
+        }
+
+        var n = component.createObject(playersGrid, { values: playerNums });
+        numsList.push(n);
+
+        n.valueChanged.connect(changeNum);
+
+        setOptions(playerNums[0]);
     }
 
     function setPlayerTypes(types) {
         playerTypes = types;
     }
+
+    function clearNums() {
+        clearTypes();
+
+        for (var i in numsList) {
+            numsList[i].destroy();
+        }
+        numsList = [];
+    }
+
+    function clearTypes() {
+        for (var i in typesList) {
+            typesList[i].destroy();
+        }
+        typesList = [];
+    }
+
 
     ColumnLayout {
         id: playersGrid

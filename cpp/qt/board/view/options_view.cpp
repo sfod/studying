@@ -29,13 +29,18 @@ bool OptionsView::init()
     }
 
     QVariantList types;
-    for (auto type : player_types_) {
+    for (const auto &type : player_types_) {
         types << type.c_str();
     }
     QMetaObject::invokeMethod(qoptions_, "setPlayerTypes",
             Q_ARG(QVariant, QVariant::fromValue(types)));
 
-    QMetaObject::invokeMethod(qoptions_, "setPlayerNum", Q_ARG(QVariant, 2));
+    QVariantList nums;
+    for (int num : player_nums_) {
+        nums << num;
+    }
+    QMetaObject::invokeMethod(qoptions_, "setPlayerNums",
+            Q_ARG(QVariant, QVariant::fromValue(nums)));
 
     if (!connect_button("buttonStartGame", SLOT(button_start_game_clicked()))) {
         return false;
