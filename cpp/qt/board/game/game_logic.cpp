@@ -183,21 +183,8 @@ void GameLogic::register_delegates()
 
 void GameLogic::create_player(int idx, PlayerType ptype)
 {
-    std::string resource_file;
-
-    // @fixme construct filenames from PlayerType element string representations
-    switch (ptype) {
-    case PlayerType::PT_Human:
-        resource_file = "../board/data/player_human.json";
-        break;
-    case PlayerType::PT_AI:
-        resource_file = "../board/data/player_ai.json";
-        break;
-    case PlayerType::PT_Invalid:
-    default:
-        return;
-    }
-
+    std::string ptype_str = str_to_player_type.at(ptype);
+    std::string resource_file = "../board/data/player_" + ptype_str + ".json";
     std::vector<std::string> component_resources = {
         "../board/data/player_position_" + std::to_string(idx) + ".json"
     };

@@ -62,4 +62,4 @@ OTHER_FILES += \
     data/player_position_1.json \
     data/player_position_2.json \
     data/player_human.json \
-    data/player_ai.json
+    data/player_AI.json
