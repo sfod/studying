@@ -68,10 +68,10 @@ Item {
 
             PathView {
                 id: carousel
-                property var curItem: undef
+                property var curItem
 
                 onCurrentItemChanged: {
-                    if (carousel.currentItem != curItem) {
+                    if (carousel.currentItem !== curItem) {
                         valueChanged(carousel.currentItem.value);
                         curItem = carousel.currentItem;
                     }
