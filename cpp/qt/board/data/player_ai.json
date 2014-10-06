@@ -2,8 +2,8 @@
     "actor": {
         "type": "pawn",
         "components": {
-            "GraphComponent": {
-                "position": [0, 4]
+            "AIComponent" : {
+                "brain" : "randomer"
             }
         }
     }

@@ -82,7 +82,7 @@ const EventType &EventData_Quit::event_type() const
 }
 
 
-EventData_RequestNewActor::EventData_RequestNewActor()
+EventData_RequestNewActor::EventData_RequestNewActor(PlayerType ptype) : ptype_(ptype)
 {
 }
 

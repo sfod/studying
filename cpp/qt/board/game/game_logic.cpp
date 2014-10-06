@@ -115,7 +115,7 @@ void GameLogic::game_end_delegate(const std::shared_ptr<EventData> &/*event*/)
 void GameLogic::req_actor_new_delegate(const std::shared_ptr<EventData> &event)
 {
     auto req_new_event = std::dynamic_pointer_cast<EventData_RequestNewActor>(event);
-    create_player(player_idx_);
+    create_player(player_idx_, req_new_event->player_type());
     ++player_idx_;
 }
 
@@ -180,10 +180,27 @@ void GameLogic::register_delegates()
     conn_list_.push_back(conn);
 }
 
-void GameLogic::create_player(int idx)
+void GameLogic::create_player(int idx, PlayerType ptype)
 {
-    std::string resource_file = "../board/data/player_" + std::to_string(idx) + ".json";
-    std::shared_ptr<Actor> actor = actor_factory_->create_actor(resource_file.c_str());
+    std::string resource_file;
+
+    switch (ptype) {
+    case PlayerType::PT_Human:
+        resource_file = "../board/data/player_human.json";
+        break;
+    case PlayerType::PT_AI:
+        resource_file = "../board/data/player_ai.json";
+        break;
+    case PlayerType::PT_Invalid:
+    default:
+        return;
+    }
+
+    std::vector<std::string> component_resources = {
+        "../board/data/player_position_" + std::to_string(idx) + ".json"
+    };
+    std::shared_ptr<Actor> actor = actor_factory_->create_actor(resource_file,
+            component_resources);
     if (actor) {
         player_list_.push_back(actor);
         player_handler_.add_player(actor->id());

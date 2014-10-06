@@ -2,6 +2,7 @@
 #define EVENT_DATA_HPP
 
 #include "actors/actor.hpp"
+#include "game/game_data.hpp"
 #include "graph/node.hpp"
 
 typedef unsigned long EventType;
@@ -65,12 +66,15 @@ public:
 
 class EventData_RequestNewActor : public EventData {
 public:
-    EventData_RequestNewActor();
+    explicit EventData_RequestNewActor(PlayerType ptype);
     virtual ~EventData_RequestNewActor();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
+    PlayerType player_type() const { return ptype_; }
+
 private:
+    PlayerType ptype_;
 };
 
 

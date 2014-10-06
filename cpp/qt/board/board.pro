@@ -54,9 +54,12 @@ HEADERS += \
     view/ai_view.hpp \
     AI/brain.hpp \
     actors/ai_component.hpp \
-    AI/randomer_brain.hpp
+    AI/randomer_brain.hpp \
+    game/game_data.hpp
 
 OTHER_FILES += \
-    data/player_1.json \
-    data/player_2.json \
-    data/players.json
+    data/players.json \
+    data/player_position_1.json \
+    data/player_position_2.json \
+    data/player_human.json \
+    data/player_ai.json

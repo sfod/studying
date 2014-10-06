@@ -45,7 +45,7 @@ public:
 
 private:
     void register_delegates();
-    void create_player(int idx);
+    void create_player(int idx, PlayerType ptype);
     void set_players();
 
 private:

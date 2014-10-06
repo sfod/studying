@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include "game/game_data.hpp"
 #include "events/event_data.hpp"
 #include "events/event_manager.hpp"
 
@@ -133,8 +134,8 @@ bool OptionsView::connect_options()
 
 void OptionsView::send_new_actors_data() const
 {
-    auto ev1 = std::make_shared<EventData_RequestNewActor>();
+    auto ev1 = std::make_shared<EventData_RequestNewActor>(PlayerType::PT_Human);
     EventManager::get()->queue_event(ev1);
-    auto ev2 = std::make_shared<EventData_RequestNewActor>();
+    auto ev2 = std::make_shared<EventData_RequestNewActor>(PlayerType::PT_AI);
     EventManager::get()->queue_event(ev2);
 }

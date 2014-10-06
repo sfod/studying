@@ -12,7 +12,8 @@ ActorFactory::ActorFactory()
 {
 }
 
-std::shared_ptr<Actor> ActorFactory::create_actor(const char *resource)
+std::shared_ptr<Actor> ActorFactory::create_actor(const std::string &resource,
+        const std::vector<std::string> &component_resources)
 {
     boost_pt::ptree pt;
     try {
@@ -42,6 +43,30 @@ std::shared_ptr<Actor> ActorFactory::create_actor(const char *resource)
             if (component) {
                 actor->add_component(component);
                 component->set_owner(actor);
+            }
+        }
+    }
+
+    for (const std::string &component_resource : component_resources) {
+        boost_pt::ptree pt;
+        try {
+            boost_pt::read_json(component_resource, pt);
+        }
+        catch (boost_pt::ptree_error &e) {
+            qDebug() << "failed to open resource file:" << e.what();
+            return std::shared_ptr<Actor>();
+        }
+
+        boost::optional<boost_pt::ptree &> actor_components =
+                pt.get_child_optional("components");
+        if (actor_components) {
+            for (auto component_data : *actor_components) {
+                std::shared_ptr<ActorComponent> component =
+                        create_actor_component(component_data.first, component_data.second);
+                if (component) {
+                    actor->add_component(component);
+                    component->set_owner(actor);
+                }
             }
         }
     }
