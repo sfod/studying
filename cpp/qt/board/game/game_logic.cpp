@@ -52,6 +52,7 @@ void GameLogic::change_state(LogicState state)
         view_list_.clear();
         bool is_main = true;
         int i = 0;
+        // @fixme create views according to player type
         for (auto actor : player_list_) {
             if (i == 0) {
                 view.reset(new GameView(qroot_, is_main));
@@ -184,6 +185,7 @@ void GameLogic::create_player(int idx, PlayerType ptype)
 {
     std::string resource_file;
 
+    // @fixme construct filenames from PlayerType element string representations
     switch (ptype) {
     case PlayerType::PT_Human:
         resource_file = "../board/data/player_human.json";
