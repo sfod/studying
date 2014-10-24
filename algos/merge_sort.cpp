@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <string>
 #include <vector>
 
@@ -72,15 +73,8 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    std::vector<int> nums;
-
-    const char *filename = argv[1];
-    std::ifstream infile(filename);
-
-    std::string line;
-    while (std::getline(infile, line)) {
-        nums.push_back(std::stoi(line));
-    }
+    std::ifstream infile(argv[1]);
+    std::vector<int> nums(std::istream_iterator<int>(infile), {});
 
     int *res = new int[nums.size()];
     sort(nums.data(), nums.size(), res);
