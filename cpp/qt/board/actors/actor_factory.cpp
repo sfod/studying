@@ -1,5 +1,5 @@
+#include <QDebug>  // include it first to avoid error with boost::Q_FOREACH
 #include "actor_factory.hpp"
-#include <QDebug>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include "game/game_app.hpp"
