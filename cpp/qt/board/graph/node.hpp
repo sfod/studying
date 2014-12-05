@@ -1,6 +1,7 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
+#include <QDebug>
 #include <iostream>
 #include <list>
 
@@ -31,5 +32,6 @@ private:
 };
 
 std::ostream &operator<<(std::ostream &os, const Node &node);
+QDebug operator<<(QDebug dbg, const Node &node);
 
 #endif // NODE_HPP

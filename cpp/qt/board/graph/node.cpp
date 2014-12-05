@@ -80,3 +80,8 @@ std::ostream &operator<<(std::ostream &os, const Node &node)
 {
     return os << node.row() << ":" << node.col();
 }
+
+QDebug operator<<(QDebug dbg, const Node &node)
+{
+    return dbg.nospace() << node.row() << ":" << node.col();
+}
