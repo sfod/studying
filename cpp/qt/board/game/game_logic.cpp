@@ -183,7 +183,7 @@ void GameLogic::register_delegates()
 
 void GameLogic::create_player(int idx, PlayerType ptype)
 {
-    std::string ptype_str = str_to_player_type.at(ptype);
+    std::string ptype_str = player_type_to_str.at(ptype);
     std::string resource_file = "../board/data/player_" + ptype_str + ".json";
     std::vector<std::string> component_resources = {
         "../board/data/player_position_" + std::to_string(idx) + ".json"
