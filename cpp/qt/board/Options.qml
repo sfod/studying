@@ -10,21 +10,35 @@ Item {
     property var numsList: []
     property var typesList: []
 
+    property var selectedPlayers: []
+
+    signal playersChanged(variant players);
+
     function setOptions(num) {
+        selectedPlayers = [];
         for (var i = 0; i < num; ++i) {
             var component = Qt.createComponent("Carousel.qml");
             if (component.status === Component.Error) {
                 console.error("error creating carousel: " + component.errorString());
             }
 
-            var types = component.createObject(playersGrid, { values: playerTypes });
+            var types = component.createObject(playersGrid, { idx: i, values: playerTypes });
+            types.valueChanged.connect(changeType);
             typesList.push(types);
+
+            selectedPlayers.push(playerTypes[0]);
         }
+        playersChanged(selectedPlayers);
     }
 
-    function changeNum(n) {
+    function changeNum(idx, n) {
         clearTypes();
         setOptions(n);
+    }
+
+    function changeType(idx, type) {
+        selectedPlayers[idx] = type;
+        playersChanged(selectedPlayers);
     }
 
     // @todo check for available player types

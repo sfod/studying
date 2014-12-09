@@ -1,9 +1,10 @@
 #ifndef OPTIONS_VIEW_HPP
 #define OPTIONS_VIEW_HPP
 
+#include <QObject>
+#include <QVariant>
 #include <string>
 #include <vector>
-#include <QObject>
 #include "qt_view.hpp"
 
 class OptionsView : public QtView {
@@ -21,6 +22,7 @@ public:
 public slots:
     void button_start_game_clicked();
     void button_back_clicked();
+    void on_players_changed(QVariant player_list);
 
 private:
     virtual QObject *find_object_by_name(const char *name) const override;
@@ -34,6 +36,7 @@ private:
     ActorId actor_id_;
     std::vector<std::string> player_types_;
     std::vector<int> player_nums_;
+    std::vector<std::string> selected_players_;
 };
 
 #endif // OPTIONS_VIEW_HPP

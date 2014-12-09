@@ -5,9 +5,10 @@ Item {
     width: 140
     height: 20
 
-    signal valueChanged(var value);
+    signal valueChanged(var idx, var value);
 
     property var values: []
+    property int idx: -1
 
     onValuesChanged: {
         carouselModel.clear();
@@ -72,7 +73,7 @@ Item {
 
                 onCurrentItemChanged: {
                     if (carousel.currentItem !== curItem) {
-                        valueChanged(carousel.currentItem.value);
+                        valueChanged(root.idx, carousel.currentItem.value);
                         curItem = carousel.currentItem;
                     }
                 }

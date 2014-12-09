@@ -10,7 +10,7 @@ namespace boost_pt = boost::property_tree;
 
 OptionsView::OptionsView(QObject *qroot, QObject *qparent)
     : QtView(qparent), qroot_(qroot), qoptions_(), actor_id_(-1),
-      player_types_(), player_nums_()
+      player_types_(), player_nums_(), selected_players_()
 {
 }
 
@@ -87,6 +87,19 @@ void OptionsView::button_back_clicked()
     }
 }
 
+void OptionsView::on_players_changed(QVariant player_list)
+{
+    QVariantList lst = player_list.toList();
+    selected_players_.clear();
+    for (QVariant ptype : lst) {
+        selected_players_.push_back(ptype.toString().toStdString());
+    }
+    qDebug() << "selected players:";
+    for (auto ptype : selected_players_) {
+        qDebug() << "\t" << ptype.c_str();
+    }
+}
+
 QObject *OptionsView::find_object_by_name(const char *name) const
 {
     return qroot_->findChild<QObject*>(name);
@@ -129,9 +142,17 @@ bool OptionsView::load_players_data()
 bool OptionsView::connect_options()
 {
     qoptions_ = find_object_by_name("options");
-    return (qoptions_ != NULL);
+    if (qoptions_ == NULL) {
+        return false;
+    }
+    QObject::connect(
+            qoptions_, SIGNAL(playersChanged(QVariant)),
+            this, SLOT(on_players_changed(QVariant))
+    );
+    return true;
 }
 
+// @fixme send specified actor types
 void OptionsView::send_new_actors_data() const
 {
     auto ev1 = std::make_shared<EventData_RequestNewActor>(PlayerType::PT_Human);
