@@ -52,18 +52,25 @@ void GameLogic::change_state(LogicState state)
         view_list_.clear();
         bool is_main = true;
         int i = 0;
-        // @fixme create views according to player type
         for (auto actor : player_list_) {
-            if (i == 0) {
+            switch(actor.second) {
+            case PlayerType::PT_Human:
+                qDebug() << "creating human player";
                 view.reset(new GameView(qroot_, is_main));
-            }
-            else {
+                break;
+            case PlayerType::PT_AI:
+                qDebug() << "creating AI player";
                 view.reset(new AIView());
+                break;
+            case PlayerType::PT_Invalid:
+            default:
+                qDebug() << "invalid player type";
+                break;
             }
 
             if (view->init()) {
                 add_view(view);
-                view->attach(actor->id());
+                view->attach(actor.first->id());
             }
             is_main = false;
             ++i;
@@ -191,7 +198,8 @@ void GameLogic::create_player(int idx, PlayerType ptype)
     std::shared_ptr<Actor> actor = actor_factory_->create_actor(resource_file,
             component_resources);
     if (actor) {
-        player_list_.push_back(actor);
+        player_actor_t player_actor = {actor, ptype};
+        player_list_.push_back(player_actor);
         player_handler_.add_player(actor->id());
     }
 }
@@ -199,14 +207,14 @@ void GameLogic::create_player(int idx, PlayerType ptype)
 void GameLogic::set_players()
 {
     for (auto actor : player_list_) {
-        auto new_event = std::make_shared<EventData_NewActor>(actor->id());
+        auto new_event = std::make_shared<EventData_NewActor>(actor.first->id());
         EventManager::get()->trigger_event(new_event);
 
         ComponentId cid = ActorComponent::id(GraphComponent::name_);
-        auto graph_comp = std::dynamic_pointer_cast<GraphComponent>(actor->component(cid));
+        auto graph_comp = std::dynamic_pointer_cast<GraphComponent>(actor.first->component(cid));
         if (graph_comp) {
             auto move_event = std::make_shared<EventData_MoveActor>(
-                    actor->id(),
+                    actor.first->id(),
                     graph_comp->node(),
                     graph_comp->possible_moves());
             EventManager::get()->queue_event(move_event);

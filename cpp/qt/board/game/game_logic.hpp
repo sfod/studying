@@ -23,6 +23,9 @@ enum class LogicState {
 };
 
 class GameLogic {
+
+    typedef std::pair<std::shared_ptr<Actor>, PlayerType> player_actor_t;
+
 public:
     explicit GameLogic(QObject *qroot);
     ~GameLogic();
@@ -54,7 +57,7 @@ private:
     std::list<bs2::connection> conn_list_;
     ActorFactory *actor_factory_;
     std::shared_ptr<ActorKeeper> actor_keeper_;
-    std::list<std::shared_ptr<Actor>> player_list_;
+    std::list<player_actor_t> player_list_;
     std::shared_ptr<Graph> graph_;
     std::vector<std::shared_ptr<IView>> view_list_;
     int player_idx_;
