@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "qt_view.hpp"
+#include "game/game_data.hpp"
 
 class OptionsView : public QtView {
     Q_OBJECT
@@ -36,7 +37,7 @@ private:
     ActorId actor_id_;
     std::vector<std::string> player_types_;
     std::vector<int> player_nums_;
-    std::vector<std::string> selected_players_;
+    std::vector<PlayerType> selected_players_;
 };
 
 #endif // OPTIONS_VIEW_HPP

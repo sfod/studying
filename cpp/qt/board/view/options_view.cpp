@@ -91,12 +91,13 @@ void OptionsView::on_players_changed(QVariant player_list)
 {
     QVariantList lst = player_list.toList();
     selected_players_.clear();
-    for (QVariant ptype : lst) {
-        selected_players_.push_back(ptype.toString().toStdString());
+    for (QVariant ptype_str : lst) {
+        PlayerType ptype = str_to_player_type.at(ptype_str.toString().toStdString());
+        selected_players_.push_back(ptype);
     }
     qDebug() << "selected players:";
     for (auto ptype : selected_players_) {
-        qDebug() << "\t" << ptype.c_str();
+        qDebug() << "\t" << player_type_to_str.at(ptype).c_str();
     }
 }
 
@@ -152,11 +153,10 @@ bool OptionsView::connect_options()
     return true;
 }
 
-// @fixme send specified actor types
 void OptionsView::send_new_actors_data() const
 {
-    auto ev1 = std::make_shared<EventData_RequestNewActor>(PlayerType::PT_Human);
-    EventManager::get()->queue_event(ev1);
-    auto ev2 = std::make_shared<EventData_RequestNewActor>(PlayerType::PT_AI);
-    EventManager::get()->queue_event(ev2);
+    for (PlayerType ptype : selected_players_) {
+        auto ev = std::make_shared<EventData_RequestNewActor>(ptype);
+        EventManager::get()->queue_event(ev);
+    }
 }
