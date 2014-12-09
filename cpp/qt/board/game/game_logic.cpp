@@ -51,7 +51,6 @@ void GameLogic::change_state(LogicState state)
     case LogicState::LS_Game: {
         view_list_.clear();
         bool is_main = true;
-        int i = 0;
         for (auto actor : player_list_) {
             switch(actor.second) {
             case PlayerType::PT_Human:
@@ -73,7 +72,6 @@ void GameLogic::change_state(LogicState state)
                 view->attach(actor.first->id());
             }
             is_main = false;
-            ++i;
         }
         set_players();
         break;
