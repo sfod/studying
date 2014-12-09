@@ -4,6 +4,7 @@
 #include <map>
 #include "node.hpp"
 #include "actors/actor.hpp"
+#include "board_graph.hpp"
 
 struct actor_node_t {
     Node node;
@@ -25,6 +26,7 @@ private:
     void set_possible_moves(ActorId id);
 
 private:
+    std::shared_ptr<BoardGraph> board_graph_;
     std::map<ActorId, actor_node_t> actor_node_list_;
 };
 

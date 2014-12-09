@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     game/player_handler.cpp \
     view/ai_view.cpp \
     actors/ai_component.cpp \
-    AI/randomer_brain.cpp
+    AI/randomer_brain.cpp \
+    graph/board_graph.cpp
 
 RESOURCES += qml.qrc
 
@@ -55,7 +56,8 @@ HEADERS += \
     AI/brain.hpp \
     actors/ai_component.hpp \
     AI/randomer_brain.hpp \
-    game/game_data.hpp
+    game/game_data.hpp \
+    graph/board_graph.hpp
 
 OTHER_FILES += \
     data/players.json \

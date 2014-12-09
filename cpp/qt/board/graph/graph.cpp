@@ -1,7 +1,8 @@
 #include "graph.hpp"
 #include <QDebug>
 
-Graph::Graph() : actor_node_list_()
+// @fixme get board size from config file
+Graph::Graph() : board_graph_(new BoardGraph(9, 9)), actor_node_list_()
 {
 }
 
@@ -12,7 +13,7 @@ Graph::~Graph()
 bool Graph::add_actor(ActorId id)
 {
     if (actor_node_list_.count(id) == 0) {
-        actor_node_t actor_node;
+        actor_node_t actor_node = { Node(), {} };
         actor_node_list_[id] = actor_node;
         return true;
     }
@@ -22,8 +23,15 @@ bool Graph::add_actor(ActorId id)
 bool Graph::move_actor(ActorId id, const Node &node)
 {
     if (actor_node_list_.count(id) > 0) {
+        qDebug() << "unblocking node" << actor_node_list_[id].node;
+        qDebug() << "blocking node" << node;
+        board_graph_->unblock_node(actor_node_list_[id].node);
+        board_graph_->block_node(node);
         actor_node_list_[id].node = node;
-        set_possible_moves(id);
+
+        for (auto actor_node : actor_node_list_) {
+            set_possible_moves(actor_node.first);
+        }
         return true;
     }
     return false;
@@ -53,6 +61,6 @@ void Graph::set_possible_moves(ActorId id)
         Node &node = actor_node.node;
 
         actor_node.possible_moves_.clear();
-        node.neighbours(9, 9, &actor_node.possible_moves_);
+        actor_node.possible_moves_ = board_graph_->adjacent_nodes(node);
     }
 }
