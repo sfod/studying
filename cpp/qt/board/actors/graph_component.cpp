@@ -4,7 +4,7 @@
 
 const char *GraphComponent::name_ = "GraphComponent";
 
-GraphComponent::GraphComponent() : node_(), possible_moves_()
+GraphComponent::GraphComponent() : node_()
 {
     graph_ = GameApp::get()->game_logic()->graph();
 }
@@ -39,12 +39,11 @@ bool GraphComponent::move_actor(const Node &pos)
     bool res = graph_->move_actor(owner()->id(), pos);
     if (res) {
         node_ = pos;
-        possible_moves_ = graph_->possible_moves(owner()->id());
     }
     return res;
 }
 
 std::list<Node> GraphComponent::possible_moves() const
 {
-    return possible_moves_;
+    return graph_->possible_moves(owner()->id());
 }

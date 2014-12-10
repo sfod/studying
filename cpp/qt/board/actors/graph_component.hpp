@@ -24,7 +24,6 @@ public:
 private:
     std::shared_ptr<Graph> graph_;
     Node node_;
-    std::list<Node> possible_moves_;
 };
 
 #endif // GRAPH_COMPONENT_HPP
