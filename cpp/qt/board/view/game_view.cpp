@@ -38,6 +38,10 @@ bool GameView::init()
     conn_list_.push_back(conn);
 
     conn = EventManager::get()->add_listener(
+            boost::bind(&GameView::set_actor_possible_moves, this, _1),
+            EventData_SetActorPossibleMoves::event_type_);
+
+    conn = EventManager::get()->add_listener(
             boost::bind(&GameView::set_active_delegate, this, _1),
             EventData_SetActorActive::event_type_);
     conn_list_.push_back(conn);
@@ -74,15 +78,36 @@ void GameView::move_actor_delegate(const std::shared_ptr<EventData> &event)
         const Node &node = move_event->node();
         int idx = (8 - node.row()) * 9 + node.col();
 
+        qDebug() << "move actor delegate";
+
         QVariantList possible_idx_list;
         for (auto &node : move_event->possible_moves()) {
             int idx = (8 - node.row()) * 9 + node.col();
             possible_idx_list << idx;
+            qDebug() << "\tmove:" << node;
         }
 
         QMetaObject::invokeMethod(qboard_, "setPawnPos",
                 Q_ARG(QVariant, static_cast<int>(move_event->actor_id())),
                 Q_ARG(QVariant, idx),
+                Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
+    }
+}
+
+void GameView::set_actor_possible_moves(const std::shared_ptr<EventData> &event)
+{
+    qDebug() << "set_actor_possible_moves called";
+
+    auto pos_move_event = std::dynamic_pointer_cast<EventData_SetActorPossibleMoves>(event);
+    if (is_main_) {
+        QVariantList possible_idx_list;
+        for (auto &node : pos_move_event->possible_moves()) {
+            int idx = (8 - node.row()) * 9 + node.col();
+            possible_idx_list << idx;
+        }
+
+        QMetaObject::invokeMethod(qboard_, "setPawnPossibleMoves",
+                Q_ARG(QVariant, static_cast<int>(pos_move_event->actor_id())),
                 Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
     }
 }

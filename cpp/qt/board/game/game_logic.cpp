@@ -134,12 +134,27 @@ void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
         ComponentId cid = ActorComponent::id(GraphComponent::name_);
         auto graph_comp = std::dynamic_pointer_cast<GraphComponent>(actor->component(cid));
         if (graph_comp && graph_comp->move_actor(req_move_event->node())) {
+            // update active player position
             auto move_event = std::make_shared<EventData_MoveActor>(
                     actor->id(),
                     graph_comp->node(),
                     graph_comp->possible_moves());
             EventManager::get()->queue_event(move_event);
 
+            // update other players possible moves
+            for (auto player_actor : player_list_) {
+                ActorId aid = player_actor.first->id();
+                // active player's possible moves are already updated
+                if (aid == actor->id()) {
+                    continue;
+                }
+
+                auto gcomp = std::dynamic_pointer_cast<GraphComponent>(player_actor.first->component(cid));
+                auto pos_move_event = std::make_shared<EventData_SetActorPossibleMoves>(aid, gcomp->possible_moves());
+                EventManager::get()->queue_event(pos_move_event);
+            }
+
+            // @fixme fire only one event
             ActorId active_player = player_handler_.current_player();
             auto act_event = std::make_shared<EventData_SetActorActive>(active_player, false);
             EventManager::get()->queue_event(act_event);
