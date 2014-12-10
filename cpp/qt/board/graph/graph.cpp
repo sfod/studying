@@ -23,8 +23,6 @@ bool Graph::add_actor(ActorId id)
 bool Graph::move_actor(ActorId id, const Node &node)
 {
     if (actor_node_list_.count(id) > 0) {
-        qDebug() << "unblocking node" << actor_node_list_[id].node;
-        qDebug() << "blocking node" << node;
         board_graph_->unblock_node(actor_node_list_[id].node);
         board_graph_->block_node(node);
         actor_node_list_[id].node = node;
