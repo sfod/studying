@@ -126,6 +126,22 @@ private:
     std::list<Node> possible_moves_;
 };
 
+class EventData_SetActorPossibleMoves : public EventData {
+public:
+    EventData_SetActorPossibleMoves(ActorId actor_id,
+            const std::list<Node> &possible_moves);
+    virtual ~EventData_SetActorPossibleMoves();
+    virtual const EventType &event_type() const;
+    static const EventType event_type_;
+
+    ActorId actor_id() const { return actor_id_; }
+    const std::list<Node> &possible_moves() const { return possible_moves_; }
+
+private:
+    ActorId actor_id_;
+    std::list<Node> possible_moves_;
+};
+
 class EventData_SetActorActive : public EventData {
 public:
     EventData_SetActorActive(ActorId actor_id, bool av);

@@ -9,6 +9,7 @@ const EventType EventData_RequestNewActor::event_type_(1019);
 const EventType EventData_NewActor::event_type_(1014);
 const EventType EventData_RequestActorMove::event_type_(1015);
 const EventType EventData_MoveActor::event_type_(1016);
+const EventType EventData_SetActorPossibleMoves::event_type_(1021);
 const EventType EventData_SetActorActive::event_type_(1017);
 
 
@@ -137,6 +138,23 @@ EventData_MoveActor::~EventData_MoveActor()
 }
 
 const EventType &EventData_MoveActor::event_type() const
+{
+    return event_type_;
+}
+
+
+EventData_SetActorPossibleMoves::EventData_SetActorPossibleMoves(
+        ActorId actor_id,
+        const std::list<Node> &possible_moves)
+    : actor_id_(actor_id), possible_moves_(possible_moves)
+{
+}
+
+EventData_SetActorPossibleMoves::~EventData_SetActorPossibleMoves()
+{
+}
+
+const EventType &EventData_SetActorPossibleMoves::event_type() const
 {
     return event_type_;
 }
