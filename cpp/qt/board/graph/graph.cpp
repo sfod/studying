@@ -22,6 +22,7 @@ bool Graph::add_actor(ActorId id)
 
 bool Graph::move_actor(ActorId id, const Node &node)
 {
+    // @fixme check blocking and unblocking nodes
     if (actor_node_list_.count(id) > 0) {
         board_graph_->unblock_node(actor_node_list_[id].node);
         board_graph_->block_node(node);
