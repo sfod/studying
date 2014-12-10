@@ -35,6 +35,17 @@ Rectangle {
         }
     }
 
+    function setPawnPossibleMoves(actorId, possibleMoves) {
+        if (pawnList.hasOwnProperty(actorId)) {
+            var pawn = pawnList[actorId];
+            var moves = {};
+            for (var i in possibleMoves) {
+                moves[possibleMoves[i]] = 1;
+            }
+            pawn.setPossibleMoves(moves);
+        }
+    }
+
     function setPawnDragging(actorId, b) {
         var pawn = pawnList[actorId];
         pawn.setDragging(b);
