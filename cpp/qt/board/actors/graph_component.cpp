@@ -68,6 +68,11 @@ bool GraphComponent::move_actor(const Node &pos)
     return res;
 }
 
+bool GraphComponent::is_at_goal_node() const
+{
+     return (goal_nodes_.count(node_) > 0);
+}
+
 std::list<Node> GraphComponent::possible_moves() const
 {
     return graph_->possible_moves(owner()->id());

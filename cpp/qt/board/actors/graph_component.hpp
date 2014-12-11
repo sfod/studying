@@ -14,6 +14,7 @@ public:
     virtual const char *name() const override { return name_; }
 
     bool move_actor(const Node &node);
+    bool is_at_goal_node() const;
 
     Node node() const { return node_; }
     std::list<Node> possible_moves() const;
