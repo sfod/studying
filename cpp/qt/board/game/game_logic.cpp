@@ -133,6 +133,8 @@ void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
     if (actor) {
         ComponentId cid = ActorComponent::id(GraphComponent::name_);
         auto graph_comp = std::dynamic_pointer_cast<GraphComponent>(actor->component(cid));
+
+        // @todo(?) move this logic into GraphComponent
         if (graph_comp && graph_comp->move_actor(req_move_event->node())) {
             // update active player position
             auto move_event = std::make_shared<EventData_MoveActor>(
@@ -144,7 +146,7 @@ void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
             // update other players possible moves
             for (auto player_actor : player_list_) {
                 ActorId aid = player_actor.first->id();
-                // active player's possible moves are already updated
+                // active player possible moves are already updated
                 if (aid == actor->id()) {
                     continue;
                 }
