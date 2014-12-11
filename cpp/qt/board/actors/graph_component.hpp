@@ -24,6 +24,7 @@ public:
 private:
     std::shared_ptr<Graph> graph_;
     Node node_;
+    std::set<Node> goal_nodes_;
 };
 
 #endif // GRAPH_COMPONENT_HPP

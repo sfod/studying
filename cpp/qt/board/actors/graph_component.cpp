@@ -4,7 +4,7 @@
 
 const char *GraphComponent::name_ = "GraphComponent";
 
-GraphComponent::GraphComponent() : node_()
+GraphComponent::GraphComponent() : node_(), goal_nodes_()
 {
     graph_ = GameApp::get()->game_logic()->graph();
 }
@@ -15,14 +15,39 @@ GraphComponent::~GraphComponent()
 
 bool GraphComponent::init(const boost::property_tree::ptree &component_data)
 {
+    // set player initial position
     boost::optional<const boost_pt::ptree &> pos =
             component_data.get_child_optional("position");
-    if (pos && ((*pos).size() == 2)) {
-        auto it = (*pos).begin();
-        node_.set_row(it->second.get_value<int>());
-        node_.set_col((++it)->second.get_value<int>());
+    if (!pos || ((*pos).size() != 2)) {
+        return false;
     }
-    return true;
+    auto pos_it = (*pos).begin();
+    node_.set_row(pos_it->second.get_value<int>());
+    node_.set_col((++pos_it)->second.get_value<int>());
+
+    // set player goal nodes
+    boost::optional<const boost_pt::ptree &> goals =
+            component_data.get_child_optional("goals");
+    if (!goals) {
+        return false;
+    }
+
+    bool rc = true;
+    for (auto &goal : *goals) {
+        if (goal.second.size() != 2) {
+            rc = false;
+            break;
+        }
+
+        int items[2];
+        int i = 0;
+        for (auto &node_item : goal.second) {
+            items[i++] = node_item.second.get_value<int>();
+        }
+        goal_nodes_.emplace(items[0], items[1]);
+    }
+
+    return rc;
 }
 
 void GraphComponent::post_init()
