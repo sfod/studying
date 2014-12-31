@@ -46,6 +46,11 @@ bool GameView::init()
             EventData_SetActorActive::event_type_);
     conn_list_.push_back(conn);
 
+    conn = EventManager::get()->add_listener(
+            boost::bind(&GameView::game_finished_delegate, this, _1),
+            EventData_GameFinished::event_type_);
+    conn_list_.push_back(conn);
+
     return true;
 }
 
@@ -120,6 +125,13 @@ void GameView::set_active_delegate(const std::shared_ptr<EventData> &event)
                 Q_ARG(QVariant, static_cast<int>(active_event->actor_id())),
                 Q_ARG(QVariant, active_event->active()));
     }
+}
+
+void GameView::game_finished_delegate(const std::shared_ptr<EventData> &event)
+{
+//    auto game_finished_event = std::dynamic_pointer_cast<EventData_GameFinished>(event);
+    qDebug() << "finishing game!";
+    QMetaObject::invokeMethod(qboard_, "finishGame");
 }
 
 void GameView::on_pawn_dropped(int actor_id, int idx)

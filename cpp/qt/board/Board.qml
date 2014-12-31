@@ -51,6 +51,12 @@ Rectangle {
         pawn.setDragging(b);
     }
 
+    function finishGame() {
+        for (var i in pawnList) {
+            pawnList[i].setDragging(false);
+        }
+    }
+
     function endGame() {
         for (var i in pawnList) {
             pawnList[i].destroy();

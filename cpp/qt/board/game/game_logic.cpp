@@ -136,6 +136,12 @@ void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
 
         // @todo(?) move this logic into GraphComponent
         if (graph_comp && graph_comp->move_actor(req_move_event->node())) {
+            if (graph_comp->is_at_goal_node()) {
+                qDebug() << "player" << actor->id() << "win";
+                auto game_finished_event = std::make_shared<EventData_GameFinished>();
+                EventManager::get()->queue_event(game_finished_event);
+            }
+
             // update active player position
             auto move_event = std::make_shared<EventData_MoveActor>(
                     actor->id(),
