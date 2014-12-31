@@ -3,7 +3,8 @@
 const EventType EventData_MainMenu::event_type_(1011);
 const EventType EventData_Options::event_type_(1018);
 const EventType EventData_Game::event_type_(1012);
-const EventType EventData_GameEnd::event_type_(1020);
+const EventType EventData_GameTerminated::event_type_(1020);
+const EventType EventData_GameFinished::event_type_(1022);
 const EventType EventData_Quit::event_type_(1013);
 const EventType EventData_RequestNewActor::event_type_(1019);
 const EventType EventData_NewActor::event_type_(1014);
@@ -55,15 +56,29 @@ const EventType &EventData_Game::event_type() const
 }
 
 
-EventData_GameEnd::EventData_GameEnd()
+EventData_GameTerminated::EventData_GameTerminated()
 {
 }
 
-EventData_GameEnd::~EventData_GameEnd()
+EventData_GameTerminated::~EventData_GameTerminated()
 {
 }
 
-const EventType &EventData_GameEnd::event_type() const
+const EventType &EventData_GameTerminated::event_type() const
+{
+    return event_type_;
+}
+
+
+EventData_GameFinished::EventData_GameFinished()
+{
+}
+
+EventData_GameFinished::~EventData_GameFinished()
+{
+}
+
+const EventType &EventData_GameFinished::event_type() const
 {
     return event_type_;
 }

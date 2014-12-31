@@ -46,10 +46,19 @@ public:
 };
 
 
-class EventData_GameEnd : public EventData {
+class EventData_GameTerminated : public EventData {
 public:
-    EventData_GameEnd();
-    virtual ~EventData_GameEnd();
+    EventData_GameTerminated();
+    virtual ~EventData_GameTerminated();
+    virtual const EventType &event_type() const;
+    static const EventType event_type_;
+};
+
+
+class EventData_GameFinished : public EventData {
+public:
+    EventData_GameFinished();
+    virtual ~EventData_GameFinished();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 };

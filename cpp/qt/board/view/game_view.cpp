@@ -135,8 +135,8 @@ void GameView::on_pawn_dropped(int actor_id, int idx)
 
 void GameView::button_back_clicked()
 {
-    auto game_end_event = std::make_shared<EventData_GameEnd>();
-    EventManager::get()->queue_event(game_end_event);
+    auto game_terminated_event = std::make_shared<EventData_GameTerminated>();
+    EventManager::get()->queue_event(game_terminated_event);
 
     auto event = std::make_shared<EventData_Options>();
     if (!EventManager::get()->queue_event(event)) {
