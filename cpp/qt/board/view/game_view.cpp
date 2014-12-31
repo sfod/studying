@@ -38,7 +38,7 @@ bool GameView::init()
     conn_list_.push_back(conn);
 
     conn = EventManager::get()->add_listener(
-            boost::bind(&GameView::set_actor_possible_moves, this, _1),
+            boost::bind(&GameView::set_actor_possible_moves_delegate, this, _1),
             EventData_SetActorPossibleMoves::event_type_);
 
     conn = EventManager::get()->add_listener(
@@ -94,7 +94,7 @@ void GameView::move_actor_delegate(const std::shared_ptr<EventData> &event)
     }
 }
 
-void GameView::set_actor_possible_moves(const std::shared_ptr<EventData> &event)
+void GameView::set_actor_possible_moves_delegate(const std::shared_ptr<EventData> &event)
 {
     qDebug() << "set_actor_possible_moves called";
 
