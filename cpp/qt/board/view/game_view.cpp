@@ -51,6 +51,10 @@ bool GameView::init()
             EventData_GameFinished::event_type_);
     conn_list_.push_back(conn);
 
+    if (is_main_) {
+        QMetaObject::invokeMethod(qboard_, "init");
+    }
+
     return true;
 }
 

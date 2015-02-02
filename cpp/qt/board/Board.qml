@@ -5,6 +5,13 @@ Rectangle {
     signal pawnDropped(int actorId, int idx)
 
     property var pawnList: ({})
+    property bool isRunning: false
+
+    function init() {
+        clear();
+        start();
+        console.log("initialized game");
+    }
 
     function addPawn(actorId) {
         var component = Qt.createComponent("DragTile.qml");
@@ -36,7 +43,7 @@ Rectangle {
     }
 
     function setPawnPossibleMoves(actorId, possibleMoves) {
-        if (pawnList.hasOwnProperty(actorId)) {
+        if (isRunning && pawnList.hasOwnProperty(actorId)) {
             var pawn = pawnList[actorId];
             var moves = {};
             for (var i in possibleMoves) {
@@ -47,21 +54,37 @@ Rectangle {
     }
 
     function setPawnDragging(actorId, b) {
-        var pawn = pawnList[actorId];
-        pawn.setDragging(b);
+        if (isRunning) {
+            var pawn = pawnList[actorId];
+            pawn.setDragging(b);
+        }
     }
 
     function finishGame() {
         for (var i in pawnList) {
             pawnList[i].setDragging(false);
         }
+        stop();
     }
 
     function endGame() {
+        clear();
+        stop();
+    }
+
+    function clear() {
         for (var i in pawnList) {
             pawnList[i].destroy();
         }
         pawnList = {};
+    }
+
+    function start() {
+        isRunning = true;
+    }
+
+    function stop() {
+        isRunning = false;
     }
 
     color: "#D18B47"
