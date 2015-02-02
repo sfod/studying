@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     view/ai_view.cpp \
     actors/ai_component.cpp \
     AI/randomer_brain.cpp \
-    graph/board_graph.cpp
+    graph/board_graph.cpp \
+    AI/straight_brain.cpp
 
 RESOURCES += qml.qrc
 
@@ -57,7 +58,8 @@ HEADERS += \
     actors/ai_component.hpp \
     AI/randomer_brain.hpp \
     game/game_data.hpp \
-    graph/board_graph.hpp
+    graph/board_graph.hpp \
+    AI/straight_brain.hpp
 
 OTHER_FILES += \
     data/players.json \
