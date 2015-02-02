@@ -18,6 +18,7 @@ public:
 
     Node node() const { return node_; }
     std::list<Node> possible_moves() const;
+    std::set<Node> goal_nodes() const { return goal_nodes_; }
 
 public:
     static const char *name_;
