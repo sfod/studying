@@ -21,6 +21,7 @@ public:
 
     Node node(ActorId id) const;
     std::list<Node> possible_moves(ActorId id) const;
+    std::list<Node> shortest_path(ActorId id, const std::set<Node> &goal_nodes) const;
 
 private:
     void set_possible_moves(ActorId id);

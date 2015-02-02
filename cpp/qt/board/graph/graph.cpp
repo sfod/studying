@@ -52,6 +52,13 @@ std::list<Node> Graph::possible_moves(ActorId id) const
     return std::list<Node>();
 }
 
+std::list<Node> Graph::shortest_path(ActorId id, const std::set<Node> &goal_nodes) const
+{
+    std::list<Node> path;
+    size_t n = board_graph_->shortest_path(actor_node_list_.at(id).node, goal_nodes, &path);
+    return path;
+}
+
 // @fixme
 void Graph::set_possible_moves(ActorId id)
 {
