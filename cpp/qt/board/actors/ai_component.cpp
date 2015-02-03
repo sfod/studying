@@ -3,6 +3,7 @@
 #include "game/game_app.hpp"
 #include "graph_component.hpp"
 #include "AI/randomer_brain.hpp"
+#include "AI/straight_brain.hpp"
 
 const char *AIComponent::name_ = "AIComponent";
 
@@ -16,13 +17,22 @@ AIComponent::~AIComponent()
 
 bool AIComponent::init(const boost::property_tree::ptree &component_data)
 {
-    boost::optional<const boost_pt::ptree &> brain_type =
-            component_data.get_child_optional("brain");
-    if (brain_type) {
-        brain_ = std::make_shared<RandomerBrain>();
-        return true;
+    std::string brain_type = component_data.get<std::string>("brain", "");
+    if (brain_type == "") {
+        return false;
     }
-    return false;
+
+    if (brain_type == std::string("randomer")) {
+        brain_ = std::make_shared<RandomerBrain>();
+    }
+    else if (brain_type == std::string("straight")) {
+        brain_ = std::make_shared<StraightBrain>();
+    }
+    else {
+        return false;
+    }
+
+    return true;
 }
 
 void AIComponent::post_init()
