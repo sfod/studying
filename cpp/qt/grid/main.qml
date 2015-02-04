@@ -30,14 +30,28 @@ Window {
             onPositionChanged: {
                 if (rect.wallEnbled) {
                     console.log("X is " + mouseX + ", Y is " + mouseY);
-                    var iw = pawnGrid.cellWidth + pawnGrid.lineWidth;
-                    var ih = pawnGrid.cellHeight + pawnGrid.lineHeight;
 
+                    var alignment = -1;
+
+                    var iw = pawnGrid.cellWidth + pawnGrid.lineWidth;
                     var sx = Math.floor((mouseX - pawnGrid.lineWidth) / iw);
                     var px = (mouseX - pawnGrid.lineWidth - sx * iw) / pawnGrid.cellWidth;
 
+                    var ih = pawnGrid.cellHeight + pawnGrid.lineHeight;
                     var sy = Math.floor((mouseY - pawnGrid.lineHeight) / ih);
                     var py = (mouseY - pawnGrid.lineHeight - sy * ih) / pawnGrid.cellHeight;
+
+                    if (py > 1.0) {
+                        alignment = 0;
+                    }
+                    else if (px > 1.0) {
+                        alignment = 1;
+                    }
+                    else {
+                        var minPx = Math.min(Math.abs(1.0 - px), px);
+                        var minPy = Math.min(Math.abs(1.0 - py), py);
+                        alignment = minPy <= minPx ? 0 : 1;
+                    }
 
                     var wallColumn = sx + Math.round(px);
                     if (wallColumn == 0) {
@@ -55,7 +69,9 @@ Window {
                         wallRow -= 1;
                     }
 
-                    console.log("wall: " + wallRow + ":" + wallColumn);
+                    console.log("x: " + px + ", y: " + py);
+                    var al = alignment ? "vertical" : "horizontal";
+                    console.log(al + " wall: " + wallRow + ":" + wallColumn);
                 }
             }
         }
