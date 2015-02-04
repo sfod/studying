@@ -30,12 +30,32 @@ Window {
             onPositionChanged: {
                 if (rect.wallEnbled) {
                     console.log("X is " + mouseX + ", Y is " + mouseY);
-                    var w = (pawnGrid.width - pawnGrid.lineWidth) / 5;
-                    var i = (mouseX - pawnGrid.lineWidth) / w;
-                    console.log("i is " + i);
-                    var wallX = mouseX < 100 ? 0 : 100;
-                    var wallY = 0;
-                    console.log("nearest wall is: " + wallX + ":" + wallY);
+                    var iw = pawnGrid.cellWidth + pawnGrid.lineWidth;
+                    var ih = pawnGrid.cellHeight + pawnGrid.lineHeight;
+
+                    var sx = Math.floor((mouseX - pawnGrid.lineWidth) / iw);
+                    var px = (mouseX - pawnGrid.lineWidth - sx * iw) / pawnGrid.cellWidth;
+
+                    var sy = Math.floor((mouseY - pawnGrid.lineHeight) / ih);
+                    var py = (mouseY - pawnGrid.lineHeight - sy * ih) / pawnGrid.cellHeight;
+
+                    var wallColumn = sx + Math.round(px);
+                    if (wallColumn == 0) {
+                        wallColumn += 1;
+                    }
+                    if (wallColumn == pawnGrid.columnNumber) {
+                        wallColumn -= 1;
+                    }
+
+                    var wallRow = pawnGrid.rowNumber - (sy + Math.round(py));
+                    if (wallRow == 0) {
+                        wallRow += 1;
+                    }
+                    if (wallRow == pawnGrid.rowNumber) {
+                        wallRow -= 1;
+                    }
+
+                    console.log("wall: " + wallRow + ":" + wallColumn);
                 }
             }
         }
@@ -44,14 +64,19 @@ Window {
             id: pawnGrid
 
             property int lineWidth: 10
+            property int lineHeight: lineWidth
+            property int cellWidth: 0
+            property int cellHeight: 0
+            property int columnNumber: 5
+            property int rowNumber: 5
 
             width: parent.width - lineWidth * 2
             height: parent.height - lineWidth * 2
             x: lineWidth
             y: lineWidth
 
-            rows: 5
-            columns: 5
+            rows: rowNumber
+            columns: columnNumber
 
             spacing: lineWidth
 
@@ -62,8 +87,10 @@ Window {
             }
 
             Component.onCompleted: {
-                rect.addPawn(2)
-                rect.addPawn(9)
+                pawnGrid.cellWidth = repeater.itemAt(1).width;
+                pawnGrid.cellHeight = repeater.itemAt(1).height;
+                rect.addPawn(2);
+                rect.addPawn(9);
             }
         }
     }
