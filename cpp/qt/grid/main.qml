@@ -21,10 +21,16 @@ Window {
         color: "#D18B47"
 
         function addPawn(idx) {
-            var pawn = Qt.createQmlObject('import QtQuick 2.2; DragTile { initParent: repeater.itemAt(' + idx + ') }', pawnGrid, "dynPawn")
+            var pawn = Qt.createQmlObject('import QtQuick 2.2; DragTile { initParent: repeater.itemAt(' + idx + ') }', pawnGrid, "dynPawn");
         }
 
         MouseArea {
+            id: rectMouseArea
+
+            property var tempWall
+            property int tempWallX: -1
+            property int tempWallY: -1
+
             anchors.fill: parent
             hoverEnabled: true
             onPositionChanged: {
@@ -53,25 +59,85 @@ Window {
                         alignment = minPy <= minPx ? 0 : 1;
                     }
 
-                    var wallColumn = sx + Math.round(px);
-                    if (wallColumn == 0) {
-                        wallColumn += 1;
-                    }
-                    if (wallColumn == pawnGrid.columnNumber) {
-                        wallColumn -= 1;
-                    }
+                    var wallRow = -1;
+                    var wallColumn = -1;
+                    if (alignment) {
+                        wallColumn = sx + Math.round(px);
+                        if (wallColumn == 0) {
+                            wallColumn += 1;
+                        }
+                        else if (wallColumn == pawnGrid.columnNumber) {
+                            wallColumn -= 1;
+                        }
 
-                    var wallRow = pawnGrid.rowNumber - (sy + Math.round(py));
-                    if (wallRow == 0) {
-                        wallRow += 1;
+                        wallRow = sy + Math.floor(py) - 1;
+                        console.log("wall row is " + wallRow);
+                        if (wallRow == -1) {
+                            wallRow = 0;
+                        }
+                        if (wallRow == pawnGrid.rowNumber - 1) {
+                            wallRow -= 1;
+                        }
                     }
-                    if (wallRow == pawnGrid.rowNumber) {
-                        wallRow -= 1;
+                    else {
+                        wallColumn = sx + Math.floor(px);
+                        if (wallColumn == pawnGrid.columnNumber - 1) {
+                            wallColumn -= 1;
+                        }
+                        else if (wallColumn == pawnGrid.columnNumber) {
+                            wallColumn -= 2;
+                        }
+
+                        wallRow = sy + Math.round(py);
+                        if (wallRow == 0) {
+                            wallRow += 1;
+                        }
+                        if (wallRow == pawnGrid.rowNumber) {
+                            wallRow -= 1;
+                        }
                     }
 
                     console.log("x: " + px + ", y: " + py);
                     var al = alignment ? "vertical" : "horizontal";
                     console.log(al + " wall: " + wallRow + ":" + wallColumn);
+
+                    var wallX = -1;
+                    var wallY = -1;
+                    if (alignment) {
+                        wallX = wallColumn * iw;
+                        wallY = pawnGrid.lineWidth + wallRow * iw;
+                        if ((wallX != rectMouseArea.tempWallX) || (wallY != rectMouseArea.tempWallY)) {
+                            if (rectMouseArea.tempWall) {
+                                rectMouseArea.tempWall.destroy();
+                            }
+                            rectMouseArea.tempWall = Qt.createQmlObject(
+                                        'import QtQuick 2.2; '
+                                        + 'Rectangle { x: ' + wallX + '; y: ' + wallY
+                                        + '; width: ' + pawnGrid.lineWidth + '; height: '
+                                        + (pawnGrid.lineWidth + 2 * pawnGrid.cellWidth) + '; color: "blue" }',
+                                        rect, "wallLine");
+                            rectMouseArea.tempWallX = wallX;
+                            rectMouseArea.tempWallY = wallY;
+                        }
+                    }
+                    else {
+                        wallX = pawnGrid.lineWidth + wallColumn * iw;
+                        wallY = wallRow * iw;
+                        if ((wallX != rectMouseArea.tempWallX) || (wallY != rectMouseArea.tempWallY)) {
+                            if (rectMouseArea.tempWall) {
+                                rectMouseArea.tempWall.destroy();
+                            }
+                            rectMouseArea.tempWall = Qt.createQmlObject(
+                                        'import QtQuick 2.2; '
+                                        + 'Rectangle { x: ' + wallX + '; y: ' + wallY
+                                        + '; width: ' + (pawnGrid.lineWidth + 2 * pawnGrid.cellWidth) + '; height: '
+                                        + pawnGrid.lineWidth + '; color: "blue" }',
+                                        rect, "wallLine");
+                            rectMouseArea.tempWallX = wallX;
+                            rectMouseArea.tempWallY = wallY;
+                        }
+
+                    }
                 }
             }
         }
