@@ -107,7 +107,7 @@ Window {
                                         'import QtQuick 2.2; '
                                         + 'Rectangle { x: ' + wallX + '; y: ' + wallY
                                         + '; width: ' + pawnGrid.lineWidth + '; height: '
-                                        + (pawnGrid.lineWidth + 2 * pawnGrid.cellWidth) + '; color: "blue" }',
+                                        + (pawnGrid.lineWidth + 2 * pawnGrid.cellWidth) + '; color: "brown" }',
                                         rect, "wallLine");
                             rectMouseArea.tempWallX = wallX;
                             rectMouseArea.tempWallY = wallY;
@@ -124,7 +124,7 @@ Window {
                                         'import QtQuick 2.2; '
                                         + 'Rectangle { x: ' + wallX + '; y: ' + wallY
                                         + '; width: ' + (pawnGrid.lineWidth + 2 * pawnGrid.cellWidth) + '; height: '
-                                        + pawnGrid.lineWidth + '; color: "blue" }',
+                                        + pawnGrid.lineWidth + '; color: "brown" }',
                                         rect, "wallLine");
                             rectMouseArea.tempWallX = wallX;
                             rectMouseArea.tempWallY = wallY;
