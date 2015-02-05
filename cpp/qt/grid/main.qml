@@ -35,17 +35,15 @@ Window {
             hoverEnabled: true
             onPositionChanged: {
                 if (rect.wallEnbled) {
-                    console.log("X is " + mouseX + ", Y is " + mouseY);
-
                     var alignment = -1;
 
                     var iw = pawnGrid.cellWidth + pawnGrid.lineWidth;
                     var sx = Math.floor((mouseX - pawnGrid.lineWidth) / iw);
                     var px = (mouseX - pawnGrid.lineWidth - sx * iw) / pawnGrid.cellWidth;
 
-                    var ih = pawnGrid.cellHeight + pawnGrid.lineHeight;
-                    var sy = Math.floor((mouseY - pawnGrid.lineHeight) / ih);
-                    var py = (mouseY - pawnGrid.lineHeight - sy * ih) / pawnGrid.cellHeight;
+                    var ih = pawnGrid.cellHeight + pawnGrid.lineWidth;
+                    var sy = Math.floor((mouseY - pawnGrid.lineWidth) / ih);
+                    var py = (mouseY - pawnGrid.lineWidth - sy * ih) / pawnGrid.cellHeight;
 
                     if (py > 1.0) {
                         alignment = 0;
@@ -71,7 +69,6 @@ Window {
                         }
 
                         wallRow = sy + Math.floor(py) - 1;
-                        console.log("wall row is " + wallRow);
                         if (wallRow == -1) {
                             wallRow = 0;
                         }
@@ -96,10 +93,6 @@ Window {
                             wallRow -= 1;
                         }
                     }
-
-                    console.log("x: " + px + ", y: " + py);
-                    var al = alignment ? "vertical" : "horizontal";
-                    console.log(al + " wall: " + wallRow + ":" + wallColumn);
 
                     var wallX = -1;
                     var wallY = -1;
@@ -146,7 +139,6 @@ Window {
             id: pawnGrid
 
             property int lineWidth: 10
-            property int lineHeight: lineWidth
             property int cellWidth: 0
             property int cellHeight: 0
             property int columnNumber: 5
