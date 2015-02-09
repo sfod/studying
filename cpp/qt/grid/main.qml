@@ -84,7 +84,7 @@ Window {
                     wallRow -= 1;
                 }
 
-                return [0, wallRow, wallColumn];
+                return [0, wallRow, wallColumn, pawnGrid.rowNumber - wallRow, wallColumn];
             }
 
             function getVerticalWallCoordinates(sx, px, sy, py) {
@@ -104,7 +104,7 @@ Window {
                     wallRow -= 1;
                 }
 
-                return [1, wallRow, wallColumn];
+                return [1, wallRow, wallColumn, pawnGrid.rowNumber - wallRow - 2, wallColumn];
             }
 
             onPositionChanged: {
