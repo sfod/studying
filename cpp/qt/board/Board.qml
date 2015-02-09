@@ -6,6 +6,7 @@ Rectangle {
 
     property var pawnList: ({})
     property bool isRunning: false
+    property bool wallEnbled: true
 
     function init() {
         clear();
@@ -18,7 +19,7 @@ Rectangle {
         if (component.status === Component.Error) {
             console.log("error creating pawn: " + component.errorString());
         }
-        var pawn = component.createObject(grid, {actorId: actorId, visible: false});
+        var pawn = component.createObject(boardGrid, {actorId: actorId, visible: false});
         pawn.setDragging(false);
         pawnList[actorId] = pawn;
     }
@@ -89,23 +90,165 @@ Rectangle {
 
     color: "#D18B47"
 
+    MouseArea {
+        id: boardMouseArea
+
+        property var tempWall
+        property int tempWallX: -1
+        property int tempWallY: -1
+
+        anchors.fill: parent
+        hoverEnabled: true
+
+        function getWall(x, y) {
+            var iw = boardGrid.cellWidth + boardGrid.lineWidth;
+            var sx = Math.floor((x - boardGrid.lineWidth) / iw);
+            var px = (x - boardGrid.lineWidth - sx * iw) / boardGrid.cellWidth;
+
+            var ih = boardGrid.cellHeight + boardGrid.lineWidth;
+            var sy = Math.floor((y - boardGrid.lineWidth) / ih);
+            var py = (y - boardGrid.lineWidth - sy * ih) / boardGrid.cellHeight;
+
+            var info = [];
+
+            /* mouse cursor placed on line between nodes */
+            if (py > 1.0) {
+                info = getHorizontalWallCoordinates(sx, px, sy, py);
+            }
+            /* mouse cursor placed on line between nodes */
+            else if (px > 1.0) {
+                info = getVerticalWallCoordinates(sx, px, sy, py);
+            }
+            else {
+                var minPx = Math.min(Math.abs(1.0 - px), px);
+                var minPy = Math.min(Math.abs(1.0 - py), py);
+                if (minPy <= minPx) {
+                    info = getHorizontalWallCoordinates(sx, px, sy, py);
+                }
+                else {
+                    info = getVerticalWallCoordinates(sx, px, sy, py);
+                }
+            }
+
+            return info;
+        }
+
+        function getHorizontalWallCoordinates(sx, px, sy, py) {
+            var wallColumn = sx + Math.floor(px);
+            if (wallColumn == boardGrid.columnNumber - 1) {
+                wallColumn -= 1;
+            }
+            else if (wallColumn == boardGrid.columnNumber) {
+                wallColumn -= 2;
+            }
+
+            var wallRow = sy + Math.round(py);
+            if (wallRow == 0) {
+                wallRow += 1;
+            }
+            if (wallRow == boardGrid.rowNumber) {
+                wallRow -= 1;
+            }
+
+            return [0, wallRow, wallColumn, boardGrid.rowNumber - wallRow, wallColumn];
+        }
+
+        function getVerticalWallCoordinates(sx, px, sy, py) {
+            var wallColumn = sx + Math.round(px);
+            if (wallColumn == 0) {
+                wallColumn += 1;
+            }
+            else if (wallColumn == boardGrid.columnNumber) {
+                wallColumn -= 1;
+            }
+
+            var wallRow = sy + Math.floor(py) - 1;
+            if (wallRow == -1) {
+                wallRow = 0;
+            }
+            if (wallRow == boardGrid.rowNumber - 1) {
+                wallRow -= 1;
+            }
+
+            return [1, wallRow, wallColumn, boardGrid.rowNumber - wallRow - 2, wallColumn];
+        }
+
+        onPositionChanged: {
+            if (board.wallEnbled) {
+                var wallInfo = getWall(mouseX, mouseY);
+
+                var alignment = wallInfo[0];
+                var wallRow = wallInfo[1];
+                var wallColumn = wallInfo[2];
+
+                var iw = boardGrid.cellWidth + boardGrid.lineWidth;
+                var ih = boardGrid.cellHeight + boardGrid.lineWidth;
+
+                var wallX = -1;
+                var wallY = -1;
+                var wallWidth = -1;
+                var wallHeight = -1;
+                if (alignment) {
+                    wallX = wallColumn * iw;
+                    wallY = boardGrid.lineWidth + wallRow * ih;
+                    wallWidth = boardGrid.lineWidth;
+                    wallHeight = boardGrid.lineWidth + 2 * boardGrid.cellHeight;
+                }
+                else {
+                    wallX = boardGrid.lineWidth + wallColumn * iw;
+                    wallY = wallRow * ih;
+                    wallWidth = boardGrid.lineWidth + 2 * boardGrid.cellWidth;
+                    wallHeight = boardGrid.lineWidth;
+                }
+
+                if ((wallX != boardMouseArea.tempWallX) || (wallY != boardMouseArea.tempWallY)) {
+                    if (boardMouseArea.tempWall) {
+                        boardMouseArea.tempWall.destroy();
+                    }
+                    boardMouseArea.tempWall = Qt.createQmlObject(
+                            'import QtQuick 2.2; ' + 'Rectangle { x: '
+                                + wallX + '; y: ' + wallY + '; width: '
+                                + wallWidth + '; height: ' + wallHeight
+                                + '; color: "blue" }',
+                            board, "wallLine");
+                    boardMouseArea.tempWallX = wallX;
+                    boardMouseArea.tempWallY = wallY;
+                }
+            }
+        }
+    }
+
     Grid {
-        id: grid
+        id: boardGrid
 
-        columns: 9
-        rows: 9
+        property int lineWidth: 5
+        property real cellWidth: 0
+        property real cellHeight: 0
+        property int columnNumber: 9
+        property int rowNumber: 9
 
-        width: parent.width - spacing * 2
-        height: parent.height - spacing * 2
-        x: spacing
-        y: spacing
+        rows: rowNumber
+        columns: columnNumber
 
-        spacing: 3
+        width: parent.width - lineWidth * 2
+        height: parent.height - lineWidth * 2
+        x: lineWidth
+        y: lineWidth
+
+        spacing: lineWidth
 
         Repeater {
             id: repeater
+            width: parent.width
+            height: parent.height
+
             model: parent.rows * parent.columns
             delegate: DropTile {}
+        }
+
+        Component.onCompleted: {
+            boardGrid.cellWidth = repeater.itemAt(1).width;
+            boardGrid.cellHeight = repeater.itemAt(1).height;
         }
     }
 }
