@@ -172,7 +172,7 @@ Window {
 
             Repeater {
                 id: repeater
-                model: 25
+                model: parent.rows * parent.columns
                 delegate: DropTile {}
             }
 
