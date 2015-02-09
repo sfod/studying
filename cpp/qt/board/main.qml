@@ -1,8 +1,10 @@
-import QtQuick 2.2
+import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 ApplicationWindow {
+    id: windowApp
+
     visible: true
     width: 500
     height: 550
@@ -12,8 +14,8 @@ ApplicationWindow {
         id: windowMain
         state: "stateMainMenu"
 
-        width: parent.width
-        height: parent.height
+        width: windowApp.width
+        height: windowApp.height
         x: 0
         y: 0
 
