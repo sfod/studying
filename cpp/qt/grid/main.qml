@@ -116,6 +116,7 @@ Window {
                     var wallColumn = wallInfo[2];
 
                     var iw = pawnGrid.cellWidth + pawnGrid.lineWidth;
+                    var ih = pawnGrid.cellHeight + pawnGrid.lineWidth;
 
                     var wallX = -1;
                     var wallY = -1;
@@ -123,13 +124,13 @@ Window {
                     var wallHeight = -1;
                     if (alignment) {
                         wallX = wallColumn * iw;
-                        wallY = pawnGrid.lineWidth + wallRow * iw;
+                        wallY = pawnGrid.lineWidth + wallRow * ih;
                         wallWidth = pawnGrid.lineWidth;
-                        wallHeight = pawnGrid.lineWidth + 2 * pawnGrid.cellWidth;
+                        wallHeight = pawnGrid.lineWidth + 2 * pawnGrid.cellHeight;
                     }
                     else {
                         wallX = pawnGrid.lineWidth + wallColumn * iw;
-                        wallY = wallRow * iw;
+                        wallY = wallRow * ih;
                         wallWidth = pawnGrid.lineWidth + 2 * pawnGrid.cellWidth;
                         wallHeight = pawnGrid.lineWidth;
                     }
