@@ -13,7 +13,7 @@ Window {
         property bool wallEnbled: true
 
         width: 500
-        height: 500
+        height: 550
 
         x: 100
         y: 50
