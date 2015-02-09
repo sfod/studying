@@ -155,8 +155,8 @@ Window {
             id: pawnGrid
 
             property int lineWidth: 10
-            property int cellWidth: 0
-            property int cellHeight: 0
+            property real cellWidth: 0
+            property real cellHeight: 0
             property int columnNumber: 5
             property int rowNumber: 5
 
