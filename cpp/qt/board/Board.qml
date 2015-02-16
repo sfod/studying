@@ -3,6 +3,7 @@ import QtQuick 2.0
 Rectangle {
     id: board
     signal pawnDropped(int actorId, int idx)
+    signal wallDropped(int actorId, int alignment, int row, int col)
 
     property var pawnList: ({})
     property bool isRunning: false
@@ -96,6 +97,9 @@ Rectangle {
         property var tempWall
         property int tempWallX: -1
         property int tempWallY: -1
+        property int wallGameAlignment: -1
+        property int wallGameRow: -1
+        property int wallGameColumn: -1
 
         anchors.fill: parent
         hoverEnabled: true
@@ -177,9 +181,11 @@ Rectangle {
             if (board.wallEnabled) {
                 var wallInfo = getWall(mouseX, mouseY);
 
-                var alignment = wallInfo[0];
+                boardMouseArea.wallGameAlignment = wallInfo[0];
                 var wallRow = wallInfo[1];
                 var wallColumn = wallInfo[2];
+                boardMouseArea.wallGameRow = wallInfo[3];
+                boardMouseArea.wallGameColumn = wallInfo[4];
 
                 var iw = boardGrid.cellWidth + boardGrid.lineWidth;
                 var ih = boardGrid.cellHeight + boardGrid.lineWidth;
@@ -188,7 +194,7 @@ Rectangle {
                 var wallY = -1;
                 var wallWidth = -1;
                 var wallHeight = -1;
-                if (alignment) {
+                if (boardMouseArea.wallGameAlignment) {
                     wallX = wallColumn * iw;
                     wallY = boardGrid.lineWidth + wallRow * ih;
                     wallWidth = boardGrid.lineWidth;
@@ -214,6 +220,13 @@ Rectangle {
                     boardMouseArea.tempWallX = wallX;
                     boardMouseArea.tempWallY = wallY;
                 }
+            }
+        }
+
+        onClicked: {
+            if (board.wallEnabled) {
+                console.log("set wall at " + boardMouseArea.wallGameRow + ':' + boardMouseArea.wallGameColumn);
+                board.wallDropped(-1, boardMouseArea.wallGameAlignment, boardMouseArea.wallGameRow, boardMouseArea.wallGameColumn);
             }
         }
     }

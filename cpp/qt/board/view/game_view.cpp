@@ -149,6 +149,11 @@ void GameView::on_pawn_dropped(int actor_id, int idx)
     }
 }
 
+void GameView::on_wall_dropped(int actor_id, int alignment, int row, int column)
+{
+    qDebug() << "adding wall at" << row << ":" << column;
+}
+
 void GameView::button_back_clicked()
 {
     auto game_terminated_event = std::make_shared<EventData_GameTerminated>();
@@ -175,5 +180,8 @@ bool GameView::connect_board()
             qboard_, SIGNAL(pawnDropped(int, int)),
             this, SLOT(on_pawn_dropped(int, int))
     );
+    QObject::connect(
+            qboard_, SIGNAL(wallDropped(int, int, int, int)),
+            this, SLOT(on_wall_dropped(int, int, int, int)));
     return true;
 }

@@ -26,6 +26,7 @@ public:
 
 public slots:
     void on_pawn_dropped(int actor_id, int idx);
+    void on_wall_dropped(int actor_id, int alignment, int row, int column);
     void button_back_clicked();
 
 private:
