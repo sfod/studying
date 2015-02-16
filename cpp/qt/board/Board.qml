@@ -6,7 +6,7 @@ Rectangle {
 
     property var pawnList: ({})
     property bool isRunning: false
-    property bool wallEnbled: true
+    property bool wallEnabled: true
 
     function init() {
         clear();
@@ -174,7 +174,7 @@ Rectangle {
         }
 
         onPositionChanged: {
-            if (board.wallEnbled) {
+            if (board.wallEnabled) {
                 var wallInfo = getWall(mouseX, mouseY);
 
                 var alignment = wallInfo[0];
