@@ -175,8 +175,8 @@ const EventType &EventData_SetActorPossibleMoves::event_type() const
 }
 
 
-EventData_SetActorActive::EventData_SetActorActive(ActorId actor_id, bool av)
-    : actor_id_(actor_id), active_(av)
+EventData_SetActorActive::EventData_SetActorActive(ActorId actor_id)
+    : actor_id_(actor_id)
 {
 }
 

@@ -125,9 +125,8 @@ void GameView::set_active_delegate(const std::shared_ptr<EventData> &event)
 {
     auto active_event = std::dynamic_pointer_cast<EventData_SetActorActive>(event);
     if (active_event->actor_id() == actor_id_) {
-        QMetaObject::invokeMethod(qboard_, "setPawnDragging",
-                Q_ARG(QVariant, static_cast<int>(active_event->actor_id())),
-                Q_ARG(QVariant, active_event->active()));
+        QMetaObject::invokeMethod(qboard_, "setActivePlayer",
+                Q_ARG(QVariant, static_cast<int>(active_event->actor_id())));
     }
 }
 

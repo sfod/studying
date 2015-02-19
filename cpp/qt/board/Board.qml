@@ -55,10 +55,15 @@ Rectangle {
         }
     }
 
-    function setPawnDragging(actorId, b) {
-        if (isRunning) {
-            var pawn = pawnList[actorId];
-            pawn.setDragging(b);
+    function setActivePlayer(actorId) {
+        if (!isRunning || !pawnList.hasOwnProperty(actorId)) {
+            return;
+        }
+
+        var iActorId = parseInt(actorId);
+        for (var i in pawnList) {
+            var t = (parseInt(i) === iActorId) ? true : false;
+            pawnList[i].setDragging(t);
         }
     }
 

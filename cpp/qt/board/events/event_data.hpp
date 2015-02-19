@@ -153,17 +153,15 @@ private:
 
 class EventData_SetActorActive : public EventData {
 public:
-    EventData_SetActorActive(ActorId actor_id, bool av);
+    explicit EventData_SetActorActive(ActorId actor_id);
     virtual ~EventData_SetActorActive();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
     ActorId actor_id() const { return actor_id_; }
-    bool active() const { return active_; }
 
 private:
     ActorId actor_id_;
-    bool active_;
 };
 
 #endif // EVENT_DATA_HPP
