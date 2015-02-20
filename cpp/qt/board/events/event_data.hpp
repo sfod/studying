@@ -117,6 +117,20 @@ private:
 };
 
 
+class EventData_RequestSetWall : public EventData {
+public:
+    explicit EventData_RequestSetWall(ActorId actor_id);
+    virtual ~EventData_RequestSetWall();
+    virtual const EventType &event_type() const;
+    static const EventType event_type_;
+
+    ActorId actor_id() const { return actor_id_; }
+
+private:
+    ActorId actor_id_;
+};
+
+
 class EventData_MoveActor : public EventData {
 public:
     EventData_MoveActor(ActorId actor_id, const Node &node,

@@ -150,7 +150,18 @@ void GameView::on_pawn_dropped(int actor_id, int idx)
 
 void GameView::on_wall_dropped(int actor_id, int alignment, int row, int column)
 {
-    qDebug() << "adding wall at" << row << ":" << column;
+    if (static_cast<ActorId>(actor_id) != actor_id_) {
+        return;
+    }
+
+    qDebug() << "player" << actor_id << "adding"
+             << (alignment == 1 ? "vertical" : "horizontal")
+             << "wall at" << row << ":" << column;
+
+    auto event = std::make_shared<EventData_RequestSetWall>(actor_id);
+    if (!EventManager::get()->queue_event(event)) {
+        qDebug() << "failed to queue RequestSetWall event";
+    }
 }
 
 void GameView::button_back_clicked()

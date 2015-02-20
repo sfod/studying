@@ -9,6 +9,7 @@ const EventType EventData_Quit::event_type_(1013);
 const EventType EventData_RequestNewActor::event_type_(1019);
 const EventType EventData_NewActor::event_type_(1014);
 const EventType EventData_RequestActorMove::event_type_(1015);
+const EventType EventData_RequestSetWall::event_type_(1023);
 const EventType EventData_MoveActor::event_type_(1016);
 const EventType EventData_SetActorPossibleMoves::event_type_(1021);
 const EventType EventData_SetActorActive::event_type_(1017);
@@ -137,6 +138,21 @@ EventData_RequestActorMove::~EventData_RequestActorMove()
 }
 
 const EventType &EventData_RequestActorMove::event_type() const
+{
+    return event_type_;
+}
+
+
+EventData_RequestSetWall::EventData_RequestSetWall(ActorId actor_id)
+    : actor_id_(actor_id)
+{
+}
+
+EventData_RequestSetWall::~EventData_RequestSetWall()
+{
+}
+
+const EventType &EventData_RequestSetWall::event_type() const
 {
     return event_type_;
 }
