@@ -8,6 +8,7 @@ Rectangle {
     property var pawnList: ({})
     property bool isRunning: false
     property bool wallEnabled: true
+    property int activeActorId: -1
 
     function init() {
         clear();
@@ -65,6 +66,8 @@ Rectangle {
             var t = (parseInt(i) === iActorId) ? true : false;
             pawnList[i].setDragging(t);
         }
+
+        board.activeActorId = actorId;
     }
 
     function finishGame() {
@@ -230,8 +233,10 @@ Rectangle {
 
         onClicked: {
             if (board.wallEnabled) {
-                console.log("set wall at " + boardMouseArea.wallGameRow + ':' + boardMouseArea.wallGameColumn);
-                board.wallDropped(-1, boardMouseArea.wallGameAlignment, boardMouseArea.wallGameRow, boardMouseArea.wallGameColumn);
+                board.wallDropped(activeActorId,
+                        boardMouseArea.wallGameAlignment,
+                        boardMouseArea.wallGameRow,
+                        boardMouseArea.wallGameColumn);
             }
         }
     }
