@@ -169,6 +169,14 @@ void GameLogic::req_actor_move_delegate(const std::shared_ptr<EventData> &event)
     }
 }
 
+void GameLogic::req_set_wall(const std::shared_ptr<EventData> &event)
+{
+    auto req_wall_event = std::dynamic_pointer_cast<EventData_RequestSetWall>(event);
+    const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_wall_event->actor_id());
+    if (actor) {
+    }
+}
+
 void GameLogic::register_delegates()
 {
     bs2::connection conn;
@@ -201,6 +209,11 @@ void GameLogic::register_delegates()
     conn = EventManager::get()->add_listener(
             boost::bind(&GameLogic::req_actor_move_delegate, this, _1),
             EventData_RequestActorMove::event_type_);
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
+            boost::bind(&GameLogic::req_set_wall, this, _1),
+            EventData_RequestSetWall::event_type_);
     conn_list_.push_back(conn);
 }
 
