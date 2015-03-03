@@ -106,7 +106,7 @@ Rectangle {
         property var tempWall
         property int tempWallX: -1
         property int tempWallY: -1
-        property int wallGameAlignment: -1
+        property int wallGameOrientation: WallOrientation.WO_Invalid
         property int wallGameRow: -1
         property int wallGameColumn: -1
 
@@ -190,7 +190,7 @@ Rectangle {
             if (board.wallEnabled) {
                 var wallInfo = getWall(mouseX, mouseY);
 
-                boardMouseArea.wallGameAlignment = wallInfo[0];
+                boardMouseArea.wallGameOrientation = wallInfo[0];
                 var wallRow = wallInfo[1];
                 var wallColumn = wallInfo[2];
                 boardMouseArea.wallGameRow = wallInfo[3];
@@ -203,7 +203,7 @@ Rectangle {
                 var wallY = -1;
                 var wallWidth = -1;
                 var wallHeight = -1;
-                if (boardMouseArea.wallGameAlignment) {
+                if (boardMouseArea.wallGameOrientation) {
                     wallX = wallColumn * iw;
                     wallY = boardGrid.lineWidth + wallRow * ih;
                     wallWidth = boardGrid.lineWidth;
