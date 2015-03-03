@@ -4,6 +4,7 @@
 #include <QObject>
 #include "qt_view.hpp"
 #include "events/event_manager.hpp"
+#include "graph/wall.hpp"
 
 class GameView : public QtView
 {
@@ -26,7 +27,7 @@ public:
 
 public slots:
     void on_pawn_dropped(int actor_id, int idx);
-    void on_wall_dropped(int actor_id, int alignment, int row, int column);
+    void on_wall_dropped(int actor_id, int wo, int row, int column);
     void button_back_clicked();
 
 private:

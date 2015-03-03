@@ -1,9 +1,10 @@
 import QtQuick 2.0
+import WallOrientationQML 1.0
 
 Rectangle {
     id: board
     signal pawnDropped(int actorId, int idx)
-    signal wallDropped(int actorId, int alignment, int row, int col)
+    signal wallDropped(int actorId, int orientation, int row, int col)
 
     property var pawnList: ({})
     property bool isRunning: false
@@ -234,7 +235,7 @@ Rectangle {
         onClicked: {
             if (board.wallEnabled) {
                 board.wallDropped(activeActorId,
-                        boardMouseArea.wallGameAlignment,
+                        WallOrientation.WO_Vertical,
                         boardMouseArea.wallGameRow,
                         boardMouseArea.wallGameColumn);
             }

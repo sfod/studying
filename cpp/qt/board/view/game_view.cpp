@@ -148,14 +148,16 @@ void GameView::on_pawn_dropped(int actor_id, int idx)
     }
 }
 
-void GameView::on_wall_dropped(int actor_id, int alignment, int row, int column)
+void GameView::on_wall_dropped(int actor_id, int wo, int row, int column)
 {
     if (static_cast<ActorId>(actor_id) != actor_id_) {
         return;
     }
 
+//    Wall w(wo, Node(row, column), 2);
+
     qDebug() << "player" << actor_id << "adding"
-             << (alignment == 1 ? "vertical" : "horizontal")
+             << (wo == WallEnumClass::WallOrientation::WO_Vertical ? "vertical" : "horizontal")
              << "wall at" << row << ":" << column;
 
     auto event = std::make_shared<EventData_RequestSetWall>(actor_id);

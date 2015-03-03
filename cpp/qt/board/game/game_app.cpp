@@ -8,6 +8,7 @@
 
 #include "events/event_manager.hpp"
 #include "events/event_caller.hpp"
+#include "graph/wall.hpp"
 
 static GameApp *g_app;
 
@@ -28,6 +29,8 @@ GameApp::~GameApp()
 int GameApp::run(int argc, char **argv)
 {
     QGuiApplication *qapp = new QGuiApplication(argc, argv);
+
+    WallEnumClass::declareQML();
 
     qengine_ = new QQmlEngine;
     qcomponent_ = new QQmlComponent(qengine_, QUrl(QStringLiteral("qrc:///main.qml")));
