@@ -235,7 +235,7 @@ Rectangle {
         onClicked: {
             if (board.wallEnabled) {
                 board.wallDropped(activeActorId,
-                        WallOrientation.WO_Vertical,
+                        boardMouseArea.wallGameOrientation,
                         boardMouseArea.wallGameRow,
                         boardMouseArea.wallGameColumn);
             }
