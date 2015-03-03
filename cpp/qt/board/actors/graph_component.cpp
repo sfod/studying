@@ -70,7 +70,7 @@ bool GraphComponent::move_actor(const Node &pos)
 
 bool GraphComponent::is_at_goal_node() const
 {
-     return (goal_nodes_.count(node_) > 0);
+    return (goal_nodes_.count(node_) > 0);
 }
 
 bool GraphComponent::set_wall(const Wall &wall)
