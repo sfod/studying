@@ -174,6 +174,13 @@ void GameLogic::req_set_wall(const std::shared_ptr<EventData> &event)
     auto req_wall_event = std::dynamic_pointer_cast<EventData_RequestSetWall>(event);
     const std::shared_ptr<Actor> &actor = actor_keeper_->actor(req_wall_event->actor_id());
     if (actor) {
+        ComponentId cid = ActorComponent::id(GraphComponent::name_);
+        auto graph_comp = std::dynamic_pointer_cast<GraphComponent>(actor->component(cid));
+
+        const Wall &wall = req_wall_event->wall();
+        if (graph_comp && graph_comp->set_wall(wall)) {
+            qDebug() << "set wall";
+        }
     }
 }
 

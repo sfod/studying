@@ -73,6 +73,11 @@ bool GraphComponent::is_at_goal_node() const
      return (goal_nodes_.count(node_) > 0);
 }
 
+bool GraphComponent::set_wall(const Wall &wall)
+{
+    return graph_->set_wall(owner()->id(), wall);
+}
+
 std::list<Node> GraphComponent::possible_moves() const
 {
     return graph_->possible_moves(owner()->id());

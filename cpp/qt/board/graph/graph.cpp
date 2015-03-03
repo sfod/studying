@@ -36,6 +36,12 @@ bool Graph::move_actor(ActorId id, const Node &node)
     return false;
 }
 
+bool Graph::set_wall(ActorId id, const Wall &wall)
+{
+    // @todo
+    return true;
+}
+
 Node Graph::node(ActorId id) const
 {
     if (actor_node_list_.count(id) > 0) {

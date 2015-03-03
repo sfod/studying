@@ -5,6 +5,7 @@
 #include "node.hpp"
 #include "actors/actor.hpp"
 #include "board_graph.hpp"
+#include "wall.hpp"
 
 struct actor_node_t {
     Node node;
@@ -18,6 +19,7 @@ public:
 
     bool add_actor(ActorId id);
     bool move_actor(ActorId id, const Node &node);
+    bool set_wall(ActorId id, const Wall &wall);
 
     Node node(ActorId id) const;
     std::list<Node> possible_moves(ActorId id) const;
