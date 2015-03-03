@@ -154,13 +154,14 @@ void GameView::on_wall_dropped(int actor_id, int wo, int row, int column)
         return;
     }
 
-//    Wall w(wo, Node(row, column), 2);
+    auto rwo = static_cast<WallEnumClass::WallOrientation>(wo);
+    Wall wall(rwo, Node(row, column), 2);
 
     qDebug() << "player" << actor_id << "adding"
-             << (wo == WallEnumClass::WallOrientation::WO_Vertical ? "vertical" : "horizontal")
+             << (rwo == WallEnumClass::WallOrientation::WO_Vertical ? "vertical" : "horizontal")
              << "wall at" << row << ":" << column;
 
-    auto event = std::make_shared<EventData_RequestSetWall>(actor_id);
+    auto event = std::make_shared<EventData_RequestSetWall>(actor_id, wall);
     if (!EventManager::get()->queue_event(event)) {
         qDebug() << "failed to queue RequestSetWall event";
     }

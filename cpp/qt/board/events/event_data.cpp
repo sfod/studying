@@ -143,8 +143,8 @@ const EventType &EventData_RequestActorMove::event_type() const
 }
 
 
-EventData_RequestSetWall::EventData_RequestSetWall(ActorId actor_id)
-    : actor_id_(actor_id)
+EventData_RequestSetWall::EventData_RequestSetWall(ActorId actor_id, const Wall &wall)
+    : actor_id_(actor_id), wall_(wall)
 {
 }
 

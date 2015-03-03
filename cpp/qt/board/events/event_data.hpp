@@ -4,6 +4,7 @@
 #include "actors/actor.hpp"
 #include "game/game_data.hpp"
 #include "graph/node.hpp"
+#include "graph/wall.hpp"
 
 typedef unsigned long EventType;
 
@@ -119,15 +120,17 @@ private:
 
 class EventData_RequestSetWall : public EventData {
 public:
-    explicit EventData_RequestSetWall(ActorId actor_id);
+    EventData_RequestSetWall(ActorId actor_id, const Wall &wall);
     virtual ~EventData_RequestSetWall();
     virtual const EventType &event_type() const;
     static const EventType event_type_;
 
     ActorId actor_id() const { return actor_id_; }
+    const Wall &wall() const { return wall_; }
 
 private:
     ActorId actor_id_;
+    Wall wall_;
 };
 
 
