@@ -130,7 +130,7 @@ void GameView::set_active_delegate(const std::shared_ptr<EventData> &event)
     }
 }
 
-void GameView::game_finished_delegate(const std::shared_ptr<EventData> &event)
+void GameView::game_finished_delegate(const std::shared_ptr<EventData> &/*event*/)
 {
 //    auto game_finished_event = std::dynamic_pointer_cast<EventData_GameFinished>(event);
     qDebug() << "finishing game!";

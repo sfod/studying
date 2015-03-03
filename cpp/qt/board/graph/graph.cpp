@@ -56,6 +56,9 @@ std::list<Node> Graph::shortest_path(ActorId id, const std::set<Node> &goal_node
 {
     std::list<Node> path;
     size_t n = board_graph_->shortest_path(actor_node_list_.at(id).node, goal_nodes, &path);
+    if (n == 0) {
+        // @todo
+    }
     return path;
 }
 
