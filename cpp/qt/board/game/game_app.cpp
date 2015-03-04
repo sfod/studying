@@ -28,7 +28,7 @@ GameApp::~GameApp()
 
 int GameApp::run(int argc, char **argv)
 {
-    QGuiApplication *qapp = new QGuiApplication(argc, argv);
+    std::shared_ptr<QGuiApplication> qapp = std::make_shared<QGuiApplication>(argc, argv);
 
     WallEnumClass::declareQML();
 
