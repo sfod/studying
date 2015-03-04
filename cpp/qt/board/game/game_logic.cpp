@@ -179,7 +179,10 @@ void GameLogic::req_set_wall(const std::shared_ptr<EventData> &event)
 
         const Wall &wall = req_wall_event->wall();
         if (graph_comp && graph_comp->set_wall(wall)) {
-            qDebug() << "set wall";
+            qDebug() << "successfully set wall";
+        }
+        else {
+            qDebug() << "failed to set wall";
         }
     }
 }

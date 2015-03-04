@@ -28,6 +28,8 @@ public:
     Wall(WallEnumClass::WallOrientation wo, Node node, int len);
     ~Wall();
 
+    const std::vector<std::pair<Node, Node>> &affected_nodes() const { return affected_nodes_; }
+
 private:
     std::vector<std::pair<Node, Node>> affected_nodes_;
 };

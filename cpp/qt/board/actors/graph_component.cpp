@@ -54,7 +54,7 @@ void GraphComponent::post_init()
 {
     const std::shared_ptr<Actor> &actor = owner();
     if (actor) {
-        graph_->add_actor(actor->id());
+        graph_->add_actor(actor->id(), goal_nodes_);
         move_actor(node_);
     }
 }

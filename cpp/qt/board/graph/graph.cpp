@@ -10,10 +10,10 @@ Graph::~Graph()
 {
 }
 
-bool Graph::add_actor(ActorId id)
+bool Graph::add_actor(ActorId id, const std::set<Node> &goal_nodes)
 {
     if (actor_node_list_.count(id) == 0) {
-        actor_node_t actor_node = { Node(), {} };
+        actor_node_t actor_node = { Node(), {}, goal_nodes };
         actor_node_list_[id] = actor_node;
         return true;
     }
@@ -38,8 +38,15 @@ bool Graph::move_actor(ActorId id, const Node &node)
 
 bool Graph::set_wall(ActorId id, const Wall &wall)
 {
-    // @todo
-    return true;
+    std::vector<goal_nodes_t> goal_nodes_list;
+    goal_nodes_t goal_node;
+    for (const auto &ac : actor_node_list_) {
+        goal_node.node = ac.second.node;
+        goal_node.goal_nodes = &ac.second.goal_nodes_;
+        goal_nodes_list.push_back(goal_node);
+    }
+
+    return board_graph_->remove_edges(wall.affected_nodes(), goal_nodes_list, false);
 }
 
 Node Graph::node(ActorId id) const

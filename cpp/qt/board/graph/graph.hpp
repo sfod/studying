@@ -10,6 +10,7 @@
 struct actor_node_t {
     Node node;
     std::list<Node> possible_moves_;
+    std::set<Node> goal_nodes_;
 };
 
 class Graph {
@@ -17,7 +18,7 @@ public:
     Graph();
     ~Graph();
 
-    bool add_actor(ActorId id);
+    bool add_actor(ActorId id, const std::set<Node> &goal_nodes);
     bool move_actor(ActorId id, const Node &node);
     bool set_wall(ActorId id, const Wall &wall);
 
