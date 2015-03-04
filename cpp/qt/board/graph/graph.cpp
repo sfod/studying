@@ -46,7 +46,14 @@ bool Graph::set_wall(ActorId id, const Wall &wall)
         goal_nodes_list.push_back(goal_node);
     }
 
-    return board_graph_->remove_edges(wall.affected_nodes(), goal_nodes_list, false);
+    auto res = board_graph_->remove_edges(wall.affected_nodes(), goal_nodes_list, false);
+    if (res) {
+        for (auto actor_node : actor_node_list_) {
+            set_possible_moves(actor_node.first);
+        }
+    }
+
+    return res;
 }
 
 Node Graph::node(ActorId id) const
