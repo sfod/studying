@@ -152,6 +152,23 @@ private:
     std::list<Node> possible_moves_;
 };
 
+
+class EventData_SetWall : public EventData {
+public:
+    EventData_SetWall(ActorId actor_id, const Wall &wall);
+    virtual ~EventData_SetWall();
+    virtual const EventType &event_type() const;
+    static const EventType event_type_;
+
+    ActorId actor_id() const { return actor_id_; }
+    const Wall &wall() const { return wall_; }
+
+private:
+    ActorId actor_id_;
+    Wall wall_;
+};
+
+
 class EventData_SetActorPossibleMoves : public EventData {
 public:
     EventData_SetActorPossibleMoves(ActorId actor_id,

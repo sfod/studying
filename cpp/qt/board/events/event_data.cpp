@@ -11,6 +11,7 @@ const EventType EventData_NewActor::event_type_(1014);
 const EventType EventData_RequestActorMove::event_type_(1015);
 const EventType EventData_RequestSetWall::event_type_(1023);
 const EventType EventData_MoveActor::event_type_(1016);
+const EventType EventData_SetWall::event_type_(1024);
 const EventType EventData_SetActorPossibleMoves::event_type_(1021);
 const EventType EventData_SetActorActive::event_type_(1017);
 
@@ -169,6 +170,21 @@ EventData_MoveActor::~EventData_MoveActor()
 }
 
 const EventType &EventData_MoveActor::event_type() const
+{
+    return event_type_;
+}
+
+
+EventData_SetWall::EventData_SetWall(ActorId actor_id, const Wall &wall)
+    : actor_id_(actor_id), wall_(wall)
+{
+}
+
+EventData_SetWall::~EventData_SetWall()
+{
+}
+
+const EventType &EventData_SetWall::event_type() const
 {
     return event_type_;
 }
