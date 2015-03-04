@@ -179,7 +179,11 @@ void GameLogic::req_set_wall(const std::shared_ptr<EventData> &event)
 
         const Wall &wall = req_wall_event->wall();
         if (graph_comp && graph_comp->set_wall(wall)) {
-            qDebug() << "successfully set wall";
+            // update active player position
+            auto set_wall_event = std::make_shared<EventData_SetWall>(
+                    actor->id(), wall);
+            EventManager::get()->queue_event(set_wall_event);
+
             // update other players possible moves
             for (auto player_actor : player_list_) {
                 ActorId aid = player_actor.first->id();

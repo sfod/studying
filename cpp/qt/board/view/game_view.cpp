@@ -38,6 +38,11 @@ bool GameView::init()
     conn_list_.push_back(conn);
 
     conn = EventManager::get()->add_listener(
+            boost::bind(&GameView::set_wall_delegate, this, _1),
+            EventData_SetWall::event_type_);
+    conn_list_.push_back(conn);
+
+    conn = EventManager::get()->add_listener(
             boost::bind(&GameView::set_actor_possible_moves_delegate, this, _1),
             EventData_SetActorPossibleMoves::event_type_);
 
@@ -103,10 +108,16 @@ void GameView::move_actor_delegate(const std::shared_ptr<EventData> &event)
     }
 }
 
+void GameView::set_wall_delegate(const std::shared_ptr<EventData> &event)
+{
+    auto set_wall_event = std::dynamic_pointer_cast<EventData_SetWall>(event);
+    if (is_main_) {
+        qDebug() << "set wall!!!";
+    }
+}
+
 void GameView::set_actor_possible_moves_delegate(const std::shared_ptr<EventData> &event)
 {
-    qDebug() << "set_actor_possible_moves called";
-
     auto pos_move_event = std::dynamic_pointer_cast<EventData_SetActorPossibleMoves>(event);
     if (is_main_) {
         QVariantList possible_idx_list;

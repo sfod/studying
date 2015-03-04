@@ -21,6 +21,7 @@ public:
 
     void new_actor_delegate(const std::shared_ptr<EventData> &event);
     void move_actor_delegate(const std::shared_ptr<EventData> &event);
+    void set_wall_delegate(const std::shared_ptr<EventData> &event);
     void set_actor_possible_moves_delegate(const std::shared_ptr<EventData> &event);
     void set_active_delegate(const std::shared_ptr<EventData> &event);
     void game_finished_delegate(const std::shared_ptr<EventData> &event);
