@@ -192,6 +192,10 @@ void GameLogic::req_set_wall(const std::shared_ptr<EventData> &event)
                 auto pos_move_event = std::make_shared<EventData_SetActorPossibleMoves>(aid, gcomp->possible_moves());
                 EventManager::get()->queue_event(pos_move_event);
             }
+
+            auto active_player = player_handler_.next_player();
+            auto act_event = std::make_shared<EventData_SetActorActive>(active_player);
+            EventManager::get()->queue_event(act_event);
         }
         else {
             qDebug() << "failed to set wall";
