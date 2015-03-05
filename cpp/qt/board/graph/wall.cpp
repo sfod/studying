@@ -1,6 +1,7 @@
 #include "wall.hpp"
 
 Wall::Wall(WallEnumClass::WallOrientation wo, Node node, int len)
+    : orientation_(wo), node_(node)
 {
     Node node1;
     Node node2;
