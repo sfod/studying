@@ -229,7 +229,7 @@ Rectangle {
                     boardMouseArea.tempWallStr = 'import QtQuick 2.2; Rectangle { x: '
                             + wallX + '; y: ' + wallY + '; width: '
                             + wallWidth + '; height: ' + wallHeight
-                            + '; color: "blue" }';
+                            + '; color: "black" }';
                     boardMouseArea.tempWall = Qt.createQmlObject(
                             boardMouseArea.tempWallStr, board, "wallLine");
                     boardMouseArea.tempWallX = wallX;
