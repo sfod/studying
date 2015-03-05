@@ -57,6 +57,10 @@ Rectangle {
         }
     }
 
+    function setWall(actorId, orientation, row, col) {
+        Qt.createQmlObject(boardMouseArea.requestedWallStr, board, "wallLine");
+    }
+
     function setActivePlayer(actorId) {
         if (!isRunning || !pawnList.hasOwnProperty(actorId)) {
             return;
@@ -104,6 +108,8 @@ Rectangle {
         id: boardMouseArea
 
         property var tempWall
+        property string tempWallStr: ''
+        property string requestedWallStr: ''
         property int tempWallX: -1
         property int tempWallY: -1
         property int wallGameOrientation: WallOrientation.WO_Invalid
@@ -220,12 +226,12 @@ Rectangle {
                     if (boardMouseArea.tempWall) {
                         boardMouseArea.tempWall.destroy();
                     }
+                    boardMouseArea.tempWallStr = 'import QtQuick 2.2; Rectangle { x: '
+                            + wallX + '; y: ' + wallY + '; width: '
+                            + wallWidth + '; height: ' + wallHeight
+                            + '; color: "blue" }';
                     boardMouseArea.tempWall = Qt.createQmlObject(
-                            'import QtQuick 2.2; ' + 'Rectangle { x: '
-                                + wallX + '; y: ' + wallY + '; width: '
-                                + wallWidth + '; height: ' + wallHeight
-                                + '; color: "blue" }',
-                            board, "wallLine");
+                            boardMouseArea.tempWallStr, board, "wallLine");
                     boardMouseArea.tempWallX = wallX;
                     boardMouseArea.tempWallY = wallY;
                 }
@@ -234,6 +240,7 @@ Rectangle {
 
         onClicked: {
             if (board.wallEnabled) {
+                boardMouseArea.requestedWallStr = boardMouseArea.tempWallStr;
                 board.wallDropped(activeActorId,
                         boardMouseArea.wallGameOrientation,
                         boardMouseArea.wallGameRow,

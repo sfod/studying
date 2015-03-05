@@ -108,14 +108,6 @@ void GameView::move_actor_delegate(const std::shared_ptr<EventData> &event)
     }
 }
 
-void GameView::set_wall_delegate(const std::shared_ptr<EventData> &event)
-{
-    auto set_wall_event = std::dynamic_pointer_cast<EventData_SetWall>(event);
-    if (is_main_) {
-        qDebug() << "set wall!!!";
-    }
-}
-
 void GameView::set_actor_possible_moves_delegate(const std::shared_ptr<EventData> &event)
 {
     auto pos_move_event = std::dynamic_pointer_cast<EventData_SetActorPossibleMoves>(event);
@@ -129,6 +121,20 @@ void GameView::set_actor_possible_moves_delegate(const std::shared_ptr<EventData
         QMetaObject::invokeMethod(qboard_, "setPawnPossibleMoves",
                 Q_ARG(QVariant, static_cast<int>(pos_move_event->actor_id())),
                 Q_ARG(QVariant, QVariant::fromValue(possible_idx_list)));
+    }
+}
+
+void GameView::set_wall_delegate(const std::shared_ptr<EventData> &event)
+{
+    auto set_wall_event = std::dynamic_pointer_cast<EventData_SetWall>(event);
+    const Wall &wall = set_wall_event->wall();
+    if (is_main_) {
+        const Node &node = wall.node();
+        QMetaObject::invokeMethod(qboard_, "setWall",
+                Q_ARG(QVariant, static_cast<int>(set_wall_event->actor_id())),
+                Q_ARG(QVariant, static_cast<int>(wall.orientation())),
+                Q_ARG(QVariant, node.row()),
+                Q_ARG(QVariant, node.col()));
     }
 }
 
